@@ -6,6 +6,7 @@
 </head>
 <body>
 <div class="container">
+    <h2>Login</h2>
     <form action="GuestAccount.jsp" method="post">
         <input type="text" name="username" placeholder="Username" required><br><br>
         <input type="password" name="password" placeholder="Password" required><br><br>

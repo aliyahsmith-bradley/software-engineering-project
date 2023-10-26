@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Feeling Lucky</h1>
+    <h1>Feeling Lucky?</h1>
     <div class="button-container">
         <a href="Login.jsp" class="button">Login</a>
         <a href="SignUp.jsp" class="button">Sign Up</a>
