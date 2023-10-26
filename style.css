@@ -7,47 +7,67 @@
 
 body{
     height: 100vh;
+    background-image: linear-gradient(#181e33, #546a80, #546a80, #181e33);
 }
 
 main{
     height: 55%;
     display: flex;
     justify-content: center;
-    border: 1px solid black;
+    padding-bottom: 30px;
 }
+
+.topnav{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 30px;
+    width: 700px;
+    border: 2px solid black;
+    background-image: linear-gradient(#b23030, #e0c9b8, #b23030);
+    display: inline-block;
+}
+
+.money-box{
+    position: fixed;
+    top: 5px;
+    left: 24px;
+    height: 23px;
+    width: 650px;
+    border: 1px solid black;
+    background-color: #fcf4ea;
+    text-align: right;
+}
+
 .card-container{
-    position: relative;
+    position: fixed;
+    bottom: 120px;
+    align-items: end;
     height: 100%;
     width: calc(var(--card-width) * (var(--num-cards) / 2.5) + var(--card-horiz-space));
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr;
     grid-template-areas: "a b c d e";
-    border: 1px solid black;
 }
 
 .c-pos-1{
     grid-area: a;
-    border: 1px solid black;
 }
 
 .c-pos-2{
     grid-area: b;
-    border: 1px solid black;
 }
 
 .c-pos-3{
     grid-area: c;
-    border: 1px solid black;
 }
 
 .c-pos-4{
     grid-area: d;
-    border: 1px solid black
 }
 .c-pos-5{
     grid-area: e;
-    border: 1px solid black
 }
 
 .card{
@@ -84,9 +104,42 @@ main{
 .card-img{
     height: 100%;
 }
-/**
+
 .card:hover .card-inner{
-    transform: rotateY(180deg);
+    transform: scale(1.2);
+    box-shadow:
+    inset 0 0 30px #fff,      /* inner white */
+    inset 20px 0 50px #e0c9b8,   /* inner left magenta short */
+    inset -20px 0 50px #b23030,  /* inner right cyan short */
+    inset 20px 0 80px #e0c9b8,  /* inner left magenta broad */
+    inset -20px 0 80px #b23030, /* inner right cyan broad */
+    0 0 20px #fff,            /* outer white */
+    -10px 0 50px #e0c9b8,        /* outer left magenta */
+    10px 0 50px #b23030;         /* outer right cyan */
 }
 
- */
+.betting-button{
+    position: fixed;
+    bottom: 150px;
+    text-align: right;
+    right: 50px;
+    height: 30px;
+    width: 60px;
+}
+
+.button{
+    background-color: brown;
+    padding: 10px 20px;
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    color: antiquewhite;
+    cursor: pointer;
+}
+
+.table-picture{
+    position: fixed;
+    top: 100px;
+    width: 700px;
+    height: 500px;
+}
