@@ -10,7 +10,7 @@
     <div class="button-container">
         <a href="Login.jsp" class="button">Login</a>
         <a href="SignUp.jsp" class="button">Sign Up</a>
-        <a href="GuestAccount.jsp" class="button">Guest Account</a>
+        <a href="TableGame.jsp" class="button">Guest Account</a>
     </div>
 </div>
 </body>
