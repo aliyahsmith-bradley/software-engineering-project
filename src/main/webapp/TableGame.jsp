@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <div class="settings">
 </div>
 
@@ -15,14 +14,13 @@
     </div>
     <meta charset="UTF-8">
     <title>Five Card Draw</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="main_table.js" defer></script>
-
+    <link rel="stylesheet" href="css/table_style.css">
+    <script src="tableGame.js" defer></script>
 </head>
 
 <body>
 <main>
-    <img class="table-picture" src="images/table3.png">
+    <img class="table-picture" src="../../../Images/table3.png">
     <div class="card-container">
         <div class="c-pos-1">
 
