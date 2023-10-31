@@ -16,3 +16,8 @@ Welcome to our Software Engineering Project, Five Card Draw Game UI/Web App! In 
 
 In this initial phase, we will define the key user stories and requirements for our project. This includes understanding the needs and expectations of our target audience, as well as identifying the essential features and functionalities that our application must provide. We will prioritize these user stories to ensure a smooth development process.
 
+## Interation 1
+Kanban Board is under the projects tab.
+To run the UI - http://localhost:8080/software-engineering-project/src/main/webapp/index.jsp
+  Need to have glassfish installed
+  
