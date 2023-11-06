@@ -1,19 +1,20 @@
-package main.java;
+package com.example.loginguestsignuppage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class FiveCardDrawGame {
     private static final int HAND_SIZE = 5;
-    private static ArrayList<String> playerHand;
-    private static ArrayList<String> computerHand;
+    private ArrayList<String> playerHand;
+    private ArrayList<String> computerHand;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public FiveCardDrawGame() {
+        playerHand = new ArrayList<>();
+        computerHand = new ArrayList<>();
+    }
+
+    public void playGame() {
         System.out.println("Welcome to Five Card Draw!");
 
         // Create a deck of cards
@@ -21,8 +22,6 @@ public class FiveCardDrawGame {
         Collections.shuffle(deck);
 
         // Deal initial hands
-        playerHand = new ArrayList<>();
-        computerHand = new ArrayList<>();
         dealCards(deck, playerHand, computerHand);
 
         // Show initial hands
@@ -30,6 +29,7 @@ public class FiveCardDrawGame {
         System.out.println("Computer's hand: " + computerHand);
 
         // Allow the player to discard and redraw
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the indices of the cards you want to discard (e.g. 1 3 4), or 0 to stand pat: ");
         String input = scanner.nextLine();
         if (!input.equals("0")) {
@@ -52,7 +52,7 @@ public class FiveCardDrawGame {
         System.out.println("Computer's final hand: " + computerHand);
     }
 
-    private static ArrayList<String> createDeck() {
+    private ArrayList<String> createDeck() {
         ArrayList<String> deck = new ArrayList<>();
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
@@ -65,7 +65,12 @@ public class FiveCardDrawGame {
         return deck;
     }
 
-    private static void dealCards(ArrayList<String> deck, ArrayList<String> playerHand, ArrayList<String> computerHand) {
-        double[] dealtCards
+    private void dealCards(ArrayList<String> deck, ArrayList<String> playerHand, ArrayList<String> computerHand) {
+        for (int i = 0; i < HAND_SIZE; i++) {
+            playerHand.add(deck.remove(0));
+            computerHand.add(deck.remove(0));
+        }
     }
+
+    // Add more methods as needed for the game logic
 }

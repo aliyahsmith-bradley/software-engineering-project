@@ -48,13 +48,12 @@
     </style>
 </head>
 <body>
-    <div class="deck-of-cards"></div>
-    <div class="content">
-        <h1><%= "Five Card Draw" %></h1>
-        <a href="five-draw-servlet">
-            <button class="rounded-button">Play Now</button>
-        </a>
-    </div>
+<div class="deck-of-cards"></div>
+<div class="content">
+    <h1><%= "Five Card Draw" %></h1>
+    <a href="five-draw-servlet">
+        <button class="rounded-button">Play Now</button>
+    </a>
+</div>
 <br/>
 </body>
-</html>
