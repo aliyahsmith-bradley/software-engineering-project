@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container">
-    <p>Game will be here</p>
+    <p>"TableGame.jsp"</p>
 </div>
 </body>
 </html>

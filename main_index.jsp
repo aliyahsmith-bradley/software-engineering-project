@@ -51,7 +51,7 @@
 <div class="deck-of-cards"></div>
 <div class="content">
     <h1><%= "Five Card Draw" %></h1>
-    <a href="five-draw-servlet">
+    <a href="src/main/webapp/SignInPage.jsp">
         <button class="rounded-button">Play Now</button>
     </a>
 </div>
