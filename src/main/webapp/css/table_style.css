@@ -108,14 +108,14 @@ main{
 .card:hover .card-inner{
     transform: scale(1.2);
     box-shadow:
-    inset 0 0 30px #fff,      /* inner white */
-    inset 20px 0 50px #e0c9b8,   /* inner left magenta short */
-    inset -20px 0 50px #b23030,  /* inner right cyan short */
-    inset 20px 0 80px #e0c9b8,  /* inner left magenta broad */
-    inset -20px 0 80px #b23030, /* inner right cyan broad */
-    0 0 20px #fff,            /* outer white */
-    -10px 0 50px #e0c9b8,        /* outer left magenta */
-    10px 0 50px #b23030;         /* outer right cyan */
+            inset 0 0 30px #fff,      /* inner white */
+            inset 20px 0 50px #e0c9b8,   /* inner left magenta short */
+            inset -20px 0 50px #b23030,  /* inner right cyan short */
+            inset 20px 0 80px #e0c9b8,  /* inner left magenta broad */
+            inset -20px 0 80px #b23030, /* inner right cyan broad */
+            0 0 20px #fff,            /* outer white */
+            -10px 0 50px #e0c9b8,        /* outer left magenta */
+            10px 0 50px #b23030;         /* outer right cyan */
 }
 
 .betting-button{
