@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-package edu.loyola.cs.se.website.model.entity;
+package pokersite.model.entity;
 
 import javax.persistence.*;
 

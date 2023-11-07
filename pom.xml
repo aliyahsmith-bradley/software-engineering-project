@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.loyola.cs.se</groupId>
-    <artifactId>ParkingLotExample</artifactId>
+    <artifactId>pokersite</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>ParkingLotExample</name>
     <packaging>war</packaging>

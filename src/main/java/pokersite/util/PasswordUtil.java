@@ -1,4 +1,4 @@
-package edu.loyola.cs.se.website.util;
+package pokersite.util;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 

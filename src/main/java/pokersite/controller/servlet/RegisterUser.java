@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-package edu.loyola.cs.se.website.controller.servlet;
+package pokersite.controller.servlet;
 
 import java.io.*;
 
-import edu.loyola.cs.se.website.controller.service.UserService;
-import edu.loyola.cs.se.website.model.entity.User;
+import pokersite.controller.service.UserService;
+import pokersite.model.entity.User;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 

@@ -1,8 +1,8 @@
-package edu.loyola.cs.se.website.controller.service;
+package pokersite.controller.service;
 
-import edu.loyola.cs.se.website.model.dao.UserDAO;
-import edu.loyola.cs.se.website.model.entity.User;
-import edu.loyola.cs.se.website.util.PasswordUtil;
+import pokersite.model.dao.UserDAO;
+import pokersite.model.entity.User;
+import pokersite.util.PasswordUtil;
 
 import java.util.List;
 

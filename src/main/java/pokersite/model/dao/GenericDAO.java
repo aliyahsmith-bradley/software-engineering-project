@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-package edu.loyola.cs.se.website.model.dao;
+package pokersite.model.dao;
 
-import edu.loyola.cs.se.website.model.entity.BaseEntity;
+import pokersite.model.entity.BaseEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
