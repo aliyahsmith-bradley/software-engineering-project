@@ -28,6 +28,6 @@ Progress --
 
 Kanban Board located under the projects tab.
 
-To run the UI - http://localhost:8080/software-engineering-project/src/main/webapp/index.jsp
+To run the UI - http://localhost:8080/software-engineering-project/main_index.jsp
 - Need to have glassfish installed
   
