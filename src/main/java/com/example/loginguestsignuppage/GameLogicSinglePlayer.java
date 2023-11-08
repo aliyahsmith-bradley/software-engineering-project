@@ -2,12 +2,11 @@ package com.example.loginguestsignuppage;
 
 import java.util.*;
 
-import java.util.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GameLogicSinglePlayer {
-
 
 
     private static final int INITIAL_COINS = 100;
@@ -15,21 +14,22 @@ public class GameLogicSinglePlayer {
     private static final List<String> cardDeck = new ArrayList<>();
     private static int pot = 0;
 
-    static{
+
+    static {
 
         //creating the deck of cards
         String[] suits = new String[]{"Hearts", "Diamonds", "Clubs", "Spades"};
         String[] ranks = new String[]{"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
 
         //formatting suits and ranks
-        for(String suit : suits){
-            for(String rank :ranks){
+        for (String suit : suits) {
+            for (String rank : ranks) {
                 cardDeck.add(rank + " of " + suit);
             }
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         //Copy card deck
         List<String> deck = new ArrayList<>(cardDeck);
@@ -46,7 +46,7 @@ public class GameLogicSinglePlayer {
         //Testing: System.out.println("Deck after shuffle, " + deck);
 
         //assign five cards to user then remove those from the deck
-        for(int i = 0; i < HAND_SIZE; i ++){
+        for (int i = 0; i < HAND_SIZE; i++) {
             userHand.add(deck.get(i));
             cardsToRemove.add(deck.get(i));
         }
@@ -78,7 +78,6 @@ public class GameLogicSinglePlayer {
         int computerCoins = INITIAL_COINS;
 
 
-
         System.out.println("Welcome to Five Card Draw: Feeling Lucky?");
 
 
@@ -90,34 +89,169 @@ public class GameLogicSinglePlayer {
 
 
         //do the first ever round for the user
-        while (!userChoice1.equalsIgnoreCase("check") && !userChoice1.equalsIgnoreCase("bet")){
+        while (!userChoice1.equalsIgnoreCase("check") && !userChoice1.equalsIgnoreCase("bet")) {
             System.out.println("Invalid choice.Please enter either 'check' or 'bet'.");
             userChoice1 = scanner.nextLine();
         }
 
-        if(userChoice1.equals("check")){
+        if (userChoice1.equals("check")) {
             System.out.println("Moving on. Computers turn");
             int userBet1 = 0;
-            computersTurnRound1(computerHand, userHand, deck, userBet1, userChoice1, computerCoins);
+            computersTurn(userChoice1, userBet1, computerCoins, userHand, deck, computerHand);
 
         }
 
-        if(userChoice1.equals("bet")){
+        if (userChoice1.equals("bet")) {
             System.out.println("How much would you like to bet?");
             int userBet1 = scanner.nextInt();
             pot += userBet1;
             System.out.println("The new pot's amount is " + pot);
             userCoins -= userBet1;
             System.out.println("You now have " + userCoins + " coins");
-            computersTurnRound1(computerHand, userHand, deck, userBet1, userChoice1, computerCoins);
+            computersTurn(userChoice1, userBet1, computerCoins, userHand, deck, computerHand);
         }
+    }
 
+    private static void computersTurn(String userChoice1, int userBet1, int computerCoins, List<String> userHand, List<String> deck, List<String> computerHand) {
 
-
+        if (userChoice1.equals("check")) {
+            System.out.println("Computer Checked");
+            userRound2(userHand, deck, computerHand);
+        }
+        if (userChoice1.equals("bet")) {
+            int computerBet = 0;
+            int amountHaveToRaise = 0;
+            computerBet = userBet1;
+            pot += computerBet;
+            computerCoins -= computerBet;
+            System.out.println("Computer matched your bet of " + userBet1);
+            amountHaveToRaise += userBet1;
+            System.out.println("Current pot is " + pot);
+            userRound2(userHand, deck, computerHand);
+        }
 
 
     }
 
+    //getting the new cards
+    private static List<String> replaceCards(List<String> userHand, List<String> deck, Scanner scanner, boolean hasAce, int maxReplacements) {
+        System.out.println("Your current hand: " + userHand);
+        System.out.println("Which cards would you like to discard? Please enter the indices (starting from 0) separated by spaces:");
+
+        String[] indices = scanner.nextLine().split(" ");
+        List<String> newCards = new ArrayList<>();
+        for (String index : indices) {
+            int i = Integer.parseInt(index);
+            if (i >= 0 && i < userHand.size() && newCards.size() < maxReplacements) {
+                userHand.remove(i);
+                userHand.add(i, deck.get(0));
+                deck.remove(0);
+                newCards.add(deck.get(0));
+            }
+        }
+
+        return userHand;
+    }
+
+
+    //getting new cards
+    private static void userRound2(List<String> userHand, List<String> deck, List<String> computerHand) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Would you like to get new cards? (yes or no)");
+        String askNewCards = scanner.nextLine();
+
+        while (!askNewCards.equalsIgnoreCase("yes") && !askNewCards.equalsIgnoreCase("no")) {
+            System.out.println("Invalid choice.Please enter either 'yes' or 'no'.");
+            askNewCards = scanner.nextLine();
+        }
+
+        boolean hasAce = false;
+        for (String card : userHand) {
+            if (card.startsWith("Ace")) {
+                hasAce = true;
+                break;
+            }
+        }
+        if (askNewCards.equals("yes") && !hasAce) {//user does not have an ace of any suit
+            int maxReplacements = 3;
+            List<String> updatedHand = replaceCards(userHand, deck, scanner, hasAce, maxReplacements);
+            System.out.println("Your new hand is: " + updatedHand);
+
+        }
+        if (askNewCards.equals("yes") && hasAce) {//user does not have a ace of any suit)
+            int maxReplacements = 4;
+            List<String> updatedHand = replaceCards(userHand, deck, scanner, hasAce, maxReplacements);
+            System.out.println("Your new hand is: " + updatedHand);
+
+        }
+        if (askNewCards.equals("no")) {
+            System.out.println("Computer wants new cards");
+            System.out.println("Computer's current hand is: " + computerHand);
+            if (!computerHand.isEmpty() && hasAce) {
+                Random random = new Random();
+                for (int i = 0; i < 4; i++) {
+                    int randomIndex = random.nextInt(4); // Generate a random integer from 0 to 4
+                    if (randomIndex < computerHand.size()) {
+                        // Replace the card at the randomly chosen index with a new card from the deck
+                        computerHand.set(randomIndex, deck.remove(0));
+                    }
+                }
+                if (!computerHand.isEmpty() && !hasAce) {
+                    for (int i = 0; i < 4; i++) {
+                        int randomIndex = random.nextInt(3); // Generate a random integer from 0 to 3
+                        if (randomIndex < computerHand.size()) {
+                            // Replace the card at the randomly chosen index with a new card from the deck
+                            computerHand.set(randomIndex, deck.remove(0));
+                        }
+                    }
+                    //restOfRounds(userCoins, computerCoins, amountHaveToRaise, userHand, deck, scanner, hasAce);
+                }
+                //System.out.println("Computer's new hand is: " + computerHand);
+
+                }
+            }
+
+        }
+
+        public static void restOfRounds(int userCoins, int computerCoins, int amountHaveToRaise){
+
+            //while both players have coins
+            while(userCoins <= 0 && computerCoins <= 0){
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("User, would you like to raise, call, or check, fold ");
+                String userGo = scanner.nextLine();
+
+                while (!userGo.equalsIgnoreCase("check") && !userGo.equalsIgnoreCase("call") && !userGo.equalsIgnoreCase("raise") && !userGo.equalsIgnoreCase("fold")) {
+                    System.out.println("Invalid choice.Please enter either 'check', 'call', 'raise' or 'fold' ");
+                    userGo = scanner.nextLine();
+                }
+
+                if(userGo.equalsIgnoreCase("raise")){
+                    System.out.println("How much would you like to raise?");
+                    int userRaise = scanner.nextInt();
+                    pot += userRaise;
+                    System.out.println("The new pot's amount is " + pot);
+                    userCoins -= userRaise;
+                    System.out.println("You now have " + userCoins + " coins");
+                    System.out.println("Computers turn");
+                    computerCoins = computerCoins - userRaise;
+                    System.out.println("Computer matched your raise");
+                    pot = pot + userRaise;
+                    System.out.println("The new pot's amount is " + pot);
+                }
+
+
+            }
+        }
+    }
+
+
+
+
+    //COMPLICATED. Logic below, ignore for now
+    //-----------------------------------------------------------------------------------------------------------------------------------
+/*
     private static List<String> shuffleCards(List<String> deck, List<String> userHand) {
         List<String> newCards = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -265,54 +399,53 @@ public class GameLogicSinglePlayer {
 
     }
 
-    private static boolean hasPair(List<String> computerHand) {
-        Set<String> uniqueRanks = new HashSet<>();
-        for (String card : computerHand) {
-            String rank = card.split(" ")[0];
-            if (!uniqueRanks.add(rank)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private static boolean hasThreeToStraight(List<String> computerHand) {
-        List<String> ranks = new ArrayList<>();
-        for (String card : computerHand) {
-            String rank = card.split(" ")[0];
-            ranks.add(rank);
+        private static boolean hasPair (List < String > computerHand) {
+            Set<String> uniqueRanks = new HashSet<>();
+            for (String card : computerHand) {
+                String rank = card.split(" ")[0];
+                if (!uniqueRanks.add(rank)) {
+                    return true;
+                }
+            }
+            return false;
         }
-        Collections.sort(ranks);
-        int count = 1;
-        for (int i = 0; i < ranks.size() - 1; i++) {
-            if (ranks.get(i + 1).equals(ranks.get(i))) {
-                continue;
+
+        private static boolean hasThreeToStraight (List < String > computerHand) {
+            List<String> ranks = new ArrayList<>();
+            for (String card : computerHand) {
+                String rank = card.split(" ")[0];
+                ranks.add(rank);
             }
-            if (ranks.indexOf(ranks.get(i)) + 2 < ranks.indexOf(ranks.get(i + 1))) {
-                count = 1;
-            } else {
-                count++;
+            Collections.sort(ranks);
+            int count = 1;
+            for (int i = 0; i < ranks.size() - 1; i++) {
+                if (ranks.get(i + 1).equals(ranks.get(i))) {
+                    continue;
+                }
+                if (ranks.indexOf(ranks.get(i)) + 2 < ranks.indexOf(ranks.get(i + 1))) {
+                    count = 1;
+                } else {
+                    count++;
+                }
+                if (count == 3) {
+                    return true;
+                }
             }
-            if (count == 3) {
-                return true;
-            }
+            return false;
         }
-        return false;
-    }
 
-    private static boolean hasThreeToFlush(List<String> computerHand) {
-        Map<String, Integer> suitsCount = new HashMap<>();
-        for (String card : computerHand) {
-            String suit = card.split(" ")[2];
-            suitsCount.put(suit, suitsCount.getOrDefault(suit, 0) + 1);
-            if (suitsCount.get(suit) >= 3) {
-                return true;
+        (List < String > computerHand) {
+            Map<String, Integer> suitsCount = new HashMap<>();
+            for (String card : computerHand) {
+                String suit = card.split(" ")[2];
+                suitsCount.put(suit, suitsCount.getOrDefault(suit, 0) + 1);
+                if (suitsCount.get(suit) >= 3) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-    }
-}
-
-
+    */
 
 
