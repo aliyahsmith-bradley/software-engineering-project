@@ -13,8 +13,6 @@
         /* Groups text and button toward bottom of web page */
         .content {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
             align-items: center;
             height: 90vh;
         }
@@ -24,7 +22,8 @@
         }
         .casino-chips-1 {
             background-image: url("Images/casino-chips_1.png");
-            background-size: cover;
+            flex-direction: column;
+            justify-content: flex-end;
             width: 400px;
             height: 400px;
             float: left;
@@ -53,8 +52,8 @@
             position: fixed;
             margin-bottom: 20px;
             bottom: 95px;
-            white-space: nowrap; /* Prevent line breaks */
-            overflow: hidden;    /* Hide overflow text */
+            white-space: nowrap;
+            overflow: hidden;
             background-color: white;
             border-radius: 0;
             padding: 10px 20px;

@@ -117,7 +117,7 @@
 <h1>Feeling Lucky?</h1>
 <div class="red-rectangle"></div>
 <a href="../../../main_index.jsp" class="home_button"></a>
-<a href="TableGame.jsp" class="book_button"></a>
+<a href="Rules.jsp" class="book_button"></a>
 <a href="SignUp.jsp" class="button-link-1">
     <span class="button-text">Make An</span>
     <br>
