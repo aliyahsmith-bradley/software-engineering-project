@@ -36,6 +36,11 @@ public class UserService {
         }
     }
 
+    public static List<User> findByUserName(String username) {
+        List<User> Users = dao.findUserByUsername(username);
+        return Users;
+    }
+
     /***
      * Returns a list of all Users in the DB
      * Usually for an Admin CRUD needs to see all data

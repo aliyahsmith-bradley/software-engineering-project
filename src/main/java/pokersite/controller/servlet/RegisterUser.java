@@ -21,7 +21,7 @@ public class RegisterUser extends HttpServlet {
         String phone_number = request.getParameter("phone_number");
 
         User newUser = new User();
-        // There is no Name in User Entity (small BUG on purpose)
+
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setEmail(email);

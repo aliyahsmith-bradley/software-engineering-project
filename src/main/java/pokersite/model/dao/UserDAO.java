@@ -5,6 +5,7 @@ import pokersite.model.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.util.List;
 
 /***
  * UserDAO is a subclass of GenericDAO
@@ -33,6 +34,23 @@ public class UserDAO extends GenericDAO<User> {
         } catch(NoResultException ex){
             found = null;
         } finally{
+            em.close();
+        }
+        return found;
+    }
+
+    public List<User> findUserByUsername(String username) {
+        EntityManager em = getEntityManager();
+
+        //language=SQL
+        String query = "SELECT u FROM " + getTableName() + " u WHERE u.username LIKE :username";
+        List<User> found = null;
+
+        try {
+            found = em.createQuery(query, User.class).setParameter("username", username + "%").getResultList();
+        } catch(NoResultException e) {
+            found = null;
+        } finally {
             em.close();
         }
         return found;

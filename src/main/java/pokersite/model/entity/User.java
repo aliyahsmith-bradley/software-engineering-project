@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 package pokersite.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
@@ -48,6 +49,7 @@ public class User extends BaseEntity {
         return Password;
     }
 
+    @JsonIgnore
     public void setPassword(String password) {
         Password = password;
     }
