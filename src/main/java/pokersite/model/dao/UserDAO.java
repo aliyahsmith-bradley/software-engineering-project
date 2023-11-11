@@ -20,17 +20,17 @@ public class UserDAO extends GenericDAO<User> {
 
     /***
      * Method used for login, finds the user tied to a specific login
-     * @param login The login (email) which is unique in the DB
+     * @param email The email which is unique in the DB
      * @return User entity
      */
-    public User findUserByLogin(String login){
+    public User findUserByLogin(String email){
         EntityManager em = getEntityManager();
 
-        String query = "SELECT u FROM "+getTableName()+" u WHERE u.Login = :email"; // :email is a parameter, to avoid SQL Injection
+        String query = "SELECT u FROM "+getTableName()+" u WHERE u.email = :email"; // :email is a parameter, to avoid SQL Injection
         User found = null;
 
         try {
-            found = em.createQuery(query, User.class).setParameter("email", login).getSingleResult();
+            found = em.createQuery(query, User.class).setParameter("email", email).getSingleResult();
         } catch(NoResultException ex){
             found = null;
         } finally{

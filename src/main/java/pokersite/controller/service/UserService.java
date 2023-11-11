@@ -21,7 +21,7 @@ public class UserService {
      * @param newUser User entity to save (without ID)
      * @return Saved User Entity (with ID) or null if Login already exists
      */
-    public static User registerUser(User newUser){
+    public static User registerUser(User newUser) {
         try {
             String hashed = PasswordUtil.hash(newUser.getPassword());
             newUser.setPassword(hashed);
@@ -34,6 +34,19 @@ public class UserService {
         finally {
             return newUser;
         }
+    }
+
+    public static User loginUser(String email, String unhashedPassword) {
+        User found = dao.findUserByLogin(email);
+        if(found!=null){ //Found user by login
+            //We must certify the passwords match
+            if(PasswordUtil.compare(unhashedPassword,found.getPassword())){
+                return found;
+            }
+            //I know I could combine both IFs in the same one,
+            // I separated them to make it easier to explain the logic for some students
+        }
+        return null; //Login or Password incorrect
     }
 
     public static List<User> findByUserName(String username) {

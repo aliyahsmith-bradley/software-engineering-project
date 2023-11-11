@@ -2,7 +2,6 @@
 package pokersite.controller.servlet;
 
 import java.io.*;
-
 import pokersite.controller.service.UserService;
 import pokersite.model.entity.User;
 import jakarta.servlet.http.*;
@@ -12,7 +11,6 @@ import jakarta.servlet.annotation.*;
 public class RegisterUser extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //TODO: Adapt this code to Create User from the Admin Interface
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
