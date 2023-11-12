@@ -28,7 +28,10 @@
     <ul>
         <% for (User user : users) { %>
             <li><%= user.getUsername() %></li>
-            <button type="button">Add Friend</button>
+            <form method="post" action="sendFriendRequest">
+                <input type="hidden" name="username" value="<%= user.getUsername() %>">
+                <input type="submit" value="add">
+            </form>
         <% } %>
     </ul>
 </div>

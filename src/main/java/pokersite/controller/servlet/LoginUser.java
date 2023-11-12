@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @WebServlet(name = "loginUser", value = "/loginUser")
 public class LoginUser extends HttpServlet {
-
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -27,5 +26,4 @@ public class LoginUser extends HttpServlet {
             response.sendRedirect("login.jsp?msg=1");
         }
     }
-
 }

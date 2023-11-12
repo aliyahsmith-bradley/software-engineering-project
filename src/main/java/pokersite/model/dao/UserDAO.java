@@ -2,7 +2,6 @@
 package pokersite.model.dao;
 
 import pokersite.model.entity.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;

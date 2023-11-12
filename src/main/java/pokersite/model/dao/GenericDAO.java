@@ -2,7 +2,6 @@
 package pokersite.model.dao;
 
 import pokersite.model.entity.BaseEntity;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -72,7 +71,7 @@ public abstract class GenericDAO<E extends BaseEntity> {
         EntityManager em = this.getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(entity);
+            em.merge(entity);
             em.getTransaction().commit();
             em.close();
         }catch(Exception ex){

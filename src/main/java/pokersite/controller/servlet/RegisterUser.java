@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "registerUser", value = "/registerUser")
 public class RegisterUser extends HttpServlet {
-
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -19,7 +18,6 @@ public class RegisterUser extends HttpServlet {
         String phone_number = request.getParameter("phone_number");
 
         User newUser = new User();
-
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setEmail(email);
@@ -28,9 +26,7 @@ public class RegisterUser extends HttpServlet {
         newUser.setPhone_number(phone_number);
         UserService.registerUser(newUser);
     }
-
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request,response);
     }
-
 }

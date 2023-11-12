@@ -11,10 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import jakarta.servlet.RequestDispatcher;
 
-
 @WebServlet(name = "searchUser", value = "/searchUser")
 public class SearchUser extends HttpServlet {
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         List<User> users = UserService.findByUserName(username);
@@ -33,5 +31,3 @@ public class SearchUser extends HttpServlet {
     public void destory() {
     }
 }
-
-

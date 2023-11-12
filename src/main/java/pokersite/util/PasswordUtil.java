@@ -5,7 +5,6 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.security.SecureRandom;
 
 public class PasswordUtil {
-
     private static final int COST = 6;
     public static String hash(String txtPassword){
         byte[] hashedbytes = BCrypt.with(new SecureRandom()).hash(COST, txtPassword.toCharArray());
@@ -15,5 +14,4 @@ public class PasswordUtil {
         BCrypt.Result result = BCrypt.verifyer().verify(unhashed.toCharArray(), hashed.toCharArray());
         return result.verified;
     }
-
 }
