@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "friend_request")
-public class FriendRequest extends BaseEntity {
+/*@Table(name = "friend_request")*/
+public class Friend_Request extends BaseEntity {
     @Id @Column(name = "id_friend_request") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID = null;
     private Integer id_user_sender;
@@ -13,10 +13,10 @@ public class FriendRequest extends BaseEntity {
     private byte status;
     private Timestamp dt_sent;
 
-    public FriendRequest () {
+    public Friend_Request() {
     }
 
-    public FriendRequest (Integer ID, Integer id_user_sender, Integer id_user_receiver, byte status, Timestamp dt_sent) {
+    public Friend_Request(Integer ID, Integer id_user_sender, Integer id_user_receiver, byte status, Timestamp dt_sent) {
         this.ID = ID;
         this.id_user_sender = id_user_sender;
         this.id_user_receiver = id_user_receiver;

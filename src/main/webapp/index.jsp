@@ -41,5 +41,9 @@
             <input type="submit" value="Logout!">
         </form>
     <% } %>
+    <h2>View your friendslist!</h2>
+    <form method="get" action="searchFriendRequest">
+        <input type="submit" value="View Friends!">
+    </form>
 </div>
 </html>

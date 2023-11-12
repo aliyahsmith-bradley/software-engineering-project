@@ -2,11 +2,10 @@ package pokersite.controller.service;
 
 import pokersite.model.dao.FriendRequestDAO;
 import pokersite.model.dao.UserDAO;
-import pokersite.model.entity.FriendRequest;
+import pokersite.model.entity.Friend_Request;
 import pokersite.model.entity.User;
 import pokersite.util.PasswordUtil;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public class UserService {
@@ -14,9 +13,18 @@ public class UserService {
     public static UserDAO dao = new UserDAO();
     public static FriendRequestDAO frdao = new FriendRequestDAO();
 
-    public static FriendRequest sendFriendRequest(FriendRequest fr) {
-        FriendRequest newfr = frdao.create(fr);
+    public static Friend_Request sendFriendRequest(Friend_Request fr) {
+        Friend_Request newfr = frdao.create(fr);
         return newfr;
+    }
+
+    public static List<Friend_Request> findFriendRequests(User user) {
+        List friendRequests = frdao.findFriendRequests(user.getID());
+        return friendRequests;
+    }
+
+    public static User findUserByID(Integer ID) {
+        return dao.findUserByID(ID);
     }
 
     public static void setDAO(UserDAO dao){

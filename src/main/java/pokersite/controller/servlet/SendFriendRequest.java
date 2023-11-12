@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import pokersite.controller.service.UserService;
-import pokersite.model.entity.FriendRequest;
+import pokersite.model.entity.Friend_Request;
 import pokersite.model.entity.User;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -18,7 +18,7 @@ public class SendFriendRequest extends HttpServlet {
         HttpSession session = request.getSession();
         User us = (User) session.getAttribute("User");
         User userToAdd = UserService.findByUserName(request.getParameter("username")).get(0);
-        FriendRequest fr = new FriendRequest();
+        Friend_Request fr = new Friend_Request();
         fr.setId_user_sender(us.getID());
         fr.setId_user_receiver(userToAdd.getID());
         fr.setStatus((byte) 0);

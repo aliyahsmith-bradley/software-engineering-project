@@ -38,6 +38,23 @@ public class UserDAO extends GenericDAO<User> {
         return found;
     }
 
+    public User findUserByID(Integer ID) {
+        EntityManager em = getEntityManager();
+
+        //language=mysql
+        String query = "SELECT u FROM " + getTableName() + " u WHERE u.ID = :ID";
+        User found = null;
+
+        try {
+            found = em.createQuery(query, User.class).setParameter("ID", ID).getSingleResult();
+        } catch (NoResultException ex) {
+            found = null;
+        } finally {
+            em.close();
+        }
+        return found;
+    }
+
     public List<User> findUserByUsername(String username) {
         EntityManager em = getEntityManager();
 
