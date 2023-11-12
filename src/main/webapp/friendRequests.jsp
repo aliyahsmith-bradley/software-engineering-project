@@ -17,7 +17,6 @@
     String jsonData = (String) request.getAttribute("jsonData");
     ObjectMapper objectMapper = new ObjectMapper();
     List<Friend_Request> friendRequests = objectMapper.readValue(jsonData, new TypeReference<List<Friend_Request>>() {});
-
 %>
 
 <html>
@@ -29,7 +28,12 @@
     <h1>Friendslist!</h1>
     <ul>
         <% for (Friend_Request friendRequest : friendRequests) { %>
-        <li>You have a friend request from: <%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername() %></li>
+            <li>You have a friend request from: <%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername()%></li>
+            <form method="post" action="acceptFriendRequest">
+                <input type="hidden" name="username" value="<%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername()%>">
+                <input type="hidden" name="friendRequest" value="<%=friendRequest.getID()%>">
+                <input type="submit" value="accept">
+            </form>
         <% } %>
     </ul>
 </div>
