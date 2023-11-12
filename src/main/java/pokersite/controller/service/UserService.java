@@ -11,36 +11,9 @@ import pokersite.util.PasswordUtil;
 import java.util.List;
 
 public class UserService {
-
     public static UserDAO dao = new UserDAO();
     public static FriendRequestDAO frdao = new FriendRequestDAO();
     public static FriendshipDAO fsdao = new FriendshipDAO();
-
-    public static Friend_Request findFriendRequestByID(Integer ID) {
-        return frdao.findFriendRequestByID(ID);
-    }
-    public static void removeFriendRequest(Friend_Request fr) {
-        frdao.delete(fr);
-    }
-
-    public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
-        Friendship newfs = fsdao.create(fs);
-        frdao.update(fr);
-        return newfs;
-    }
-    public static Friend_Request sendFriendRequest(Friend_Request fr) {
-        Friend_Request newfr = frdao.create(fr);
-        return newfr;
-    }
-
-    public static List<Friend_Request> findFriendRequests(User user) {
-        List friendRequests = frdao.findFriendRequests(user.getID());
-        return friendRequests;
-    }
-
-    public static User findUserByID(Integer ID) {
-        return dao.findUserByID(ID);
-    }
 
     public static void setDAO(UserDAO dao){
         UserService.dao = dao;
@@ -70,20 +43,21 @@ public class UserService {
 
     public static User loginUser(String email, String unhashedPassword) {
         User found = dao.findUserByLogin(email);
-        if(found!=null){ //Found user by login
-            //We must certify the passwords match
+        if(found!=null){
             if(PasswordUtil.compare(unhashedPassword,found.getPassword())){
                 return found;
             }
-            //I know I could combine both IFs in the same one,
-            // I separated them to make it easier to explain the logic for some students
         }
-        return null; //Login or Password incorrect
+        return null;
     }
 
     public static List<User> findByUserName(String username) {
         List<User> Users = dao.findUserByUsername(username);
         return Users;
+    }
+
+    public static User findUserByID(Integer ID) {
+        return dao.findUserByID(ID);
     }
 
     /***
@@ -97,8 +71,22 @@ public class UserService {
         return lstUser;
     }
 
-    public static void deleteUser(int id){
-        dao.delete(id);
+    //Friend request services
+    public static List<Friend_Request> findFriendRequests(User user) {
+        List friendRequests = frdao.findFriendRequests(user.getID());
+        return friendRequests;
+    }
+    public static Friend_Request findFriendRequestByID(Integer ID) {
+        return frdao.findFriendRequestByID(ID);
     }
 
+    public static Friend_Request sendFriendRequest(Friend_Request fr) {
+        Friend_Request newfr = frdao.create(fr);
+        return newfr;
+    }
+    public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
+        Friendship newfs = fsdao.create(fs);
+        frdao.update(fr);
+        return newfs;
+    }
 }
