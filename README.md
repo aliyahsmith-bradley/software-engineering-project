@@ -28,6 +28,8 @@ Progress --
 
 Kanban Board located under the projects tab.
 
+Sequence Diagram: [modelling.pdf](https://github.com/aliyahsmith-bradley/software-engineering-project/files/13329047/modelling.pdf)
+
 To run the UI - http://localhost:8080/software-engineering-project/main_index.jsp
 - Need to have glassfish installed
   
