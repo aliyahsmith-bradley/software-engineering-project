@@ -36,14 +36,21 @@
             <input type="submit" value="Login!">
         </form>
     <% } else { %>
+        <h2>View Your Friendrequests!</h2>
+        <form method="get" action="searchFriendRequest">
+            <input type="submit" value="View Friend Requests">
+        </form>
+
+        <h2>View Your Friendslist!</h2>
+        <form method="get" action="searchFriendsList">
+            <input type="submit" value="View Friends!">
+        </form>
+
         <h2>Want to log out?</h2>
         <form method="post" action="logoutUser">
             <input type="submit" value="Logout!">
         </form>
     <% } %>
-    <h2>View your friendslist!</h2>
-    <form method="get" action="searchFriendRequest">
-        <input type="submit" value="View Friends!">
-    </form>
+
 </div>
 </html>

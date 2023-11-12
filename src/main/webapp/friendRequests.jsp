@@ -25,15 +25,17 @@
 </head>
 <body>
 <div>
-    <h1>Friendslist!</h1>
+    <h1>Friend Requests!</h1>
     <ul>
         <% for (Friend_Request friendRequest : friendRequests) { %>
-            <li>You have a friend request from: <%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername()%></li>
-            <form method="post" action="acceptFriendRequest">
-                <input type="hidden" name="username" value="<%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername()%>">
-                <input type="hidden" name="friendRequest" value="<%=friendRequest.getID()%>">
-                <input type="submit" value="accept">
-            </form>
+            <% if (friendRequest.getStatus() == 0) { %>
+                <li>You have a friend request from: <%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername()%></li>
+                <form method="post" action="acceptFriendRequest">
+                    <input type="hidden" name="username" value="<%=UserService.findUserByID(friendRequest.getId_user_sender()).getUsername()%>">
+                    <input type="hidden" name="friendRequest" value="<%=friendRequest.getID()%>">
+                    <input type="submit" value="accept">
+                </form>
+            <% } %>
         <% } %>
     </ul>
 </div>
