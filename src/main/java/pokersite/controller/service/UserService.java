@@ -80,6 +80,10 @@ public class UserService {
         return frdao.findFriendRequestByID(ID);
     }
 
+    public static Friend_Request findFriendRequestByUserID(Integer ID) {
+        return frdao.findFriendRequestByUserID(ID);
+    }
+
     public static Friend_Request sendFriendRequest(Friend_Request fr) {
         Friend_Request newfr = frdao.create(fr);
         return newfr;
@@ -90,9 +94,23 @@ public class UserService {
         return newfs;
     }
 
+    public static void removeFriendRequest(Friend_Request fr) {
+        frdao.delete(fr.getID());
+    }
+
     // Friendship services
     public static List<Friendship> findFriendsByUser(User user) {
         List friends = fsdao.findFriendsByUserID(user.getID());
         return friends;
+    }
+
+    public static Friendship findFriendByFriendshipID(Integer ID) {
+        return fsdao.findFriendByFriendshipID(ID);
+    }
+
+    public static void removeFriend(Friendship fs, Friend_Request fr) {
+        fsdao.delete(fs);
+        frdao.update(fr);
+        frdao.delete(fr);
     }
 }

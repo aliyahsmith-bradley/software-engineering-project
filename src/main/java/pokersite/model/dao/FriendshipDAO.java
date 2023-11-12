@@ -28,4 +28,21 @@ public class FriendshipDAO extends GenericDAO<Friendship> {
         }
         return friends;
     }
+
+    public Friendship findFriendByFriendshipID(Integer ID) {
+        EntityManager em = getEntityManager();
+
+        //language=SQL
+        String query = "SELECT u FROM " + getTableName() + " u WHERE u.ID = :fsID";
+        Friendship friend = null;
+
+        try {
+            friend = em.createQuery(query, Friendship.class).setParameter("fsID", ID).getSingleResult();
+        } catch(NoResultException e) {
+            friend = null;
+        } finally {
+            em.close();
+        }
+        return friend;
+    }
 }

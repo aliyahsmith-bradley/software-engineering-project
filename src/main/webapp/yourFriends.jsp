@@ -11,7 +11,6 @@
 <%@ page import="pokersite.model.entity.Friendship" %>
 <%@ page import="com.fasterxml.jackson.core.type.TypeReference" %>
 <%@ page import="pokersite.controller.service.UserService" %>
-<%@ page import="pokersite.model.entity.User" %>
 
 <%
     // get the json user data and parse it to a list of users using jackson
@@ -30,7 +29,10 @@
     <ul>
         <% for (Friendship friend : friendshipList) { %>
             <li>Friend: <%=UserService.findUserByID(friend.getId_user1()).getUsername()%></li>
-
+            <form method="post" action="removeFriend">
+                <input type="hidden" name="friend" value="<%=friend.getID()%>">
+                <input type="submit" value="remove">
+            </form>
         <% } %>
     </ul>
 </div>
