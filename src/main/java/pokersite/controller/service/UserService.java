@@ -71,7 +71,7 @@ public class UserService {
         return lstUser;
     }
 
-    //Friend request services
+    // Friendship request services
     public static List<Friend_Request> findFriendRequests(User user) {
         List friendRequests = frdao.findFriendRequests(user.getID());
         return friendRequests;
@@ -88,5 +88,11 @@ public class UserService {
         Friendship newfs = fsdao.create(fs);
         frdao.update(fr);
         return newfs;
+    }
+
+    // Friendship services
+    public static List<Friendship> findFriendsByUser(User user) {
+        List friends = fsdao.findFriendsByUserID(user.getID());
+        return friends;
     }
 }
