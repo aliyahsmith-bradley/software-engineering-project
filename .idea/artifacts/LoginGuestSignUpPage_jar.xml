@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="LoginGuestSignUpPage:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/LoginGuestSignUpPage_jar</output-path>
-    <root id="archive" name="LoginGuestSignUpPage.jar">
-      <element id="module-output" name="LoginGuestSignUpPage" />
-    </root>
-  </artifact>
-</component>

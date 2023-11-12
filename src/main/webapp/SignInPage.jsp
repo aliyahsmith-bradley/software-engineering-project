@@ -66,7 +66,7 @@
             text-align: center;
         }
         .green-chip {
-            background-image: url("../../../Images/green-chip.png");
+            background-image: url("images/green-chip.png");
             background-size: cover;
             width: 300px;
             height: 300px;
@@ -75,7 +75,7 @@
             bottom: 110px;
         }
         .black-chip {
-            background-image: url("../../../Images/black-chip.png");
+            background-image: url("images/black-chip.png");
             background-size: cover;
             width: 350px;
             height: 300px;
@@ -84,7 +84,7 @@
             bottom: 110px;
         }
         .blue-chip {
-            background-image: url("../../../Images/blue-chip.png");
+            background-image: url("images/blue-chip.png");
             background-size: cover;
             width: 300px;
             height: 300px;
@@ -93,7 +93,7 @@
             bottom: 110px;
         }
         .home_button {
-            background-image: url("../../../Images/home_button.png");
+            background-image: url("images/home_button.png");
             background-size: cover;
             width: 50px;
             height: 50px;
@@ -103,7 +103,7 @@
             margin-top: 5px;
         }
         .book_button {
-            background-image: url("../../../Images/book_button.png");
+            background-image: url("images/book_button.png");
             background-size: cover;
             width: 70px;
             height: 70px;
@@ -116,7 +116,7 @@
 <body>
 <h1>Feeling Lucky?</h1>
 <div class="red-rectangle"></div>
-<a href="../../../main_index.jsp" class="home_button"></a>
+<a href="index.jsp" class="home_button"></a>
 <a href="Rules.jsp" class="book_button"></a>
 <a href="SignUp.jsp" class="button-link-1">
     <span class="button-text">Make An</span>
