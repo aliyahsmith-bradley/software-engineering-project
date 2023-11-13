@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">PasswordUtil</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    66.7%
   </span>
   <span class="absValue">
-    (0/3)
+    (2/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    80%
   </span>
   <span class="absValue">
-    (0/5)
+    (4/5)
   </span>
 </td>
 </tr>
@@ -84,12 +84,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;public class PasswordUtil {</b>
 &nbsp;    private static final int COST = 6;
 &nbsp;    public static String hash(String txtPassword){
-<b class="nc">&nbsp;        byte[] hashedbytes = BCrypt.with(new SecureRandom()).hash(COST, txtPassword.toCharArray());</b>
-<b class="nc">&nbsp;        return new String(hashedbytes);</b>
+<b class="fc">&nbsp;        byte[] hashedbytes = BCrypt.with(new SecureRandom()).hash(COST, txtPassword.toCharArray());</b>
+<b class="fc">&nbsp;        return new String(hashedbytes);</b>
 &nbsp;    }
 &nbsp;    public static boolean compare(String unhashed, String hashed){
-<b class="nc">&nbsp;        BCrypt.Result result = BCrypt.verifyer().verify(unhashed.toCharArray(), hashed.toCharArray());</b>
-<b class="nc">&nbsp;        return result.verified;</b>
+<b class="fc">&nbsp;        BCrypt.Result result = BCrypt.verifyer().verify(unhashed.toCharArray(), hashed.toCharArray());</b>
+<b class="fc">&nbsp;        return result.verified;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -115,7 +115,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-12 18:03</div>
+    <div style="float:right;">generated on 2023-11-13 01:05</div>
 </div>
 </body>
 </html>
