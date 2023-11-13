@@ -99,7 +99,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        Friendship fs = UserService.findFriendByFriendshipID(fsID);</b>
 &nbsp;
 &nbsp;
-<b class="nc">&nbsp;        Friend_Request frToRemove = UserService.findFriendRequestByUserID(fs.getId_user1());</b>
+<b class="nc">&nbsp;        Friend_Request frToRemove = UserService.findFrByUserIDSenderAndUserIDReceiver(fs.getId_user1(), us.getID());</b>
 <b class="nc">&nbsp;        frToRemove.setStatus((byte) 0);</b>
 &nbsp;
 <b class="nc">&nbsp;        UserService.removeFriend(fs, frToRemove);</b>
@@ -135,7 +135,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-13 01:05</div>
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
 </div>
 </body>
 </html>

@@ -96,7 +96,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        HttpSession session = request.getSession();</b>
 <b class="nc">&nbsp;        User user = (User) session.getAttribute(&quot;User&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;        List&lt;Friend_Request&gt; friendRequests = UserService.findFriendRequests(user);</b>
+<b class="nc">&nbsp;        List&lt;Friend_Request&gt; friendRequests = UserService.findFriendRequestsByUser(user);</b>
 &nbsp;
 <b class="nc">&nbsp;        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();</b>
 <b class="nc">&nbsp;        String json = ow.writeValueAsString(friendRequests);</b>
@@ -133,7 +133,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-13 01:05</div>
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
 </div>
 </body>
 </html>

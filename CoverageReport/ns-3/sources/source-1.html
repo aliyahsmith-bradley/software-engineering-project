@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    52.6%
+    82.4%
   </span>
   <span class="absValue">
-    (10/19)
+    (14/17)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    73%
   </span>
   <span class="absValue">
-    (20/40)
+    (27/37)
   </span>
 </td>
 </tr>
@@ -101,7 +101,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static void setDAO(FriendshipDAO fsdao) {
-<b class="nc">&nbsp;        UserService.fsdao = fsdao;</b>
+<b class="fc">&nbsp;        UserService.fsdao = fsdao;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /***
@@ -136,61 +136,48 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        return found;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public static List&lt;User&gt; findByUserName(String username) {
-<b class="fc">&nbsp;        List&lt;User&gt; Users = dao.findUserByUsername(username);</b>
+&nbsp;    public static List&lt;User&gt; searchForUsersByUserName(String username) {
+<b class="fc">&nbsp;        List&lt;User&gt; Users = dao.searchForUsersByUserName(username);</b>
 <b class="fc">&nbsp;        return Users;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public static User findUserByID(Integer ID) {
+&nbsp;    public static User findUserByUserID(Integer ID) {
 <b class="fc">&nbsp;        return dao.findUserByID(ID);</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    /***
-&nbsp;     * Returns a list of all Users in the DB
-&nbsp;     * Usually for an Admin CRUD needs to see all data
-&nbsp;     * @param Order Which field to order the results
-&nbsp;     * @return User list
-&nbsp;     */
-&nbsp;    public static List&lt;User&gt; listUsers(String Order){
-<b class="nc">&nbsp;        List&lt;User&gt; lstUser = dao.list(Order);</b>
-<b class="nc">&nbsp;        return lstUser;</b>
-&nbsp;    }
 &nbsp;
 &nbsp;    // Friendship request services
-&nbsp;    public static List&lt;Friend_Request&gt; findFriendRequests(User user) {
-<b class="fc">&nbsp;        List friendRequests = frdao.findFriendRequests(user.getID());</b>
+&nbsp;    public static List&lt;Friend_Request&gt; findFriendRequestsByUser(User user) {
+<b class="fc">&nbsp;        List friendRequests = frdao.findFriendRequestsByUserID(user.getID());</b>
 <b class="fc">&nbsp;        return friendRequests;</b>
 &nbsp;    }
-&nbsp;    public static Friend_Request findFriendRequestByID(Integer ID) {
-<b class="fc">&nbsp;        return frdao.findFriendRequestByID(ID);</b>
+&nbsp;    public static Friend_Request findFrByUserIDSenderAndUserIDReceiver(Integer IDSender, Integer IDReceiver) {
+<b class="fc">&nbsp;        return frdao.findFrByUserIDSenderAndUserIDReceiver(IDSender, IDReceiver);</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public static Friend_Request findFriendRequestByUserID(Integer ID) {
-<b class="fc">&nbsp;        return frdao.findFriendRequestByUserID(ID);</b>
+&nbsp;    public static Friend_Request findFriendRequestByFrID(Integer ID) {
+<b class="fc">&nbsp;        return frdao.findFriendRequestByFrID(ID);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static Friend_Request sendFriendRequest(Friend_Request fr) {
-<b class="nc">&nbsp;        Friend_Request newfr = frdao.create(fr);</b>
-<b class="nc">&nbsp;        return newfr;</b>
-&nbsp;    }
-&nbsp;    public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
-<b class="nc">&nbsp;        Friendship newfs = fsdao.create(fs);</b>
-<b class="nc">&nbsp;        frdao.update(fr);</b>
-<b class="nc">&nbsp;        return newfs;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public static void removeFriendRequest(Friend_Request fr) {
-<b class="nc">&nbsp;        frdao.delete(fr.getID());</b>
+<b class="fc">&nbsp;        Friend_Request newfr = frdao.create(fr);</b>
+<b class="fc">&nbsp;        return newfr;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    // Friendship services
+&nbsp;    public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
+<b class="fc">&nbsp;        Friendship newfs = fsdao.create(fs);</b>
+<b class="fc">&nbsp;        frdao.update(fr);</b>
+<b class="fc">&nbsp;        return newfs;</b>
+&nbsp;    }
+&nbsp;
 &nbsp;    public static List&lt;Friendship&gt; findFriendsByUser(User user) {
 <b class="nc">&nbsp;        List friends = fsdao.findFriendsByUserID(user.getID());</b>
 <b class="nc">&nbsp;        return friends;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static Friendship findFriendByFriendshipID(Integer ID) {
-<b class="nc">&nbsp;        return fsdao.findFriendByFriendshipID(ID);</b>
+<b class="fc">&nbsp;        return fsdao.findFriendByFriendshipID(ID);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static void removeFriend(Friendship fs, Friend_Request fr) {
@@ -222,7 +209,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-13 01:05</div>
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
 </div>
 </body>
 </html>

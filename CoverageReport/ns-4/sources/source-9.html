@@ -94,7 +94,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 <b class="nc">&nbsp;        HttpSession session = request.getSession();</b>
 <b class="nc">&nbsp;        User us = (User) session.getAttribute(&quot;User&quot;);</b>
-<b class="nc">&nbsp;        User userToAdd = UserService.findByUserName(request.getParameter(&quot;username&quot;)).get(0);</b>
+<b class="nc">&nbsp;        User userToAdd = UserService.searchForUsersByUserName(request.getParameter(&quot;username&quot;)).get(0);</b>
 <b class="nc">&nbsp;        Friend_Request fr = new Friend_Request();</b>
 <b class="nc">&nbsp;        fr.setId_user_sender(us.getID());</b>
 <b class="nc">&nbsp;        fr.setId_user_receiver(userToAdd.getID());</b>
@@ -129,7 +129,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-13 01:05</div>
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
 </div>
 </body>
 </html>

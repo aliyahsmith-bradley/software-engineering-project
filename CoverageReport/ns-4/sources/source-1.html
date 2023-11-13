@@ -96,14 +96,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 <b class="nc">&nbsp;        HttpSession session = request.getSession();</b>
 <b class="nc">&nbsp;        User us = (User) session.getAttribute(&quot;User&quot;);</b>
-<b class="nc">&nbsp;        User userToAdd = UserService.findByUserName(request.getParameter(&quot;username&quot;)).get(0);</b>
+<b class="nc">&nbsp;        User userToAdd = UserService.searchForUsersByUserName(request.getParameter(&quot;username&quot;)).get(0);</b>
 &nbsp;
 <b class="nc">&nbsp;        Friendship fs = new Friendship();</b>
 <b class="nc">&nbsp;        fs.setId_user1(userToAdd.getID());</b>
 <b class="nc">&nbsp;        fs.setId_user2(us.getID());</b>
 <b class="nc">&nbsp;        fs.setDt_accepted(Timestamp.from(Instant.now()));</b>
 &nbsp;
-<b class="nc">&nbsp;        Friend_Request frToAccept = UserService.findFriendRequestByID(Integer.valueOf(request.getParameter(&quot;friendRequest&quot;)));</b>
+<b class="nc">&nbsp;        Friend_Request frToAccept = UserService.findFriendRequestByFrID(Integer.valueOf(request.getParameter(&quot;friendRequest&quot;)));</b>
 <b class="nc">&nbsp;        frToAccept.setStatus((byte) 1);</b>
 &nbsp;
 <b class="nc">&nbsp;        UserService.acceptFriendRequest(fs, frToAccept);</b>
@@ -138,7 +138,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-13 01:05</div>
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
 </div>
 </body>
 </html>
