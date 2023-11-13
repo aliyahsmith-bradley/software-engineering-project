@@ -55,7 +55,7 @@ public class UserDAO extends GenericDAO<User> {
         return found;
     }
 
-    public List<User> findUserByUsername(String username) {
+    public List<User> searchForUsersByUserName(String username) {
         EntityManager em = getEntityManager();
 
         //language=SQL

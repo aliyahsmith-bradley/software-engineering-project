@@ -17,7 +17,7 @@ public class SendFriendRequest extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         User us = (User) session.getAttribute("User");
-        User userToAdd = UserService.findByUserName(request.getParameter("username")).get(0);
+        User userToAdd = UserService.searchForUsersByUserName(request.getParameter("username")).get(0);
         Friend_Request fr = new Friend_Request();
         fr.setId_user_sender(us.getID());
         fr.setId_user_receiver(userToAdd.getID());

@@ -19,7 +19,7 @@ public class AcceptFriendRequest extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         User us = (User) session.getAttribute("User");
-        User userToAdd = UserService.findByUserName(request.getParameter("username")).get(0);
+        User userToAdd = UserService.searchForUsersByUserName(request.getParameter("username")).get(0);
 
         Friendship fs = new Friendship();
         fs.setId_user1(userToAdd.getID());

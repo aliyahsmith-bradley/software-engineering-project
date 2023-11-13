@@ -59,8 +59,8 @@ public class UserService {
         return found;
     }
 
-    public static List<User> findByUserName(String username) {
-        List<User> Users = dao.findUserByUsername(username);
+    public static List<User> searchForUsersByUserName(String username) {
+        List<User> Users = dao.searchForUsersByUserName(username);
         return Users;
     }
 

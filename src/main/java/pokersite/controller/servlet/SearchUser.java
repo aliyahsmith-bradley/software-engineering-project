@@ -15,7 +15,7 @@ import jakarta.servlet.RequestDispatcher;
 public class SearchUser extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
-        List<User> users = UserService.findByUserName(username);
+        List<User> users = UserService.searchForUsersByUserName(username);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(users);
