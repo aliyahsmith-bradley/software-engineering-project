@@ -19,6 +19,14 @@ public class UserService {
         UserService.dao = dao;
     }
 
+    public static void setDAO(FriendRequestDAO frdao) {
+        UserService.frdao = frdao;
+    }
+
+    public static void setDAO(FriendshipDAO fsdao) {
+        UserService.fsdao = fsdao;
+    }
+
     /***
      * Registers new user in the DB by calling the DAO.
      * Although you could put this method inside the Servlet,
@@ -48,7 +56,7 @@ public class UserService {
                 return found;
             }
         }
-        return null;
+        return found;
     }
 
     public static List<User> findByUserName(String username) {
