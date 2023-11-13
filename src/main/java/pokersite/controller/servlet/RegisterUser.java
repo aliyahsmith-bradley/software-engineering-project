@@ -25,6 +25,8 @@ public class RegisterUser extends HttpServlet {
         newUser.setLast_name(last_name);
         newUser.setPhone_number(phone_number);
         UserService.registerUser(newUser);
+
+        response.sendRedirect("index.jsp");
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request,response);
