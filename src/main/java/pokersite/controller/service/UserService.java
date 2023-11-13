@@ -64,7 +64,7 @@ public class UserService {
         return Users;
     }
 
-    public static User findUserByID(Integer ID) {
+    public static User findUserByUserID(Integer ID) {
         return dao.findUserByID(ID);
     }
 
@@ -80,17 +80,19 @@ public class UserService {
     }
 
     // Friendship request services
-    public static List<Friend_Request> findFriendRequests(User user) {
-        List friendRequests = frdao.findFriendRequests(user.getID());
+    public static List<Friend_Request> findFriendRequestsByUser(User user) {
+        List friendRequests = frdao.findFriendRequestsByUserID(user.getID());
         return friendRequests;
     }
-    public static Friend_Request findFriendRequestByID(Integer ID) {
-        return frdao.findFriendRequestByID(ID);
+    public static Friend_Request findFrByUserIDSenderAndUserIDReceiver(Integer IDSender, Integer IDReceiver) {
+        return frdao.findFrByUserIDSenderAndUserIDReceiver(IDSender, IDReceiver);
     }
 
-    public static Friend_Request findFriendRequestByUserID(Integer ID) {
-        return frdao.findFriendRequestByUserID(ID);
+    public static Friend_Request findFriendRequestByFrID(Integer ID) {
+        return frdao.findFriendRequestByFrID(ID);
     }
+
+
 
     public static Friend_Request sendFriendRequest(Friend_Request fr) {
         Friend_Request newfr = frdao.create(fr);

@@ -22,7 +22,7 @@ public class RemoveFriend extends HttpServlet {
         Friendship fs = UserService.findFriendByFriendshipID(fsID);
 
 
-        Friend_Request frToRemove = UserService.findFriendRequestByUserID(fs.getId_user1());
+        Friend_Request frToRemove = UserService.findFrByUserIDSenderAndUserIDReceiver(fs.getId_user1(), us.getID());
         frToRemove.setStatus((byte) 0);
 
         UserService.removeFriend(fs, frToRemove);

@@ -28,7 +28,7 @@
     <h1>Your Friends!</h1>
     <ul>
         <% for (Friendship friend : friendshipList) { %>
-            <li>Friend: <%=UserService.findUserByID(friend.getId_user1()).getUsername()%></li>
+            <li>Friend: <%=UserService.findUserByUserID(friend.getId_user1()).getUsername()%></li>
             <form method="post" action="removeFriend">
                 <input type="hidden" name="friend" value="<%=friend.getID()%>">
                 <input type="submit" value="remove">

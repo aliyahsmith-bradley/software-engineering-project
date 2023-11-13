@@ -1,7 +1,6 @@
 package pokersite.model.dao;
 
 import pokersite.model.entity.Friend_Request;
-import pokersite.model.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -12,7 +11,7 @@ public class FriendRequestDAO extends GenericDAO<Friend_Request> {
         super(Friend_Request.class);
     }
 
-    public Friend_Request findFriendRequestByID(Integer ID) {
+    public Friend_Request findFriendRequestByFrID(Integer ID) {
         EntityManager em = getEntityManager();
 
         //language=mysql
@@ -29,15 +28,15 @@ public class FriendRequestDAO extends GenericDAO<Friend_Request> {
         return found;
     }
 
-    public Friend_Request findFriendRequestByUserID(Integer ID) {
+    public Friend_Request findFrByUserIDSenderAndUserIDReceiver(Integer IDSender, Integer IDReceiver) {
         EntityManager em = getEntityManager();
 
         //language=mysql
-        String query = "SELECT u FROM " + getTableName() + " u WHERE u.id_user_sender = :ID";
+        String query = "SELECT u FROM " + getTableName() + " u WHERE u.id_user_sender = :IDSender AND u.id_user_receiver = :IDReceiver";
         Friend_Request found = null;
 
         try {
-            found = em.createQuery(query, Friend_Request.class).setParameter("ID", ID).getSingleResult();
+            found = em.createQuery(query, Friend_Request.class).setParameter("IDSender", IDSender).setParameter("IDReceiver", IDReceiver).getSingleResult();
         } catch (NoResultException ex) {
             found = null;
         } finally {
@@ -46,7 +45,7 @@ public class FriendRequestDAO extends GenericDAO<Friend_Request> {
         return found;
     }
 
-    public List<Friend_Request> findFriendRequests(Integer userID) {
+    public List<Friend_Request> findFriendRequestsByUserID(Integer userID) {
         EntityManager em = getEntityManager();
 
         //language=SQL

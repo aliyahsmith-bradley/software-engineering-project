@@ -19,7 +19,7 @@ public class SearchFriendRequest extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("User");
 
-        List<Friend_Request> friendRequests = UserService.findFriendRequests(user);
+        List<Friend_Request> friendRequests = UserService.findFriendRequestsByUser(user);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(friendRequests);

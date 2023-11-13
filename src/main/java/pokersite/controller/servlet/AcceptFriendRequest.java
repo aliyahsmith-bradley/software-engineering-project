@@ -26,7 +26,7 @@ public class AcceptFriendRequest extends HttpServlet {
         fs.setId_user2(us.getID());
         fs.setDt_accepted(Timestamp.from(Instant.now()));
 
-        Friend_Request frToAccept = UserService.findFriendRequestByID(Integer.valueOf(request.getParameter("friendRequest")));
+        Friend_Request frToAccept = UserService.findFriendRequestByFrID(Integer.valueOf(request.getParameter("friendRequest")));
         frToAccept.setStatus((byte) 1);
 
         UserService.acceptFriendRequest(fs, frToAccept);
