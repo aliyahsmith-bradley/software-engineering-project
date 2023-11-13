@@ -68,16 +68,6 @@ public class UserService {
         return dao.findUserByID(ID);
     }
 
-    /***
-     * Returns a list of all Users in the DB
-     * Usually for an Admin CRUD needs to see all data
-     * @param Order Which field to order the results
-     * @return User list
-     */
-    public static List<User> listUsers(String Order){
-        List<User> lstUser = dao.list(Order);
-        return lstUser;
-    }
 
     // Friendship request services
     public static List<Friend_Request> findFriendRequestsByUser(User user) {
@@ -92,23 +82,18 @@ public class UserService {
         return frdao.findFriendRequestByFrID(ID);
     }
 
-
-
     public static Friend_Request sendFriendRequest(Friend_Request fr) {
         Friend_Request newfr = frdao.create(fr);
         return newfr;
     }
+
+    // Friendship services
     public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
         Friendship newfs = fsdao.create(fs);
         frdao.update(fr);
         return newfs;
     }
 
-    public static void removeFriendRequest(Friend_Request fr) {
-        frdao.delete(fr.getID());
-    }
-
-    // Friendship services
     public static List<Friendship> findFriendsByUser(User user) {
         List friends = fsdao.findFriendsByUserID(user.getID());
         return friends;

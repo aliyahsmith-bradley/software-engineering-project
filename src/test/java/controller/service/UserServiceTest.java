@@ -1,10 +1,13 @@
 package controller.service;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.verification.Times;
 import pokersite.controller.service.UserService;
 import pokersite.model.dao.FriendRequestDAO;
+import pokersite.model.dao.FriendshipDAO;
 import pokersite.model.dao.UserDAO;
 import pokersite.model.entity.Friend_Request;
+import pokersite.model.entity.Friendship;
 import pokersite.model.entity.User;
 
 import java.sql.Timestamp;
@@ -122,22 +125,155 @@ public class UserServiceTest {
         );
     }
 
-//    @Test public void testFindFriendRequestByUserID() {
+    @Test public void testFindFrByUserIDSenderAndUserIDReceiver() {
+        Timestamp ts = Timestamp.from(Instant.now());
+
+        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
+        User findUserfr = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+
+        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
+
+        when(mockDAO.findFrByUserIDSenderAndUserIDReceiver(anyInt(), anyInt())).thenReturn(fr);
+        UserService.setDAO(mockDAO);
+
+        Friend_Request findFriendRequest = UserService.findFrByUserIDSenderAndUserIDReceiver(1,findUserfr.getID());
+
+        assertAll(
+                ()-> assertNotNull(findFriendRequest),
+                ()-> assertEquals(fr, findFriendRequest)
+        );
+    }
+
+    @Test public void testSendFriendRequest() {
+        Timestamp ts = Timestamp.from(Instant.now());
+
+        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
+
+        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
+
+        when(mockDAO.create(any())).thenReturn(fr);
+        UserService.setDAO(mockDAO);
+
+        Friend_Request createdfr = UserService.sendFriendRequest(fr);
+
+        assertAll(
+                ()-> assertNotNull(createdfr),
+                ()-> assertEquals(fr.getID(), createdfr.getID())
+        );
+    }
+
+    @Test public void testAcceptFriendRequest() {
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+
+        Timestamp ts = Timestamp.from(Instant.now());
+        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
+        Friendship fs = new Friendship(1, 1, 2, ts);
+
+        UserDAO userMockDAO = mock(UserDAO.class);
+        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);
+        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);
+
+        UserService.setDAO(userMockDAO);
+        UserService.registerUser(user1);
+        UserService.registerUser(user2);
+
+        UserService.setDAO(frMockDAO);
+        UserService.sendFriendRequest(fr);
+
+        when(fsMockDAO.create(fs)).thenReturn(fs);
+        UserService.setDAO(fsMockDAO);
+
+        Friendship newfs = UserService.acceptFriendRequest(fs, fr);
+
+        assertAll(
+                ()-> assertNotNull(newfs),
+                ()-> assertEquals(fs, newfs)
+        );
+    }
+
+//    @Test public void testFindFriendsByUser() {
+//        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
+//        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+//
 //        Timestamp ts = Timestamp.from(Instant.now());
+//        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
+//        Friendship fs = new Friendship(1, 1, 2, ts);
 //
-//        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
-//        User findUserfr = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
 //
-//        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
+//        UserDAO userMockDAO = mock(UserDAO.class);
+//        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);
+//        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);
 //
-//        when(mockDAO.findFrByUserIDSenderAndUserIDReceiver(anyInt())).thenReturn(fr);
-//        UserService.setDAO(mockDAO);
+//        UserService.setDAO(userMockDAO);
+//        UserService.registerUser(user1);
+//        UserService.registerUser(user2);
 //
-//        Friend_Request findFriendRequest = UserService.findFrByUserIDSenderAndUserIDReceiver(findUserfr.getID());
+//        UserService.setDAO(frMockDAO);
+//        UserService.sendFriendRequest(fr);
 //
-//        assertAll(
-//                ()-> assertNotNull(findFriendRequest),
-//                ()-> assertEquals(fr, findFriendRequest)
-//        );
+//        when(fsMockDAO.create(fs)).thenReturn(fs);
+//        when(fsMockDAO.findFriendsByUserID(anyInt())).thenReturn(fs);
+//
+//        UserService.setDAO(fsMockDAO);
+//        Friendship newfs = UserService.acceptFriendRequest(fs, fr);
+//
+//        List<Friendship> friendsList = UserService.findFriendsByUser(user1);
+//    }
+
+    @Test public void testFindFriendByFriendshipID() {
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+
+        Timestamp ts = Timestamp.from(Instant.now());
+        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
+        Friendship fs = new Friendship(1, 1, 2, ts);
+
+        UserDAO userMockDAO = mock(UserDAO.class);
+        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);
+        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);
+
+        UserService.setDAO(userMockDAO);
+        UserService.registerUser(user1);
+        UserService.registerUser(user2);
+
+        UserService.setDAO(frMockDAO);
+        UserService.sendFriendRequest(fr);
+
+        when(fsMockDAO.findFriendByFriendshipID(anyInt())).thenReturn(fs);
+        UserService.setDAO(fsMockDAO);
+
+        Friendship newfs = UserService.findFriendByFriendshipID(fs.getID());
+
+        assertAll(
+                ()-> assertNotNull(newfs),
+                ()-> assertEquals(fs, newfs)
+        );
+    }
+
+//    @Test public void testRemoveFriend() {
+//        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
+//        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+//
+//        Timestamp ts = Timestamp.from(Instant.now());
+//        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
+//        Friendship fs = new Friendship(1, 1, 2, ts);
+//
+//        UserDAO userMockDAO = mock(UserDAO.class);
+//        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);
+//        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);
+//
+//        UserService.setDAO(userMockDAO);
+//        UserService.registerUser(user1);
+//        UserService.registerUser(user2);
+//
+//        UserService.setDAO(frMockDAO);
+//        UserService.sendFriendRequest(fr);
+//
+//        when(fsMockDAO.findFriendByFriendshipID(anyInt())).thenReturn(fs);
+//        UserService.setDAO(fsMockDAO);
+//        fsMockDAO.delete(fs);
+//        frMockDAO.update(fr);
+//        frMockDAO.delete(fr);
 //    }
 }
