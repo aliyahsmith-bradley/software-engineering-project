@@ -8,9 +8,58 @@ var cardObjectDefinition = [
 
 const backCardImg = '/images/card-back.jpg'
 
+let cards = []
+const playGameButtonElem = document.getElementById('dealCards')
+
 const cardContainerElem = document.querySelector('.card-container')
 
-createCards()
+const collapsedGridTemplate = 'a a a a a'
+const cardCollectionCellClass = ".c-pos-1"
+
+loadGame()
+function loadGame(){
+    createCards()
+
+    cards = document.querySelectorAll(".card")
+
+    playGameButtonElem.addEventListener('click', ()=>startGame())
+
+}
+
+function startGame(){
+    initializeNewGame()
+    startRound()
+}
+
+function initializeNewGame(){
+
+}
+
+function startRound(){
+    initializeNewRound()
+    collectCards()
+}
+
+function initializeRound(){
+
+}
+
+function collectCards(){
+    transformGridArea(collapsedGridTemplate)
+    addCardsToGridArea(cardCollectionCellClass)
+}
+function transformGridArea(areas){
+    cardContainerElem.style.gridTemplateAreas = areas
+}
+
+function addCardsToGridArea(cellPositionClassName){
+    const cellPositionElem = document.querySelector(cellPositionClassName)
+
+    cards.forEach(card,index => {
+        addChildElement(cellPositionElem, card)
+    })
+}
+
 function createCards(){
     cardObjectDefinition.forEach((cardItem)=>{createCard(cardItem)} )
 }
@@ -91,14 +140,21 @@ function mapCardIdToGrid(card){
     }
 }
 
+
 function background1(){
-    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+    document.body.style.backgroundImage = "linear-gradient(#181e33, #546a80, #546a80, #181e33)";
+    document.body.style.backgroundSize = "100% 100%"
 }
 
 function background2(){
-    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+    document.body.style.background = "#f3f3f3 url('./images/casino_room.jpg') no-repeat center center";
+    document.body.style.backgroundSize = "100% 100%"
+
 }
 
 function background3(){
-    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+    document.body.style.background = "#f3f3f3 url('./images/terracotta background.png') no-repeat right top";
+    document.body.style.backgroundSize = "100% 100%"
+
 }
+

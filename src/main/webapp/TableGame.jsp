@@ -80,26 +80,82 @@
 
 <main>
     <div class="topnav">
-        <div class = "money-box"></div>
+        <div class = "money-box">100</div>
+    </div>
+    <button id="dealCards" class="deal-cards" onclick="startGame()"> Deal Cards</button>
+
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbutton" >Backgrounds</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a onclick="background1()">Default</a>
+            <a onclick="background2()">Casino</a>
+            <a onclick="background3()">Terracotta</a>
+        </div>
     </div>
     <img class="table-picture" src="images/table_default.png">
     <div class="card-container">
-        <div class="c-pos-1">
-        </div>
+        <div class="c-pos-1"></div>
         <div class="c-pos-2"></div>
         <div class="c-pos-3"></div>
         <div class="c-pos-4"></div>
         <div class="c-pos-5"></div>
-
     </div>
+    <div class="opponent-1">
+        <div class="op-card-container">
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        </div>
+    </div>
+    <div class="opponent-2">
+    <div class="op-card-container">
+        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+    </div>
+</div>
+    <div class="opponent-3">
+        <div class="op-card-container">
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        </div>
+    </div>
+    <div class="opponent-4">
+        <div class="op-card-container">
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        </div>
+    </div>
+    <div class="opponent-5">
+        <div class="op-card-container">
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
+        </div>
+    </div>
+    <script>createCards()</script>
     <div class="betting-button">
         <button type="button" class="button" onclick="alert('you raise!')">Raise</button>
         <h1></h1>
         <button type="button" class="button" onclick="alert('you check!')">Check</button>
         <h1></h1>
         <button type="button" class="button" onclick="alert('you fold!')">Fold</button>
-        <button type="button" class="button" onclick="background1()">background</button>
     </div>
 </main>
+<audio class="background-music" autoplay loop controls>
+    <source src="images/Casino%20Sound%20Effect.mp3" type="audio/ogg">
+</audio>
 </body>
 </html>
