@@ -37,7 +37,7 @@ Progress --
 - progress was made on the animation of the cards, but overall insufficient
 
 
-First Draft of Sequence Diagram: [modelling.pdf](https://github.com/aliyahsmith-bradley/software-engineering-project/files/13329047/modelling.pdf)
+First Draft of Sequence Diagram: [modelling.pdf](https://github.com/aliyahsmith-bradley/software-engineering-project/blob/main/single%20player%20five%20card%20draw%20-%20SequenceDiagram.org.pdf)
 Final Draft of Sequence Diagram is under the main branch.
 
 ## How to Test our Web App
