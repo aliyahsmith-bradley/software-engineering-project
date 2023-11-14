@@ -32,7 +32,9 @@ Kanban Board located under the projects tab.
 Progress -- 
 - A Single Player java code where the user can play against a 'computer'. (Code Directory: software-engineering-project/src/main/java/pokersite/Logic/loginguestsignuppage
 /GameLogicSinglePlayer.java) -- Still configuring it to the UI
-
+- provided different backgrounds for the game table
+- background/ambient sound throughout gameplay
+- progress was made on the animation of the cards, but overall insufficient
 
 
 First Draft of Sequence Diagram: [modelling.pdf](https://github.com/aliyahsmith-bradley/software-engineering-project/files/13329047/modelling.pdf)
