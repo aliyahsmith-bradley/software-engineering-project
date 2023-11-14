@@ -18,7 +18,7 @@ In this initial phase, we will define the key user stories and requirements for 
 
 Link: https://docs.google.com/spreadsheets/d/11GlUV206KtgG6MvcXchbyV5r2dSzDN3fOyjX6BjVmLY/edit?usp=sharing 
 
-## Iteration 1
+### Iteration 1
 Progress -- 
 - A UX of all the main components of our UI
 - The UI of the Home Page 
@@ -28,10 +28,11 @@ Progress --
 
 Kanban Board located under the projects tab.
 
-## Iteration 2
+### Iteration 2
 Progress -- 
 - A Single Player java code where the user can play against a 'computer'. (Code Directory: software-engineering-project/src/main/java/pokersite/Logic/loginguestsignuppage
-/GameLogicSinglePlayer.java)
+/GameLogicSinglePlayer.java) -- Still configuring it to the UI
+
 
 
 First Draft of Sequence Diagram: [modelling.pdf](https://github.com/aliyahsmith-bradley/software-engineering-project/files/13329047/modelling.pdf)
