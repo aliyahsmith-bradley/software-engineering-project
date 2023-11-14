@@ -97,7 +97,7 @@ public class GameLogicSinglePlayer {
         if (userChoice1.equals("check")) {
             System.out.println("Moving on. Computers turn");
             int userBet1 = 0;
-            computersTurn(userChoice1, userBet1, computerCoins, userHand, deck, computerHand);
+            computersTurn(userChoice1, userBet1, computerCoins, userCoins, userHand, deck, computerHand);
 
         }
 
@@ -108,15 +108,15 @@ public class GameLogicSinglePlayer {
             System.out.println("The new pot's amount is " + pot);
             userCoins -= userBet1;
             System.out.println("You now have " + userCoins + " coins");
-            computersTurn(userChoice1, userBet1, computerCoins, userHand, deck, computerHand);
+            computersTurn(userChoice1, userBet1, computerCoins, userCoins, userHand, deck, computerHand);
         }
     }
 
-    private static void computersTurn(String userChoice1, int userBet1, int computerCoins, List<String> userHand, List<String> deck, List<String> computerHand) {
+    private static void computersTurn(String userChoice1, int userBet1, int computerCoins, int userCoins, List<String> userHand, List<String> deck, List<String> computerHand) {
 
         if (userChoice1.equals("check")) {
             System.out.println("Computer Checked");
-            userRound2(userHand, deck, computerHand);
+            userRound2(userHand, deck, computerHand, userCoins, computerCoins, userBet1);
         }
         if (userChoice1.equals("bet")) {
             int computerBet = 0;
@@ -127,7 +127,7 @@ public class GameLogicSinglePlayer {
             System.out.println("Computer matched your bet of " + userBet1);
             amountHaveToRaise += userBet1;
             System.out.println("Current pot is " + pot);
-            userRound2(userHand, deck, computerHand);
+            userRound2(userHand, deck, computerHand, userCoins, computerCoins, userBet1);
         }
 
 
@@ -155,7 +155,7 @@ public class GameLogicSinglePlayer {
 
 
     //getting new cards
-    private static void userRound2(List<String> userHand, List<String> deck, List<String> computerHand) {
+    private static void userRound2(List<String> userHand, List<String> deck, List<String> computerHand, int userCoins, int computerCoins, int userBet1) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Would you like to get new cards? (yes or no)");
@@ -176,18 +176,21 @@ public class GameLogicSinglePlayer {
         if (askNewCards.equals("yes") && !hasAce) {//user does not have an ace of any suit
             int maxReplacements = 3;
             List<String> updatedHand = replaceCards(userHand, deck, scanner, hasAce, maxReplacements);
-            System.out.println("Your new hand is: " + updatedHand);
+            System.out.println("Computer did not want new cards");
+            restOfRounds(userCoins, computerCoins, userBet1);
 
         }
         if (askNewCards.equals("yes") && hasAce) {//user does not have a ace of any suit)
             int maxReplacements = 4;
             List<String> updatedHand = replaceCards(userHand, deck, scanner, hasAce, maxReplacements);
             System.out.println("Your new hand is: " + updatedHand);
+            System.out.println("Computer did not want new cards");
+            restOfRounds(userCoins, computerCoins, userBet1);
 
         }
         if (askNewCards.equals("no")) {
             System.out.println("Computer wants new cards");
-            System.out.println("Computer's current hand is: " + computerHand);
+            //System.out.println("Computer's current hand is: " + computerHand);
             if (!computerHand.isEmpty() && hasAce) {
                 Random random = new Random();
                 for (int i = 0; i < 4; i++) {
@@ -195,6 +198,7 @@ public class GameLogicSinglePlayer {
                     if (randomIndex < computerHand.size()) {
                         // Replace the card at the randomly chosen index with a new card from the deck
                         computerHand.set(randomIndex, deck.remove(0));
+                        restOfRounds(userCoins, computerCoins, userBet1);
                     }
                 }
                 if (!computerHand.isEmpty() && !hasAce) {
@@ -205,7 +209,7 @@ public class GameLogicSinglePlayer {
                             computerHand.set(randomIndex, deck.remove(0));
                         }
                     }
-                    //restOfRounds(userCoins, computerCoins, amountHaveToRaise, userHand, deck, scanner, hasAce);
+                    restOfRounds(userCoins, computerCoins, userBet1);
                 }
                 //System.out.println("Computer's new hand is: " + computerHand);
 
@@ -214,34 +218,60 @@ public class GameLogicSinglePlayer {
 
         }
 
-        public static void restOfRounds(int userCoins, int computerCoins, int amountHaveToRaise){
+        public static void restOfRounds(int userCoins, int computerCoins, int userBet1){
 
             //while both players have coins
-            while(userCoins <= 0 && computerCoins <= 0){
+            while(userCoins > 0 && computerCoins > 0){
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("User, would you like to raise, call, or check, fold ");
+                System.out.println("User, would you like to raise, check, fold ");
                 String userGo = scanner.nextLine();
 
                 while (!userGo.equalsIgnoreCase("check") && !userGo.equalsIgnoreCase("call") && !userGo.equalsIgnoreCase("raise") && !userGo.equalsIgnoreCase("fold")) {
-                    System.out.println("Invalid choice.Please enter either 'check', 'call', 'raise' or 'fold' ");
+                    System.out.println("Invalid choice.Please enter either 'check', 'raise' or 'fold' ");
                     userGo = scanner.nextLine();
                 }
 
                 if(userGo.equalsIgnoreCase("raise")){
                     System.out.println("How much would you like to raise?");
                     int userRaise = scanner.nextInt();
-                    pot += userRaise;
-                    System.out.println("The new pot's amount is " + pot);
-                    userCoins -= userRaise;
-                    System.out.println("You now have " + userCoins + " coins");
-                    System.out.println("Computers turn");
-                    computerCoins = computerCoins - userRaise;
-                    System.out.println("Computer matched your raise");
-                    pot = pot + userRaise;
-                    System.out.println("The new pot's amount is " + pot);
+                    if (userRaise > userCoins){
+                        System.out.println("You dont have that many coins, please enter again. You have: " + userCoins + " coins");
+                        userRaise = scanner.nextInt();
+                    }
+                    else {
+                        pot += userRaise;
+                        System.out.println("The new pot's amount is " + pot);
+                        userCoins -= userRaise;
+                        System.out.println("You now have " + userCoins + " coins");
+                        System.out.println("Computers turn");
+                        computerCoins = computerCoins - userRaise;
+                        System.out.println("Computer matched your raise");
+                        pot = pot + userRaise;
+                        System.out.println("The new pot's amount is " + pot);
+                    }
+                }
+                if(userGo.equalsIgnoreCase("fold")){
+                    System.out.println("You folded for this round. Computers Go");
+                    //Computer go function
                 }
 
-
+                if(userGo.equalsIgnoreCase("check")) {
+                    System.out.println("The last bet was: " + userBet1 + "Would you like to match this bet?");
+                    String userCheck = scanner.nextLine();
+                    while (!userCheck.equalsIgnoreCase("yes") && !userCheck.equalsIgnoreCase("no")){
+                        System.out.println("Invalid choice.Please enter either 'check', 'raise' or 'fold' ");
+                        userCheck = scanner.nextLine();
+                    }
+                    if (userCheck.equalsIgnoreCase("yes")) {
+                        pot = pot + userBet1;
+                        System.out.println("Ok, your bet is: " + userBet1 + "the current pot is: " + userBet1 + pot);
+                        //Computer Go Function
+                    }
+                    if (userCheck.equalsIgnoreCase("no")) {
+                        System.out.println("Ok, moving on to computer");
+                        //Computer Go Function
+                    }
+                }
             }
         }
     }
