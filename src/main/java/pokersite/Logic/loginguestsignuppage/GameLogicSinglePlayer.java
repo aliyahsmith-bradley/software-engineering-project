@@ -1,5 +1,6 @@
-package com.example.loginguestsignuppage;
+package pokersite.Logic.loginguestsignuppage;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import java.util.Collections;
@@ -24,11 +25,27 @@ public class GameLogicSinglePlayer {
         //formatting suits and ranks
         for (String suit : suits) {
             for (String rank : ranks) {
-                cardDeck.add(rank + " of " + suit);
+                cardDeck.add(rank + "_of_" + suit);
             }
         }
     }
 
+    public static ArrayList<String> dealHand(ArrayList<String> deck){
+        Collections.shuffle(deck);
+
+        ArrayList<String> hand = new ArrayList<>();
+
+        for (int i = 0; i < HAND_SIZE; i++) {
+            hand.add(deck.get(i));
+        }
+        removeCardsFromDeck(deck, hand);
+        return hand;
+    }
+
+    public static ArrayList<String> removeCardsFromDeck(ArrayList<String> deck, ArrayList<String> cardsToRemove){
+        deck.removeIf(cardsToRemove::contains);
+        return deck;
+    }
     public static void main(String[] args) {
 
         //Copy card deck

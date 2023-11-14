@@ -1,9 +1,9 @@
-const cardObjectDefinition = [
-    {id:1, imagePath: '../../../Images/2_of_clubs.png'},
-    {id:2, imagePath: '../../../Images/2_of_spades.png'},
-    {id:3, imagePath: '../../../Images/2_of_diamonds.png'},
-    {id:4, imagePath: '../../../Images/2_of_hearts.png'},
-    {id:5, imagePath: '../../../Images/3_of_clubs.png'}
+var cardObjectDefinition = [
+    {id:1, imagePath: 'images/2_of_clubs.png'},
+    {id:2, imagePath: 'images/2_of_spades.png'},
+    {id:3, imagePath: 'images/2_of_diamonds.png'},
+    {id:4, imagePath: 'images/2_of_hearts.png'},
+    {id:5, imagePath: 'images/3_of_clubs.png'}
 ]
 
 const backCardImg = '/images/card-back.jpg'
@@ -89,4 +89,16 @@ function mapCardIdToGrid(card){
     }else if (card.id == 5){
         return '.c-pos-5'
     }
+}
+
+function background1(){
+    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+}
+
+function background2(){
+    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+}
+
+function background3(){
+    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
 }

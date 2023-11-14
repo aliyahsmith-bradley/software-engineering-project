@@ -12,6 +12,6 @@
     <!-- Include your game elements here -->
 </div>
 <!-- Include any necessary JavaScript files -->
-<script src="js/tableGame.js"></script>
+<script src="tableGame.js"></script>
 </body>
 </html>
