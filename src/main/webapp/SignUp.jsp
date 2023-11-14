@@ -7,7 +7,7 @@
 <body>
 <div class="container">
     <h3>Sign Up</h3>
-    <form action="GuestAccount.jsp" method="post">
+    <form action="Rules.jsp" method="post">
         <input type="text" name="firstName" placeholder="First Name" required><br><br>
         <input type="text" name="lastName" placeholder="Last Name" required><br><br>
         <input type="email" name="email" placeholder="Email" required><br><br>

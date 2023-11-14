@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > UserService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pokersite.controller.service</a>
+</div>
+
+<h1>Coverage Summary for Class: UserService (pokersite.controller.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    82.4%
+  </span>
+  <span class="absValue">
+    (14/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    73%
+  </span>
+  <span class="absValue">
+    (27/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pokersite.controller.service;
+&nbsp;
+&nbsp;import pokersite.model.dao.FriendRequestDAO;
+&nbsp;import pokersite.model.dao.FriendshipDAO;
+&nbsp;import pokersite.model.dao.UserDAO;
+&nbsp;import pokersite.model.entity.Friend_Request;
+&nbsp;import pokersite.model.entity.Friendship;
+&nbsp;import pokersite.model.entity.User;
+&nbsp;import pokersite.util.PasswordUtil;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class UserService {</b>
+<b class="fc">&nbsp;    public static UserDAO dao = new UserDAO();</b>
+<b class="fc">&nbsp;    public static FriendRequestDAO frdao = new FriendRequestDAO();</b>
+<b class="fc">&nbsp;    public static FriendshipDAO fsdao = new FriendshipDAO();</b>
+&nbsp;
+&nbsp;    public static void setDAO(UserDAO dao){
+<b class="fc">&nbsp;        UserService.dao = dao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void setDAO(FriendRequestDAO frdao) {
+<b class="fc">&nbsp;        UserService.frdao = frdao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void setDAO(FriendshipDAO fsdao) {
+<b class="fc">&nbsp;        UserService.fsdao = fsdao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /***
+&nbsp;     * Registers new user in the DB by calling the DAO.
+&nbsp;     * Although you could put this method inside the Servlet,
+&nbsp;     *  by separating into another class, it is easier to test and mock
+&nbsp;     * @param newUser User entity to save (without ID)
+&nbsp;     * @return Saved User Entity (with ID) or null if Login already exists
+&nbsp;     */
+&nbsp;    public static User registerUser(User newUser) {
+&nbsp;        try {
+<b class="fc">&nbsp;            String hashed = PasswordUtil.hash(newUser.getPassword());</b>
+<b class="fc">&nbsp;            newUser.setPassword(hashed);</b>
+<b class="fc">&nbsp;            newUser = dao.create(newUser);</b>
+<b class="nc">&nbsp;        } catch (javax.persistence.PersistenceException ex) {</b>
+&nbsp;            //Repeated login
+<b class="nc">&nbsp;            newUser = null;</b>
+<b class="nc">&nbsp;            System.out.println(ex);</b>
+&nbsp;        }
+&nbsp;        finally {
+<b class="fc">&nbsp;            return newUser;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static User loginUser(String email, String unhashedPassword) {
+<b class="fc">&nbsp;        User found = dao.findUserByLogin(email);</b>
+<b class="fc">&nbsp;        if(found!=null){</b>
+<b class="fc">&nbsp;            if(PasswordUtil.compare(unhashedPassword,found.getPassword())){</b>
+<b class="nc">&nbsp;                return found;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return found;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static List&lt;User&gt; searchForUsersByUserName(String username) {
+<b class="fc">&nbsp;        List&lt;User&gt; Users = dao.searchForUsersByUserName(username);</b>
+<b class="fc">&nbsp;        return Users;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static User findUserByUserID(Integer ID) {
+<b class="fc">&nbsp;        return dao.findUserByID(ID);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // Friendship request services
+&nbsp;    public static List&lt;Friend_Request&gt; findFriendRequestsByUser(User user) {
+<b class="fc">&nbsp;        List friendRequests = frdao.findFriendRequestsByUserID(user.getID());</b>
+<b class="fc">&nbsp;        return friendRequests;</b>
+&nbsp;    }
+&nbsp;    public static Friend_Request findFrByUserIDSenderAndUserIDReceiver(Integer IDSender, Integer IDReceiver) {
+<b class="fc">&nbsp;        return frdao.findFrByUserIDSenderAndUserIDReceiver(IDSender, IDReceiver);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Friend_Request findFriendRequestByFrID(Integer ID) {
+<b class="fc">&nbsp;        return frdao.findFriendRequestByFrID(ID);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Friend_Request sendFriendRequest(Friend_Request fr) {
+<b class="fc">&nbsp;        Friend_Request newfr = frdao.create(fr);</b>
+<b class="fc">&nbsp;        return newfr;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Friendship services
+&nbsp;    public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
+<b class="fc">&nbsp;        Friendship newfs = fsdao.create(fs);</b>
+<b class="fc">&nbsp;        frdao.update(fr);</b>
+<b class="fc">&nbsp;        return newfs;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static List&lt;Friendship&gt; findFriendsByUser(User user) {
+<b class="nc">&nbsp;        List friends = fsdao.findFriendsByUserID(user.getID());</b>
+<b class="nc">&nbsp;        return friends;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Friendship findFriendByFriendshipID(Integer ID) {
+<b class="fc">&nbsp;        return fsdao.findFriendByFriendshipID(ID);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void removeFriend(Friendship fs, Friend_Request fr) {
+<b class="nc">&nbsp;        fsdao.delete(fs);</b>
+<b class="nc">&nbsp;        frdao.update(fr);</b>
+<b class="nc">&nbsp;        frdao.delete(fr);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
+</div>
+</body>
+</html>

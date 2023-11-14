@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > FriendshipDAO</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pokersite.model.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendshipDAO (pokersite.model.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FriendshipDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5.3%
+  </span>
+  <span class="absValue">
+    (1/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pokersite.model.dao;
+&nbsp;
+&nbsp;import pokersite.model.entity.Friend_Request;
+&nbsp;import pokersite.model.entity.Friendship;
+&nbsp;
+&nbsp;import javax.persistence.EntityManager;
+&nbsp;import javax.persistence.NoResultException;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class FriendshipDAO extends GenericDAO&lt;Friendship&gt; {
+&nbsp;    public FriendshipDAO() {
+<b class="fc">&nbsp;        super(Friendship.class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Friendship&gt; findFriendsByUserID(Integer userID) {
+<b class="nc">&nbsp;        EntityManager em = getEntityManager();</b>
+&nbsp;
+&nbsp;        //language=SQL
+<b class="nc">&nbsp;        String query = &quot;SELECT u FROM &quot; + getTableName() + &quot; u WHERE u.id_user2 = :userID&quot;;</b>
+<b class="nc">&nbsp;        List&lt;Friendship&gt; friends = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            friends = em.createQuery(query, Friendship.class).setParameter(&quot;userID&quot;, userID).getResultList();</b>
+<b class="nc">&nbsp;        } catch(NoResultException e) {</b>
+<b class="nc">&nbsp;            friends = null;</b>
+&nbsp;        } finally {
+<b class="nc">&nbsp;            em.close();</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return friends;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Friendship findFriendByFriendshipID(Integer ID) {
+<b class="nc">&nbsp;        EntityManager em = getEntityManager();</b>
+&nbsp;
+&nbsp;        //language=SQL
+<b class="nc">&nbsp;        String query = &quot;SELECT u FROM &quot; + getTableName() + &quot; u WHERE u.ID = :fsID&quot;;</b>
+<b class="nc">&nbsp;        Friendship friend = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            friend = em.createQuery(query, Friendship.class).setParameter(&quot;fsID&quot;, ID).getSingleResult();</b>
+<b class="nc">&nbsp;        } catch(NoResultException e) {</b>
+<b class="nc">&nbsp;            friend = null;</b>
+&nbsp;        } finally {
+<b class="nc">&nbsp;            em.close();</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return friend;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-13 04:22</div>
+</div>
+</body>
+</html>

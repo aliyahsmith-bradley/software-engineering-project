@@ -12,13 +12,13 @@ Welcome to our Software Engineering Project, Five Card Draw Game UI/Web App! In 
 
 ## Phases of the Project
 
-### 1. User Stories
+### User Stories
 
 In this initial phase, we will define the key user stories and requirements for our project. This includes understanding the needs and expectations of our target audience, as well as identifying the essential features and functionalities that our application must provide. We will prioritize these user stories to ensure a smooth development process.
 
 Link: https://docs.google.com/spreadsheets/d/11GlUV206KtgG6MvcXchbyV5r2dSzDN3fOyjX6BjVmLY/edit?usp=sharing 
 
-## Iteration 1
+### Iteration 1
 Progress -- 
 - A UX of all the main components of our UI
 - The UI of the Home Page 
@@ -28,6 +28,19 @@ Progress --
 
 Kanban Board located under the projects tab.
 
+### Iteration 2
+Progress -- 
+- A Single Player java code where the user can play against a 'computer'. (Code Directory: software-engineering-project/src/main/java/pokersite/Logic/loginguestsignuppage
+/GameLogicSinglePlayer.java) -- Still configuring it to the UI
+- provided different backgrounds for the game table
+- background/ambient sound throughout gameplay
+- progress was made on the animation of the cards, but overall insufficient
+
+
+First Draft of Sequence Diagram: [modelling.pdf](https://github.com/aliyahsmith-bradley/software-engineering-project/blob/main/single%20player%20five%20card%20draw%20-%20SequenceDiagram.org.pdf)
+Final Draft of Sequence Diagram is under the main branch.
+
+## How to Test our Web App
 To run the UI - http://localhost:8080/software-engineering-project/main_index.jsp
 - Need to have glassfish installed
   
