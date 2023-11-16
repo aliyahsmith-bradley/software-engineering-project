@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RemoveFriend.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.servlet</a> &gt; <span class="el_source">RemoveFriend.java</span></div><h1>RemoveFriend.java</h1><pre class="source lang-java linenums">package pokersite.controller.servlet;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import pokersite.controller.service.UserService;
+import pokersite.model.entity.Friend_Request;
+import pokersite.model.entity.Friendship;
+import pokersite.model.entity.User;
+
+import java.io.IOException;
+
+@WebServlet(name = &quot;removeFriend&quot;, value = &quot;/removeFriend&quot;)
+<span class="nc" id="L16">public class RemoveFriend extends HttpServlet {</span>
+    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+<span class="nc" id="L18">        HttpSession session = request.getSession();</span>
+<span class="nc" id="L19">        User us = (User) session.getAttribute(&quot;User&quot;);</span>
+<span class="nc" id="L20">        Integer fsID = Integer.valueOf(request.getParameter(&quot;friend&quot;));</span>
+
+<span class="nc" id="L22">        Friendship fs = UserService.findFriendByFriendshipID(fsID);</span>
+
+
+<span class="nc" id="L25">        Friend_Request frToRemove = UserService.findFrByUserIDSenderAndUserIDReceiver(fs.getId_user1(), us.getID());</span>
+<span class="nc" id="L26">        frToRemove.setStatus((byte) 0);</span>
+
+<span class="nc" id="L28">        UserService.removeFriend(fs, frToRemove);</span>
+
+
+
+<span class="nc" id="L32">    }</span>
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+<span class="nc" id="L35">        processRequest(request,response);</span>
+<span class="nc" id="L36">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

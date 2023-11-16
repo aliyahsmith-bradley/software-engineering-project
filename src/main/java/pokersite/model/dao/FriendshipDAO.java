@@ -19,13 +19,10 @@ public class FriendshipDAO extends GenericDAO<Friendship> {
         String query = "SELECT u FROM " + getTableName() + " u WHERE u.id_user2 = :userID";
         List<Friendship> friends = null;
 
-        try {
-            friends = em.createQuery(query, Friendship.class).setParameter("userID", userID).getResultList();
-        } catch(NoResultException e) {
-            friends = null;
-        } finally {
-            em.close();
-        }
+        // removed try and catch here
+        friends = em.createQuery(query, Friendship.class).setParameter("userID", userID).getResultList();
+        em.close();
+
         return friends;
     }
 

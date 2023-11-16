@@ -2,11 +2,9 @@ package model.util;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
 import pokersite.util.PasswordUtil;
 
 public class PasswordUtilTest {
-
     @Test
     public void testHashing(){
         String mypass = "123456";
@@ -16,14 +14,12 @@ public class PasswordUtilTest {
                 () -> assertTrue( hashed.length() > 6, "Hashed password must have a length greater than 6")
         );
     }
-
     @Test public void testPasswordCompare(){
         String mypass = "654321";
         String hashed = PasswordUtil.hash(mypass);
         boolean equals = PasswordUtil.compare(mypass,hashed);
         assertTrue(equals,"Unhashed and Hashed must be equal when compared");
     }
-
     @Test public void testPasswordCompareDifferentPasswords(){
         String mypass = "654321";
         String incorrect = "65432";

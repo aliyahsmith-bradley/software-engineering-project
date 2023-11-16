@@ -24,6 +24,7 @@ public class SendFriendRequest extends HttpServlet {
         fr.setStatus((byte) 0);
         fr.setDt_sent(Timestamp.from(Instant.now()));
         UserService.sendFriendRequest(fr);
+        response.sendRedirect("testPage.jsp");
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request,response);

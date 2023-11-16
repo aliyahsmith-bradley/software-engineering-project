@@ -71,7 +71,7 @@ public abstract class GenericDAO<E extends BaseEntity> {
         EntityManager em = this.getEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(entity);
+            em.persist(entity);
             em.getTransaction().commit();
             em.close();
         }catch(Exception ex){

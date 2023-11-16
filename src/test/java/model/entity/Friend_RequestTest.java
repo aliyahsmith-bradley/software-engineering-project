@@ -19,7 +19,6 @@ public class Friend_RequestTest {
                 ()-> assertNull(fr.getDt_sent())
         );
     }
-
     @Test public void testConstructor() {
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(10, 1, 2, (byte) 0, ts);
@@ -31,7 +30,6 @@ public class Friend_RequestTest {
                 ()-> assertEquals(ts, fr.getDt_sent())
         );
     }
-
     @Test public void testSetters() {
         Friend_Request fr = new Friend_Request();
         Timestamp ts = Timestamp.from(Instant.now());
