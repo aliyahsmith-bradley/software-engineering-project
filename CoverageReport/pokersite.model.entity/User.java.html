@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.model.entity</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">// SPDX-License-Identifier: MIT
+package pokersite.model.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+
+@Entity
+public class User extends BaseEntity {
+<span class="fc" id="L9">    @Id @Column(name=&quot;id_user&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+    private Integer ID = null;
+
+    private String username;
+    private String Password;
+    private String email;
+
+    private String first_name;
+    private String last_name;
+
+    private String phone_number;
+
+<span class="fc" id="L21">    public User(){</span>
+<span class="fc" id="L22">    }</span>
+
+<span class="fc" id="L24">    public User(Integer ID, String username, String password, String email, String first_name, String last_name, String phone_number) {</span>
+<span class="fc" id="L25">        this.ID = ID;</span>
+<span class="fc" id="L26">        Password = password;</span>
+<span class="fc" id="L27">        this.username = username;</span>
+<span class="fc" id="L28">        this.email = email;</span>
+<span class="fc" id="L29">        this.first_name = first_name;</span>
+<span class="fc" id="L30">        this.last_name = last_name;</span>
+<span class="fc" id="L31">        this.phone_number = phone_number;</span>
+<span class="fc" id="L32">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L35">        return username;</span>
+    }
+    public void setUsername(String username) {
+<span class="fc" id="L38">        this.username = username;</span>
+<span class="fc" id="L39">    }</span>
+
+    public Integer getID() {
+<span class="fc" id="L42">        return ID;</span>
+    }
+    public void setID(Integer ID) {
+<span class="fc" id="L45">        this.ID = ID;</span>
+<span class="fc" id="L46">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L49">        return Password;</span>
+    }
+
+    @JsonIgnore
+    public void setPassword(String password) {
+<span class="fc" id="L54">        Password = password;</span>
+<span class="fc" id="L55">    }</span>
+
+<span class="fc" id="L57">    public String getEmail() {return email;}</span>
+<span class="fc" id="L58">    public void setEmail(String email) {this.email = email;}</span>
+
+<span class="fc" id="L60">    public String getFirst_name() {return first_name;}</span>
+
+<span class="fc" id="L62">    public void setFirst_name(String first_name) {this.first_name = first_name;}</span>
+
+<span class="fc" id="L64">    public String getLast_name() {return last_name;}</span>
+
+<span class="fc" id="L66">    public void setLast_name(String last_name) {this.last_name = last_name;}</span>
+
+<span class="fc" id="L68">    public String getPhone_number() {return phone_number;}</span>
+
+<span class="fc" id="L70">    public void setPhone_number(String phoneNumber) {this.phone_number = phoneNumber;}</span>
+}
+
+/**
+ create table user(
+    id_user int not null auto_increment,
+    name_user varchar(50),
+    login varchar(30) not null,
+    password char(60) not null,
+    permission int not null default 1,
+    constraint user_pk primary key(id_user),
+    constraint user_login_uk unique key(login)
+ );
+ */
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

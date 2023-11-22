@@ -62,13 +62,12 @@ public class UserDAO extends GenericDAO<User> {
         String query = "SELECT u FROM " + getTableName() + " u WHERE u.username LIKE :username";
         List<User> found = null;
 
-        try {
-            found = em.createQuery(query, User.class).setParameter("username", username + "%").getResultList();
-        } catch(NoResultException e) {
-            found = null;
-        } finally {
-            em.close();
-        }
+        // removed try and catch here
+
+        found = em.createQuery(query, User.class).setParameter("username", username + "%").getResultList();
+
+        em.close();
+
         return found;
     }
 

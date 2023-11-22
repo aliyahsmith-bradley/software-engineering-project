@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FriendRequestDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.model.dao</a> &gt; <span class="el_source">FriendRequestDAO.java</span></div><h1>FriendRequestDAO.java</h1><pre class="source lang-java linenums">package pokersite.model.dao;
+
+import pokersite.model.entity.Friend_Request;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import java.util.List;
+
+public class FriendRequestDAO extends GenericDAO&lt;Friend_Request&gt; {
+    public FriendRequestDAO() {
+<span class="fc" id="L11">        super(Friend_Request.class);</span>
+<span class="fc" id="L12">    }</span>
+
+    public Friend_Request findFriendRequestByFrID(Integer ID) {
+<span class="fc" id="L15">        EntityManager em = getEntityManager();</span>
+
+        //language=mysql
+<span class="fc" id="L18">        String query = &quot;SELECT u FROM &quot; + getTableName() + &quot; u WHERE u.ID = :ID&quot;;</span>
+<span class="fc" id="L19">        Friend_Request found = null;</span>
+
+        try {
+<span class="fc" id="L22">            found = em.createQuery(query, Friend_Request.class).setParameter(&quot;ID&quot;, ID).getSingleResult();</span>
+<span class="fc" id="L23">        } catch (NoResultException ex) {</span>
+<span class="fc" id="L24">            found = null;</span>
+        } finally {
+<span class="fc" id="L26">            em.close();</span>
+        }
+<span class="fc" id="L28">        return found;</span>
+    }
+
+    public Friend_Request findFrByUserIDSenderAndUserIDReceiver(Integer IDSender, Integer IDReceiver) {
+<span class="fc" id="L32">        EntityManager em = getEntityManager();</span>
+
+        //language=mysql
+<span class="fc" id="L35">        String query = &quot;SELECT u FROM &quot; + getTableName() + &quot; u WHERE u.id_user_sender = :IDSender AND u.id_user_receiver = :IDReceiver&quot;;</span>
+<span class="fc" id="L36">        Friend_Request found = null;</span>
+
+        try {
+<span class="fc" id="L39">            found = em.createQuery(query, Friend_Request.class).setParameter(&quot;IDSender&quot;, IDSender).setParameter(&quot;IDReceiver&quot;, IDReceiver).getSingleResult();</span>
+<span class="fc" id="L40">        } catch (NoResultException ex) {</span>
+<span class="fc" id="L41">            found = null;</span>
+        } finally {
+<span class="fc" id="L43">            em.close();</span>
+        }
+<span class="fc" id="L45">        return found;</span>
+    }
+
+    public List&lt;Friend_Request&gt; findFriendRequestsByUserID(Integer userID) {
+<span class="fc" id="L49">        EntityManager em = getEntityManager();</span>
+
+        //language=SQL
+<span class="fc" id="L52">        String query = &quot;SELECT u FROM &quot; + getTableName() + &quot; u WHERE u.id_user_receiver = :userID&quot;;</span>
+<span class="fc" id="L53">        List&lt;Friend_Request&gt; friendRequests = null;</span>
+
+        // removed try and catch here
+<span class="fc" id="L56">        friendRequests = em.createQuery(query, Friend_Request.class).setParameter(&quot;userID&quot;, userID).getResultList();</span>
+<span class="fc" id="L57">        em.close();</span>
+
+<span class="fc" id="L59">        return friendRequests;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

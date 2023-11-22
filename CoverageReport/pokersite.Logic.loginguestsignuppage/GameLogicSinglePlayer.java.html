@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameLogicSinglePlayer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.Logic.loginguestsignuppage</a> &gt; <span class="el_source">GameLogicSinglePlayer.java</span></div><h1>GameLogicSinglePlayer.java</h1><pre class="source lang-java linenums">package pokersite.Logic.loginguestsignuppage;
+
+import java.lang.reflect.Array;
+import java.util.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+<span class="nc" id="L10">public class GameLogicSinglePlayer {</span>
+
+
+    private static final int INITIAL_COINS = 100;
+    private static final int HAND_SIZE = 5;
+<span class="nc" id="L15">    private static final List&lt;String&gt; cardDeck = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L16">    private static int pot = 0;</span>
+
+
+    static {
+
+        //creating the deck of cards
+<span class="nc" id="L22">        String[] suits = new String[]{&quot;Hearts&quot;, &quot;Diamonds&quot;, &quot;Clubs&quot;, &quot;Spades&quot;};</span>
+<span class="nc" id="L23">        String[] ranks = new String[]{&quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;Jack&quot;, &quot;Queen&quot;, &quot;King&quot;, &quot;Ace&quot;};</span>
+
+        //formatting suits and ranks
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        for (String suit : suits) {</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">            for (String rank : ranks) {</span>
+<span class="nc" id="L28">                cardDeck.add(rank + &quot;_of_&quot; + suit);</span>
+            }
+        }
+<span class="nc" id="L31">    }</span>
+
+    public static ArrayList&lt;String&gt; dealHand(ArrayList&lt;String&gt; deck){
+<span class="nc" id="L34">        Collections.shuffle(deck);</span>
+
+<span class="nc" id="L36">        ArrayList&lt;String&gt; hand = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        for (int i = 0; i &lt; HAND_SIZE; i++) {</span>
+<span class="nc" id="L39">            hand.add(deck.get(i));</span>
+        }
+<span class="nc" id="L41">        removeCardsFromDeck(deck, hand);</span>
+<span class="nc" id="L42">        return hand;</span>
+    }
+
+    public static ArrayList&lt;String&gt; removeCardsFromDeck(ArrayList&lt;String&gt; deck, ArrayList&lt;String&gt; cardsToRemove){
+<span class="nc" id="L46">        deck.removeIf(cardsToRemove::contains);</span>
+<span class="nc" id="L47">        return deck;</span>
+    }
+    public static void main(String[] args) {
+
+        //Copy card deck
+<span class="nc" id="L52">        List&lt;String&gt; deck = new ArrayList&lt;&gt;(cardDeck);</span>
+        // Testing: System.out.println(&quot;Deck before shuffle, &quot; + deck);
+
+        //Shuffle the cards
+<span class="nc" id="L56">        Collections.shuffle(deck);</span>
+
+        //Assign five cards to the user then five to the computer
+<span class="nc" id="L59">        List&lt;String&gt; userHand = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L60">        List&lt;String&gt; computerHand = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L61">        List&lt;String&gt; cardsToRemove = new ArrayList&lt;&gt;();</span>
+
+        //Testing: System.out.println(&quot;Deck after shuffle, &quot; + deck);
+
+        //assign five cards to user then remove those from the deck
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (int i = 0; i &lt; HAND_SIZE; i++) {</span>
+<span class="nc" id="L67">            userHand.add(deck.get(i));</span>
+<span class="nc" id="L68">            cardsToRemove.add(deck.get(i));</span>
+        }
+
+        //Testing: System.out.println(&quot;User hand: &quot; + userHand);
+<span class="nc" id="L72">        deck.removeIf(cardsToRemove::contains);</span>
+
+        //Testing: System.out.println(&quot;Deck dealing out userHand &quot; + deck);
+
+        //clear the cards to remove array
+<span class="nc" id="L77">        cardsToRemove.clear();</span>
+
+        //cards to remove from deck
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (int i = 0; i &lt; HAND_SIZE; i++) {</span>
+<span class="nc" id="L81">            computerHand.add(deck.get(i + HAND_SIZE));</span>
+<span class="nc" id="L82">            cardsToRemove.add(deck.get(i + HAND_SIZE));</span>
+        }
+
+        //Testing: System.out.println(&quot;Computer hand: &quot; + computerHand);
+<span class="nc" id="L86">        deck.removeIf(cardsToRemove::contains);</span>
+
+        //Testing: System.out.println(&quot;Deck dealing out computerHand &quot; + deck);
+
+
+<span class="nc" id="L91">        Scanner scanner = new Scanner(System.in);</span>
+
+        //start off the computer and user with 100 coins to start
+<span class="nc" id="L94">        int userCoins = INITIAL_COINS;</span>
+<span class="nc" id="L95">        int computerCoins = INITIAL_COINS;</span>
+
+
+<span class="nc" id="L98">        System.out.println(&quot;Welcome to Five Card Draw: Feeling Lucky?&quot;);</span>
+
+
+        //give the user their hand
+<span class="nc" id="L102">        System.out.println(&quot;Lets start with you User. Here is your hand: &quot; + userHand + &quot; and you have this many coins: &quot;</span>
+                + userCoins);
+<span class="nc" id="L104">        System.out.println(&quot;What would you like to do, check or bet?&quot;);</span>
+<span class="nc" id="L105">        String userChoice1 = scanner.nextLine();</span>
+
+
+        //do the first ever round for the user
+<span class="nc bnc" id="L109" title="All 4 branches missed.">        while (!userChoice1.equalsIgnoreCase(&quot;check&quot;) &amp;&amp; !userChoice1.equalsIgnoreCase(&quot;bet&quot;)) {</span>
+<span class="nc" id="L110">            System.out.println(&quot;Invalid choice.Please enter either 'check' or 'bet'.&quot;);</span>
+<span class="nc" id="L111">            userChoice1 = scanner.nextLine();</span>
+        }
+
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if (userChoice1.equals(&quot;check&quot;)) {</span>
+<span class="nc" id="L115">            System.out.println(&quot;Moving on. Computers turn&quot;);</span>
+<span class="nc" id="L116">            int userBet1 = 0;</span>
+<span class="nc" id="L117">            computersTurn(userChoice1, userBet1, computerCoins, userCoins, userHand, deck, computerHand);</span>
+
+        }
+
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (userChoice1.equals(&quot;bet&quot;)) {</span>
+<span class="nc" id="L122">            System.out.println(&quot;How much would you like to bet?&quot;);</span>
+<span class="nc" id="L123">            int userBet1 = scanner.nextInt();</span>
+<span class="nc" id="L124">            pot += userBet1;</span>
+<span class="nc" id="L125">            System.out.println(&quot;The new pot's amount is &quot; + pot);</span>
+<span class="nc" id="L126">            userCoins -= userBet1;</span>
+<span class="nc" id="L127">            System.out.println(&quot;You now have &quot; + userCoins + &quot; coins&quot;);</span>
+<span class="nc" id="L128">            computersTurn(userChoice1, userBet1, computerCoins, userCoins, userHand, deck, computerHand);</span>
+        }
+<span class="nc" id="L130">    }</span>
+
+    private static void computersTurn(String userChoice1, int userBet1, int computerCoins, int userCoins, List&lt;String&gt; userHand, List&lt;String&gt; deck, List&lt;String&gt; computerHand) {
+
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (userChoice1.equals(&quot;check&quot;)) {</span>
+<span class="nc" id="L135">            System.out.println(&quot;Computer Checked&quot;);</span>
+<span class="nc" id="L136">            userRound2(userHand, deck, computerHand, userCoins, computerCoins, userBet1);</span>
+        }
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (userChoice1.equals(&quot;bet&quot;)) {</span>
+<span class="nc" id="L139">            int computerBet = 0;</span>
+<span class="nc" id="L140">            int amountHaveToRaise = 0;</span>
+<span class="nc" id="L141">            computerBet = userBet1;</span>
+<span class="nc" id="L142">            pot += computerBet;</span>
+<span class="nc" id="L143">            computerCoins -= computerBet;</span>
+<span class="nc" id="L144">            System.out.println(&quot;Computer matched your bet of &quot; + userBet1);</span>
+<span class="nc" id="L145">            amountHaveToRaise += userBet1;</span>
+<span class="nc" id="L146">            System.out.println(&quot;Current pot is &quot; + pot);</span>
+<span class="nc" id="L147">            userRound2(userHand, deck, computerHand, userCoins, computerCoins, userBet1);</span>
+        }
+
+
+<span class="nc" id="L151">    }</span>
+
+    //getting the new cards
+    private static List&lt;String&gt; replaceCards(List&lt;String&gt; userHand, List&lt;String&gt; deck, Scanner scanner, boolean hasAce, int maxReplacements) {
+<span class="nc" id="L155">        System.out.println(&quot;Your current hand: &quot; + userHand);</span>
+<span class="nc" id="L156">        System.out.println(&quot;Which cards would you like to discard? Please enter the indices (starting from 0) separated by spaces:&quot;);</span>
+
+<span class="nc" id="L158">        String[] indices = scanner.nextLine().split(&quot; &quot;);</span>
+<span class="nc" id="L159">        List&lt;String&gt; newCards = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        for (String index : indices) {</span>
+<span class="nc" id="L161">            int i = Integer.parseInt(index);</span>
+<span class="nc bnc" id="L162" title="All 6 branches missed.">            if (i &gt;= 0 &amp;&amp; i &lt; userHand.size() &amp;&amp; newCards.size() &lt; maxReplacements) {</span>
+<span class="nc" id="L163">                userHand.remove(i);</span>
+<span class="nc" id="L164">                userHand.add(i, deck.get(0));</span>
+<span class="nc" id="L165">                deck.remove(0);</span>
+<span class="nc" id="L166">                newCards.add(deck.get(0));</span>
+            }
+        }
+
+<span class="nc" id="L170">        return userHand;</span>
+    }
+
+
+    //getting new cards
+    private static void userRound2(List&lt;String&gt; userHand, List&lt;String&gt; deck, List&lt;String&gt; computerHand, int userCoins, int computerCoins, int userBet1) {
+
+<span class="nc" id="L177">        Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L178">        System.out.println(&quot;Would you like to get new cards? (yes or no)&quot;);</span>
+<span class="nc" id="L179">        String askNewCards = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L181" title="All 4 branches missed.">        while (!askNewCards.equalsIgnoreCase(&quot;yes&quot;) &amp;&amp; !askNewCards.equalsIgnoreCase(&quot;no&quot;)) {</span>
+<span class="nc" id="L182">            System.out.println(&quot;Invalid choice.Please enter either 'yes' or 'no'.&quot;);</span>
+<span class="nc" id="L183">            askNewCards = scanner.nextLine();</span>
+        }
+
+<span class="nc" id="L186">        boolean hasAce = false;</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        for (String card : userHand) {</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            if (card.startsWith(&quot;Ace&quot;)) {</span>
+<span class="nc" id="L189">                hasAce = true;</span>
+<span class="nc" id="L190">                break;</span>
+            }
+<span class="nc" id="L192">        }</span>
+<span class="nc bnc" id="L193" title="All 4 branches missed.">        if (askNewCards.equals(&quot;yes&quot;) &amp;&amp; !hasAce) {//user does not have an ace of any suit</span>
+<span class="nc" id="L194">            int maxReplacements = 3;</span>
+<span class="nc" id="L195">            List&lt;String&gt; updatedHand = replaceCards(userHand, deck, scanner, hasAce, maxReplacements);</span>
+<span class="nc" id="L196">            System.out.println(&quot;Computer did not want new cards&quot;);</span>
+<span class="nc" id="L197">            restOfRounds(userCoins, computerCoins, userBet1);</span>
+
+        }
+<span class="nc bnc" id="L200" title="All 4 branches missed.">        if (askNewCards.equals(&quot;yes&quot;) &amp;&amp; hasAce) {//user does not have a ace of any suit)</span>
+<span class="nc" id="L201">            int maxReplacements = 4;</span>
+<span class="nc" id="L202">            List&lt;String&gt; updatedHand = replaceCards(userHand, deck, scanner, hasAce, maxReplacements);</span>
+<span class="nc" id="L203">            System.out.println(&quot;Your new hand is: &quot; + updatedHand);</span>
+<span class="nc" id="L204">            System.out.println(&quot;Computer did not want new cards&quot;);</span>
+<span class="nc" id="L205">            restOfRounds(userCoins, computerCoins, userBet1);</span>
+
+        }
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        if (askNewCards.equals(&quot;no&quot;)) {</span>
+<span class="nc" id="L209">            System.out.println(&quot;Computer wants new cards&quot;);</span>
+            //System.out.println(&quot;Computer's current hand is: &quot; + computerHand);
+<span class="nc bnc" id="L211" title="All 4 branches missed.">            if (!computerHand.isEmpty() &amp;&amp; hasAce) {</span>
+<span class="nc" id="L212">                Random random = new Random();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="nc" id="L214">                    int randomIndex = random.nextInt(4); // Generate a random integer from 0 to 4</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">                    if (randomIndex &lt; computerHand.size()) {</span>
+                        // Replace the card at the randomly chosen index with a new card from the deck
+<span class="nc" id="L217">                        computerHand.set(randomIndex, deck.remove(0));</span>
+<span class="nc" id="L218">                        restOfRounds(userCoins, computerCoins, userBet1);</span>
+                    }
+                }
+<span class="nc bnc" id="L221" title="All 4 branches missed.">                if (!computerHand.isEmpty() &amp;&amp; !hasAce) {</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">                    for (int i = 0; i &lt; 4; i++) {</span>
+<span class="nc" id="L223">                        int randomIndex = random.nextInt(3); // Generate a random integer from 0 to 3</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">                        if (randomIndex &lt; computerHand.size()) {</span>
+                            // Replace the card at the randomly chosen index with a new card from the deck
+<span class="nc" id="L226">                            computerHand.set(randomIndex, deck.remove(0));</span>
+                        }
+                    }
+<span class="nc" id="L229">                    restOfRounds(userCoins, computerCoins, userBet1);</span>
+                }
+                //System.out.println(&quot;Computer's new hand is: &quot; + computerHand);
+
+                }
+            }
+
+<span class="nc" id="L236">        }</span>
+
+        public static void restOfRounds(int userCoins, int computerCoins, int userBet1){
+
+            //while both players have coins
+<span class="nc bnc" id="L241" title="All 4 branches missed.">            while(userCoins &gt; 0 &amp;&amp; computerCoins &gt; 0){</span>
+<span class="nc" id="L242">                Scanner scanner = new Scanner(System.in);</span>
+<span class="nc" id="L243">                System.out.println(&quot;User, would you like to raise, check, fold &quot;);</span>
+<span class="nc" id="L244">                String userGo = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L246" title="All 8 branches missed.">                while (!userGo.equalsIgnoreCase(&quot;check&quot;) &amp;&amp; !userGo.equalsIgnoreCase(&quot;call&quot;) &amp;&amp; !userGo.equalsIgnoreCase(&quot;raise&quot;) &amp;&amp; !userGo.equalsIgnoreCase(&quot;fold&quot;)) {</span>
+<span class="nc" id="L247">                    System.out.println(&quot;Invalid choice.Please enter either 'check', 'raise' or 'fold' &quot;);</span>
+<span class="nc" id="L248">                    userGo = scanner.nextLine();</span>
+                }
+
+<span class="nc bnc" id="L251" title="All 2 branches missed.">                if(userGo.equalsIgnoreCase(&quot;raise&quot;)){</span>
+<span class="nc" id="L252">                    System.out.println(&quot;How much would you like to raise?&quot;);</span>
+<span class="nc" id="L253">                    int userRaise = scanner.nextInt();</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">                    if (userRaise &gt; userCoins){</span>
+<span class="nc" id="L255">                        System.out.println(&quot;You dont have that many coins, please enter again. You have: &quot; + userCoins + &quot; coins&quot;);</span>
+<span class="nc" id="L256">                        userRaise = scanner.nextInt();</span>
+                    }
+                    else {
+<span class="nc" id="L259">                        pot += userRaise;</span>
+<span class="nc" id="L260">                        System.out.println(&quot;The new pot's amount is &quot; + pot);</span>
+<span class="nc" id="L261">                        userCoins -= userRaise;</span>
+<span class="nc" id="L262">                        System.out.println(&quot;You now have &quot; + userCoins + &quot; coins&quot;);</span>
+<span class="nc" id="L263">                        System.out.println(&quot;Computers turn&quot;);</span>
+<span class="nc" id="L264">                        computerCoins = computerCoins - userRaise;</span>
+<span class="nc" id="L265">                        System.out.println(&quot;Computer matched your raise&quot;);</span>
+<span class="nc" id="L266">                        pot = pot + userRaise;</span>
+<span class="nc" id="L267">                        System.out.println(&quot;The new pot's amount is &quot; + pot);</span>
+                    }
+                }
+<span class="nc bnc" id="L270" title="All 2 branches missed.">                if(userGo.equalsIgnoreCase(&quot;fold&quot;)){</span>
+<span class="nc" id="L271">                    System.out.println(&quot;You folded for this round. Computers Go&quot;);</span>
+                    //Computer go function
+                }
+
+<span class="nc bnc" id="L275" title="All 2 branches missed.">                if(userGo.equalsIgnoreCase(&quot;check&quot;)) {</span>
+<span class="nc" id="L276">                    System.out.println(&quot;The last bet was: &quot; + userBet1 + &quot;Would you like to match this bet?&quot;);</span>
+<span class="nc" id="L277">                    String userCheck = scanner.nextLine();</span>
+<span class="nc bnc" id="L278" title="All 4 branches missed.">                    while (!userCheck.equalsIgnoreCase(&quot;yes&quot;) &amp;&amp; !userCheck.equalsIgnoreCase(&quot;no&quot;)){</span>
+<span class="nc" id="L279">                        System.out.println(&quot;Invalid choice.Please enter either 'check', 'raise' or 'fold' &quot;);</span>
+<span class="nc" id="L280">                        userCheck = scanner.nextLine();</span>
+                    }
+<span class="nc bnc" id="L282" title="All 2 branches missed.">                    if (userCheck.equalsIgnoreCase(&quot;yes&quot;)) {</span>
+<span class="nc" id="L283">                        pot = pot + userBet1;</span>
+<span class="nc" id="L284">                        System.out.println(&quot;Ok, your bet is: &quot; + userBet1 + &quot;the current pot is: &quot; + userBet1 + pot);</span>
+                        //Computer Go Function
+                    }
+<span class="nc bnc" id="L287" title="All 2 branches missed.">                    if (userCheck.equalsIgnoreCase(&quot;no&quot;)) {</span>
+<span class="nc" id="L288">                        System.out.println(&quot;Ok, moving on to computer&quot;);</span>
+                        //Computer Go Function
+                    }
+                }
+<span class="nc" id="L292">            }</span>
+<span class="nc" id="L293">        }</span>
+    }
+
+
+
+
+    //COMPLICATED. Logic below, ignore for now
+    //-----------------------------------------------------------------------------------------------------------------------------------
+/*
+    private static List&lt;String&gt; shuffleCards(List&lt;String&gt; deck, List&lt;String&gt; userHand) {
+        List&lt;String&gt; newCards = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; 3; i++) {
+            if (deck.isEmpty()) {
+                break;
+            }
+            String drawnCard = deck.remove(0);
+            newCards.add(drawnCard);
+        }
+        return newCards;
+    }
+
+    private static List&lt;String&gt; replaceCards(List&lt;String&gt; userHand, List&lt;String&gt; deck, Scanner scanner, boolean hasAce) {
+        System.out.println(&quot;Your current hand: &quot; + userHand);
+        System.out.println(&quot;Which cards would you like to discard? Please enter the indices (starting from 0) separated by spaces:&quot;);
+
+        String[] indices = scanner.nextLine().split(&quot; &quot;);
+        List&lt;String&gt; newCards = new ArrayList&lt;&gt;();
+        int maxReplacements = hasAce ? 4 : 3;
+        for (String index : indices) {
+            int i = Integer.parseInt(index);
+            if (i &gt;= 0 &amp;&amp; i &lt; userHand.size() &amp;&amp; newCards.size() &lt; maxReplacements) {
+                userHand.remove(i);
+                userHand.add(i, deck.get(0));
+                deck.remove(0);
+            }
+        }
+
+        return userHand;
+    }
+
+
+    private static void userRound2(List&lt;String&gt; userHand, List&lt;String&gt; deck){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(&quot;Would you like to get new cards? (yes or no)&quot;);
+        String askNewCards = scanner.nextLine();
+
+        while (!askNewCards.equalsIgnoreCase(&quot;yes&quot;) &amp;&amp; !askNewCards.equalsIgnoreCase(&quot;no&quot;)){
+            System.out.println(&quot;Invalid choice.Please enter either 'yes' or 'no'.&quot;);
+            askNewCards = scanner.nextLine();
+        }
+
+        boolean hasAce = false;
+        for (String card : userHand) {
+            if (card.startsWith(&quot;Ace&quot;)) {
+                hasAce = true;
+                break;
+            }
+        }
+        if(askNewCards.equals(&quot;yes&quot;) &amp;&amp; !hasAce) {//user does not have a ace of any suit)
+            List&lt;String&gt; updatedHand = replaceCards(userHand, deck, scanner, hasAce);
+            System.out.println(&quot;Your new hand is: &quot; + updatedHand);
+
+        }
+        if(askNewCards.equals(&quot;yes&quot;) &amp;&amp; hasAce) {//user does not have a ace of any suit)
+            List&lt;String&gt; updatedHand = replaceCards(userHand, deck, scanner, hasAce);
+            System.out.println(&quot;Your new hand is: &quot; + updatedHand);
+
+        }
+
+    }
+
+
+    class BetResult {
+        int computerBet;
+        int updatedPot;
+
+        public BetResult(int computerBet, int updatedPot) {
+            this.computerBet = computerBet;
+            this.updatedPot = updatedPot;
+        }
+    }
+
+    private static void computersTurnRound1(List&lt;String&gt; computerHand, List&lt;String&gt; userHand, List&lt;String&gt; deck, int userBet1,String userChoice1, int computerCoins){
+        GameLogicSinglePlayer game = new GameLogicSinglePlayer();
+
+        if(decideComputerAction(computerHand, userChoice1, computerCoins).equals(&quot;check&quot;)){
+            userRound2(userHand, deck);
+        }else if(decideComputerAction(computerHand, userChoice1, computerCoins).equals(&quot;fold&quot;)) {
+            userRound2(userHand, deck);
+
+        }else if(decideComputerAction(computerHand, userChoice1, computerCoins).equals(&quot;call&quot;)) {
+            // did a bet and return the bet the computer did and the new pot amount
+            BetResult result = game.decideComputerBet(userBet1,computerCoins, decideComputerAction(computerHand, userChoice1, computerCoins));
+            int computerBet = result.computerBet;
+            int updatedPot = result.updatedPot;
+            System.out.println(&quot;Computer did a bet of &quot; + computerBet);
+            System.out.println(&quot;The new pot amount is &quot; + updatedPot);
+            System.out.println(&quot;Your Turn User&quot;);
+            userRound2(userHand, deck);
+        }else{
+            BetResult result = game.decideComputerBet(userBet1, computerCoins, decideComputerAction(computerHand, userChoice1, computerCoins));
+            int computerBet = result.computerBet;
+            int updatedPot = result.updatedPot;
+            System.out.println(&quot;Computer did a call of &quot; + computerBet);
+            System.out.println(&quot;The new pot amount is &quot; + updatedPot);
+            System.out.println(&quot;Your Turn User&quot;);
+            userRound2(userHand, deck);
+
+        }
+    }
+    private BetResult decideComputerBet(int userBet1, int computerCoins, String decideComputerAction) {
+
+        if(decideComputerAction.equals(&quot;raise&quot;)){
+            int computerBet = 0;
+            computerBet = userBet1 + 10;
+            pot = computerBet + userBet1;
+            return new BetResult(computerBet, pot);
+        }else if(decideComputerAction.equals(&quot;call&quot;)){
+            int computerBet = 0;
+            if(userBet1 &gt; 0) {
+                computerCoins = computerCoins - userBet1;
+                pot = userBet1 + userBet1;
+                return new BetResult(computerBet, pot);
+            }
+            pot = computerBet + userBet1;
+            return new BetResult(computerBet, pot);
+
+        }
+
+        return new BetResult(0, 0); // Placeholder value
+    }
+
+    private static String decideComputerAction(List&lt;String&gt; computerHand, String userChoice1, int computerCoins) {
+
+        //if it is a good hand, they should raise
+        if (hasPair(computerHand) || hasThreeToFlush(computerHand) || hasThreeToFlush(computerHand)) {
+            return &quot;raise&quot;;
+
+            //if its a ok hand, just call
+        } else if (computerCoins &gt; 0 &amp;&amp; userChoice1.equals(&quot;bet&quot;)){
+            return &quot;call&quot;;
+
+            //if you can check and its a mid hand, check
+        }else if(userChoice1.equals(&quot;check&quot;) &amp;&amp; !(hasPair(computerHand) || hasThreeToFlush(computerHand) || hasThreeToFlush(computerHand)))
+        {
+            return &quot;check&quot;;
+
+            //bad hand, dont do nothing
+        } else {
+            return &quot;fold&quot;;
+        }
+
+
+    }
+
+
+        private static boolean hasPair (List &lt; String &gt; computerHand) {
+            Set&lt;String&gt; uniqueRanks = new HashSet&lt;&gt;();
+            for (String card : computerHand) {
+                String rank = card.split(&quot; &quot;)[0];
+                if (!uniqueRanks.add(rank)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static boolean hasThreeToStraight (List &lt; String &gt; computerHand) {
+            List&lt;String&gt; ranks = new ArrayList&lt;&gt;();
+            for (String card : computerHand) {
+                String rank = card.split(&quot; &quot;)[0];
+                ranks.add(rank);
+            }
+            Collections.sort(ranks);
+            int count = 1;
+            for (int i = 0; i &lt; ranks.size() - 1; i++) {
+                if (ranks.get(i + 1).equals(ranks.get(i))) {
+                    continue;
+                }
+                if (ranks.indexOf(ranks.get(i)) + 2 &lt; ranks.indexOf(ranks.get(i + 1))) {
+                    count = 1;
+                } else {
+                    count++;
+                }
+                if (count == 3) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        (List &lt; String &gt; computerHand) {
+            Map&lt;String, Integer&gt; suitsCount = new HashMap&lt;&gt;();
+            for (String card : computerHand) {
+                String suit = card.split(&quot; &quot;)[2];
+                suitsCount.put(suit, suitsCount.getOrDefault(suit, 0) + 1);
+                if (suitsCount.get(suit) &gt;= 3) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    */
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

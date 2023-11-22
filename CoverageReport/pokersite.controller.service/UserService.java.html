@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package pokersite.controller.service;
+
+import pokersite.model.dao.FriendRequestDAO;
+import pokersite.model.dao.FriendshipDAO;
+import pokersite.model.dao.UserDAO;
+import pokersite.model.entity.Friend_Request;
+import pokersite.model.entity.Friendship;
+import pokersite.model.entity.User;
+import pokersite.util.PasswordUtil;
+
+import java.util.List;
+
+<span class="nc" id="L13">public class UserService {</span>
+<span class="fc" id="L14">    public static UserDAO dao = new UserDAO();</span>
+<span class="fc" id="L15">    public static FriendRequestDAO frdao = new FriendRequestDAO();</span>
+<span class="fc" id="L16">    public static FriendshipDAO fsdao = new FriendshipDAO();</span>
+
+    public static void setDAO(UserDAO dao){
+<span class="fc" id="L19">        UserService.dao = dao;</span>
+<span class="fc" id="L20">    }</span>
+
+    public static void setDAO(FriendRequestDAO frdao) {
+<span class="fc" id="L23">        UserService.frdao = frdao;</span>
+<span class="fc" id="L24">    }</span>
+
+    public static void setDAO(FriendshipDAO fsdao) {
+<span class="fc" id="L27">        UserService.fsdao = fsdao;</span>
+<span class="fc" id="L28">    }</span>
+
+    /***
+     * Registers new user in the DB by calling the DAO.
+     * Although you could put this method inside the Servlet,
+     *  by separating into another class, it is easier to test and mock
+     * @param newUser User entity to save (without ID)
+     * @return Saved User Entity (with ID) or null if Login already exists
+     */
+    public static User registerUser(User newUser) {
+        try {
+<span class="fc" id="L39">            String hashed = PasswordUtil.hash(newUser.getPassword());</span>
+<span class="fc" id="L40">            newUser.setPassword(hashed);</span>
+<span class="fc" id="L41">            newUser = dao.create(newUser);</span>
+<span class="nc" id="L42">        } catch (javax.persistence.PersistenceException ex) {</span>
+            //Repeated login
+<span class="nc" id="L44">            newUser = null;</span>
+<span class="nc" id="L45">            System.out.println(ex);</span>
+        }
+        finally {
+<span class="pc" id="L48">            return newUser;</span>
+        }
+    }
+
+    public static User loginUser(String email, String unhashedPassword) {
+<span class="fc" id="L53">        User found = dao.findUserByLogin(email);</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if(found!=null){</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            if(PasswordUtil.compare(unhashedPassword,found.getPassword())){</span>
+<span class="nc" id="L56">                return found;</span>
+            }
+        }
+<span class="fc" id="L59">        return found;</span>
+    }
+
+    public static List&lt;User&gt; searchForUsersByUserName(String username) {
+<span class="fc" id="L63">        List&lt;User&gt; Users = dao.searchForUsersByUserName(username);</span>
+<span class="fc" id="L64">        return Users;</span>
+    }
+
+    public static User findUserByUserID(Integer ID) {
+<span class="fc" id="L68">        return dao.findUserByID(ID);</span>
+    }
+
+
+    // Friendship request services
+    public static List&lt;Friend_Request&gt; findFriendRequestsByUser(User user) {
+<span class="fc" id="L74">        List friendRequests = frdao.findFriendRequestsByUserID(user.getID());</span>
+<span class="fc" id="L75">        return friendRequests;</span>
+    }
+    public static Friend_Request findFrByUserIDSenderAndUserIDReceiver(Integer IDSender, Integer IDReceiver) {
+<span class="fc" id="L78">        return frdao.findFrByUserIDSenderAndUserIDReceiver(IDSender, IDReceiver);</span>
+    }
+
+    public static Friend_Request findFriendRequestByFrID(Integer ID) {
+<span class="fc" id="L82">        return frdao.findFriendRequestByFrID(ID);</span>
+    }
+
+    public static Friend_Request sendFriendRequest(Friend_Request fr) {
+<span class="fc" id="L86">        Friend_Request newfr = frdao.create(fr);</span>
+<span class="fc" id="L87">        return newfr;</span>
+    }
+
+    // Friendship services
+    public static Friendship acceptFriendRequest(Friendship fs, Friend_Request fr) {
+<span class="fc" id="L92">        Friendship newfs = fsdao.create(fs);</span>
+<span class="fc" id="L93">        frdao.update(fr);</span>
+<span class="fc" id="L94">        return newfs;</span>
+    }
+
+    public static List&lt;Friendship&gt; findFriendsByUser(User user) {
+<span class="nc" id="L98">        List friends = fsdao.findFriendsByUserID(user.getID());</span>
+<span class="nc" id="L99">        return friends;</span>
+    }
+
+    public static Friendship findFriendByFriendshipID(Integer ID) {
+<span class="fc" id="L103">        return fsdao.findFriendByFriendshipID(ID);</span>
+    }
+
+    public static void removeFriend(Friendship fs, Friend_Request fr) {
+<span class="nc" id="L107">        fsdao.delete(fs);</span>
+<span class="nc" id="L108">        frdao.update(fr);</span>
+<span class="nc" id="L109">        frdao.delete(fr);</span>
+<span class="nc" id="L110">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

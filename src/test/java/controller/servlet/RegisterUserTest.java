@@ -9,14 +9,11 @@ import org.mockito.MockedStatic;
 import pokersite.controller.service.UserService;
 import pokersite.controller.servlet.RegisterUser;
 import pokersite.model.entity.User;
-
 import java.io.IOException;
-
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RegisterUserTest {
-
     @Test public void testDoPostSuccessfulRegister() throws IOException, ServletException {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
@@ -29,7 +26,6 @@ public class RegisterUserTest {
         when(request.getParameter("last_lane")).thenReturn("testLastName");
         when(request.getParameter("phone_number")).thenReturn("1234567891");
         when(request.getSession()).thenReturn(sessionMock);
-
 
         try(MockedStatic<UserService> service = mockStatic(UserService.class)) {
             service.when(()-> UserService.registerUser(any()) ).thenReturn(new User());

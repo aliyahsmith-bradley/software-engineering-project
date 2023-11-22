@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Friend_Request.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.model.entity</a> &gt; <span class="el_source">Friend_Request.java</span></div><h1>Friend_Request.java</h1><pre class="source lang-java linenums">package pokersite.model.entity;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+/*@Table(name = &quot;friend_request&quot;)*/
+public class Friend_Request extends BaseEntity {
+<span class="fc" id="L9">    @Id @Column(name = &quot;id_friend_request&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+    private Integer ID = null;
+    private Integer id_user_sender;
+    private Integer id_user_receiver;
+    private byte status;
+    private Timestamp dt_sent;
+
+<span class="fc" id="L16">    public Friend_Request() {</span>
+<span class="fc" id="L17">    }</span>
+
+<span class="fc" id="L19">    public Friend_Request(Integer ID, Integer id_user_sender, Integer id_user_receiver, byte status, Timestamp dt_sent) {</span>
+<span class="fc" id="L20">        this.ID = ID;</span>
+<span class="fc" id="L21">        this.id_user_sender = id_user_sender;</span>
+<span class="fc" id="L22">        this.id_user_receiver = id_user_receiver;</span>
+<span class="fc" id="L23">        this.status = status;</span>
+<span class="fc" id="L24">        this.dt_sent = dt_sent;</span>
+<span class="fc" id="L25">    }</span>
+    public Integer getID() {
+<span class="fc" id="L27">        return ID;</span>
+    }
+
+<span class="fc" id="L30">    public void setID(Integer ID) {this.ID = ID;}</span>
+
+    public Integer getId_user_sender() {
+<span class="fc" id="L33">        return id_user_sender;</span>
+    }
+
+    public void setId_user_sender(Integer id_user_sender) {
+<span class="fc" id="L37">        this.id_user_sender = id_user_sender;</span>
+<span class="fc" id="L38">    }</span>
+
+    public Integer getId_user_receiver() {
+<span class="fc" id="L41">        return id_user_receiver;</span>
+    }
+
+    public void setId_user_receiver(Integer id_user_receiver) {
+<span class="fc" id="L45">        this.id_user_receiver = id_user_receiver;</span>
+<span class="fc" id="L46">    }</span>
+
+    public byte getStatus() {
+<span class="fc" id="L49">        return status;</span>
+    }
+
+    public void setStatus(byte status) {
+<span class="fc" id="L53">        this.status = status;</span>
+<span class="fc" id="L54">    }</span>
+
+    public Timestamp getDt_sent() {
+<span class="fc" id="L57">        return dt_sent;</span>
+    }
+
+    public void setDt_sent(Timestamp dt_sent) {
+<span class="fc" id="L61">        this.dt_sent = dt_sent;</span>
+<span class="fc" id="L62">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

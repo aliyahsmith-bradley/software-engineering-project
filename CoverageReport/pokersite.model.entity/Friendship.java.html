@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Friendship.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.model.entity</a> &gt; <span class="el_source">Friendship.java</span></div><h1>Friendship.java</h1><pre class="source lang-java linenums">package pokersite.model.entity;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+public class Friendship extends BaseEntity {
+<span class="fc" id="L8">    @Id @Column(name = &quot;id_friendship&quot;) @GeneratedValue(strategy = GenerationType.IDENTITY)</span>
+    private Integer ID = null;
+    private Integer id_user1;
+    private Integer id_user2;
+    private Timestamp dt_accepted;
+
+<span class="fc" id="L14">    public Friendship() {</span>
+
+<span class="fc" id="L16">    }</span>
+
+<span class="fc" id="L18">    public Friendship(Integer ID, Integer id_user1, Integer id_user2, Timestamp dt_accepted) {</span>
+<span class="fc" id="L19">        this.ID = ID;</span>
+<span class="fc" id="L20">        this.id_user1 = id_user1;</span>
+<span class="fc" id="L21">        this.id_user2 = id_user2;</span>
+<span class="fc" id="L22">        this.dt_accepted = dt_accepted;</span>
+<span class="fc" id="L23">    }</span>
+    public Integer getID() {
+<span class="fc" id="L25">        return ID;</span>
+    }
+
+    public void setID(Integer ID) {
+<span class="fc" id="L29">        this.ID = ID;</span>
+<span class="fc" id="L30">    }</span>
+
+    public Integer getId_user1() {
+<span class="fc" id="L33">        return id_user1;</span>
+    }
+
+    public void setId_user1(Integer ID) {
+<span class="fc" id="L37">        id_user1 = ID;</span>
+<span class="fc" id="L38">    }</span>
+
+    public Integer getId_user2() {
+<span class="fc" id="L41">        return id_user2;</span>
+    }
+
+    public void setId_user2(Integer ID) {
+<span class="fc" id="L45">        id_user2 = ID;</span>
+<span class="fc" id="L46">    }</span>
+
+    public Timestamp getDt_accepted() {
+<span class="fc" id="L49">        return dt_accepted;</span>
+    }
+
+    public void setDt_accepted(Timestamp dt) {
+<span class="fc" id="L53">        dt_accepted = dt;</span>
+<span class="fc" id="L54">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

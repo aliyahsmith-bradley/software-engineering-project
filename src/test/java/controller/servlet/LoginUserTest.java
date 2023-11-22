@@ -9,9 +9,7 @@ import org.mockito.MockedStatic;
 import pokersite.controller.service.UserService;
 import pokersite.controller.servlet.LoginUser;
 import pokersite.model.entity.User;
-
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 

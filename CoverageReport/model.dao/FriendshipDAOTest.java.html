@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FriendshipDAOTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">model.dao</a> &gt; <span class="el_source">FriendshipDAOTest.java</span></div><h1>FriendshipDAOTest.java</h1><pre class="source lang-java linenums">package model.dao;
+
+import org.junit.jupiter.api.*;
+import pokersite.model.dao.FriendRequestDAO;
+import pokersite.model.dao.FriendshipDAO;
+import pokersite.model.dao.GenericDAO;
+import pokersite.model.dao.UserDAO;
+import pokersite.model.entity.Friend_Request;
+import pokersite.model.entity.Friendship;
+import pokersite.model.entity.User;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
+<span class="fc" id="L16">public class FriendshipDAOTest {</span>
+<span class="fc" id="L17">    public static FriendshipDAO fsdao = null;</span>
+<span class="fc" id="L18">    public static FriendRequestDAO frdao= null;</span>
+<span class="fc" id="L19">    public static UserDAO userDAO = null;</span>
+    public static Friendship createFriendship() {
+<span class="fc" id="L21">        Friendship fs = new Friendship();</span>
+<span class="fc" id="L22">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L23">        fs.setId_user1(1);</span>
+<span class="fc" id="L24">        fs.setId_user2(2);</span>
+<span class="fc" id="L25">        fs.setDt_accepted(ts);</span>
+<span class="fc" id="L26">        return fs;</span>
+    }
+    public static Friend_Request createNewFriendRequest() {
+<span class="fc" id="L29">        Friend_Request fr = new Friend_Request();</span>
+<span class="fc" id="L30">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L31">        fr.setId_user_sender(1);</span>
+<span class="fc" id="L32">        fr.setId_user_receiver(2);</span>
+<span class="fc" id="L33">        fr.setStatus((byte) 0);</span>
+<span class="fc" id="L34">        fr.setDt_sent(ts);</span>
+<span class="fc" id="L35">        return fr;</span>
+    }
+    public static User createNewUserEntity() {
+<span class="fc" id="L38">        User u = new User();</span>
+<span class="fc" id="L39">        u.setPassword(&quot;123&quot;);</span>
+<span class="fc" id="L40">        u.setUsername(&quot;Bob The Builder&quot;);</span>
+<span class="fc" id="L41">        u.setEmail(&quot;bobbuilder@gmail.com&quot;);</span>
+<span class="fc" id="L42">        u.setFirst_name(&quot;Bob&quot;);</span>
+<span class="fc" id="L43">        u.setLast_name(&quot;Builder&quot;);</span>
+<span class="fc" id="L44">        u.setPhone_number(&quot;3241647385&quot;);</span>
+<span class="fc" id="L45">        return u;</span>
+    }
+    @BeforeAll public static void createDAO() {
+<span class="fc" id="L48">        frdao = new FriendRequestDAO();</span>
+<span class="fc" id="L49">        frdao.setDbTypeOutput(GenericDAO.DbType.TEST);</span>
+<span class="fc" id="L50">        userDAO = new UserDAO();</span>
+<span class="fc" id="L51">        userDAO.setDbTypeOutput(GenericDAO.DbType.TEST);</span>
+<span class="fc" id="L52">        fsdao = new FriendshipDAO();</span>
+<span class="fc" id="L53">        fsdao.setDbTypeOutput(GenericDAO.DbType.TEST);</span>
+<span class="fc" id="L54">    }</span>
+    @BeforeEach public void deleteAllBeforeEach() {
+<span class="fc" id="L56">        fsdao.deleteAll();</span>
+<span class="fc" id="L57">        frdao.deleteAll();</span>
+<span class="fc" id="L58">        userDAO.deleteAll();</span>
+<span class="fc" id="L59">    }</span>
+    @AfterAll public static void deleteAllAfter() {
+<span class="fc" id="L61">        fsdao.deleteAll();</span>
+<span class="fc" id="L62">        frdao.deleteAll();</span>
+<span class="fc" id="L63">        userDAO.deleteAll();</span>
+<span class="fc" id="L64">    }</span>
+    @Test public void testFindFriendsByUserID() {
+<span class="fc" id="L66">        Friend_Request newfr = createNewFriendRequest();</span>
+<span class="fc" id="L67">        User user1 = createNewUserEntity();</span>
+<span class="fc" id="L68">        User user2 = createNewUserEntity();</span>
+<span class="fc" id="L69">        userDAO.create(user1);</span>
+<span class="fc" id="L70">        userDAO.create(user2);</span>
+<span class="fc" id="L71">        newfr.setId_user_sender(user1.getID());</span>
+<span class="fc" id="L72">        newfr.setId_user_receiver(user2.getID());</span>
+<span class="fc" id="L73">        frdao.create(newfr);</span>
+
+<span class="fc" id="L75">        Friendship newfs = createFriendship();</span>
+<span class="fc" id="L76">        newfs.setId_user1(user1.getID());</span>
+<span class="fc" id="L77">        newfs.setId_user2(user2.getID());</span>
+
+<span class="fc" id="L79">        Friendship fs = fsdao.create(newfs);</span>
+<span class="fc" id="L80">        List&lt;Friendship&gt; foundFriends = fsdao.findFriendsByUserID(user2.getID());</span>
+
+<span class="fc" id="L82">        assertAll(</span>
+<span class="fc" id="L83">                ()-&gt; assertNotNull(fs),</span>
+<span class="fc" id="L84">                ()-&gt; assertEquals(fs.getID(), foundFriends.get(0).getID())</span>
+        );
+<span class="fc" id="L86">    }</span>
+    @Test public void testFindFriendByFriendshipID() {
+<span class="fc" id="L88">        Friend_Request newfr = createNewFriendRequest();</span>
+<span class="fc" id="L89">        User user1 = createNewUserEntity();</span>
+<span class="fc" id="L90">        User user2 = createNewUserEntity();</span>
+<span class="fc" id="L91">        userDAO.create(user1);</span>
+<span class="fc" id="L92">        userDAO.create(user2);</span>
+<span class="fc" id="L93">        newfr.setId_user_sender(user1.getID());</span>
+<span class="fc" id="L94">        newfr.setId_user_receiver(user2.getID());</span>
+<span class="fc" id="L95">        frdao.create(newfr);</span>
+
+<span class="fc" id="L97">        Friendship newfs = createFriendship();</span>
+<span class="fc" id="L98">        newfs.setId_user1(user1.getID());</span>
+<span class="fc" id="L99">        newfs.setId_user2(user2.getID());</span>
+
+<span class="fc" id="L101">        Friendship fs = fsdao.create(newfs);</span>
+<span class="fc" id="L102">        Friendship found = fsdao.findFriendByFriendshipID(fs.getID());</span>
+<span class="fc" id="L103">        assertAll(</span>
+<span class="fc" id="L104">                ()-&gt; assertEquals(fs.getID(), found.getID())</span>
+        );
+<span class="fc" id="L106">    }</span>
+    @Test public void smokeTestFindFriendByFriendshipID() {
+<span class="fc" id="L108">        Friend_Request newfr = createNewFriendRequest();</span>
+<span class="fc" id="L109">        User user1 = createNewUserEntity();</span>
+<span class="fc" id="L110">        User user2 = createNewUserEntity();</span>
+<span class="fc" id="L111">        userDAO.create(user1);</span>
+<span class="fc" id="L112">        userDAO.create(user2);</span>
+<span class="fc" id="L113">        newfr.setId_user_sender(user1.getID());</span>
+<span class="fc" id="L114">        newfr.setId_user_receiver(user2.getID());</span>
+<span class="fc" id="L115">        frdao.create(newfr);</span>
+
+<span class="fc" id="L117">        Friendship newfs = createFriendship();</span>
+<span class="fc" id="L118">        newfs.setId_user1(user1.getID());</span>
+<span class="fc" id="L119">        newfs.setId_user2(user2.getID());</span>
+<span class="fc" id="L120">        assertDoesNotThrow(()-&gt; fsdao.findFriendByFriendshipID(newfs.getID()));</span>
+
+<span class="fc" id="L122">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

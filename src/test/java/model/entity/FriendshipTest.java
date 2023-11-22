@@ -2,7 +2,6 @@ package model.entity;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
 import pokersite.model.entity.Friendship;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -17,7 +16,6 @@ public class FriendshipTest {
                 ()-> assertNull(fs.getDt_accepted())
         );
     }
-
     @Test public void testConstructor() {
         Timestamp ts = Timestamp.from(Instant.now());
         Friendship fs = new Friendship(10, 1, 2, ts);
@@ -28,7 +26,6 @@ public class FriendshipTest {
                 ()-> assertEquals(ts, fs.getDt_accepted())
         );
     }
-
     @Test public void testSetters() {
         Timestamp ts = Timestamp.from(Instant.now());
         Friendship fs = new Friendship();
