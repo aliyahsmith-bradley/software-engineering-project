@@ -33,6 +33,42 @@ public class GameLogicSinglePlayer {
         }
     }
 
+    public static void main(String[] args) {
+
+
+        GameLogicSinglePlayer game = new GameLogicSinglePlayer();
+
+        // Initialize the game
+        game.initializeGame();
+
+        // Display initial game state
+        System.out.println("Welcome to Single Player Poker!");
+        game.displayUserCoins();
+        game.displayPotAmount();
+
+        // Start the game loop
+        while (true) {
+            // User's turn
+            game.usersFirstTurn();
+
+            // Check if the game should continue (based on user input)
+            System.out.println("Do you want to play another round? (yes/no)");
+            String playAgain = scanner.nextLine();
+            if (!playAgain.equalsIgnoreCase("yes")) {
+                break;  // Exit the game loop if the user doesn't want to play again
+            }
+
+            // Reset game state for the next round
+            game.initializeGame();
+        }
+
+        //close the scanner
+        scanner.close();
+
+        // Display farewell message
+        System.out.println("Thanks for playing! Goodbye!");
+    }
+
     public static void initializeGame() {
         deck = new ArrayList<>(cardDeck);
         Collections.shuffle(deck);
@@ -306,7 +342,7 @@ public class GameLogicSinglePlayer {
         String userChoice = scanner.nextLine();
 
         while (!userChoice.equalsIgnoreCase("check") && !userChoice.equalsIgnoreCase("call") &&
-        !userChoice.equalsIgnoreCase("raise") && !userChoice.equalsIgnoreCase("fold")) {
+                !userChoice.equalsIgnoreCase("raise") && !userChoice.equalsIgnoreCase("fold")) {
             System.out.println("Invalid choice. Please enter either 'check', 'call', 'raise', 'fold'");
             userChoice = scanner.nextLine();
         }
@@ -450,37 +486,8 @@ public class GameLogicSinglePlayer {
 
     }
 
-    public static void main(String[] args) {
-        GameLogicSinglePlayer game = new GameLogicSinglePlayer();
-
-        // Initialize the game
-        game.initializeGame();
-
-        // Display initial game state
-        System.out.println("Welcome to Single Player Poker!");
-        game.displayUserCoins();
-        game.displayPotAmount();
-
-        // Start the game loop
-        while (true) {
-            // User's turn
-            game.usersFirstTurn();
-
-            // Check if the game should continue (based on user input)
-            System.out.println("Do you want to play another round? (yes/no)");
-            String playAgain = scanner.nextLine();
-            if (!playAgain.equalsIgnoreCase("yes")) {
-                break;  // Exit the game loop if the user doesn't want to play again
-            }
-
-            // Reset game state for the next round
-            game.initializeGame();
-        }
-
-        // Display farewell message
-        System.out.println("Thanks for playing! Goodbye!");
-    }
 }
+
 
 
 

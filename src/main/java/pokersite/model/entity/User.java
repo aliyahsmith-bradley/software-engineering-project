@@ -17,6 +17,7 @@ public class User extends BaseEntity {
     private String last_name;
 
     private String phone_number;
+    private int coins;
 
     public User(){
     }
@@ -29,6 +30,7 @@ public class User extends BaseEntity {
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone_number = phone_number;
+        this.coins = 0;
     }
 
     public String getUsername() {
@@ -68,6 +70,18 @@ public class User extends BaseEntity {
     public String getPhone_number() {return phone_number;}
 
     public void setPhone_number(String phoneNumber) {this.phone_number = phoneNumber;}
+
+    public int getCoins(){return  coins;}
+    public void setCoins(int coins){this.coins = coins;}
+
+    public void purchase(Product product){
+        if(coins >= product.getPrice()){
+            coins -= product.getPrice();
+            System.out.println("Purchase Successful: " + product.getName());
+        }else{
+            System.out.println("Insufficient coins to purchase " + product.getName());
+        }
+    }
 }
 
 /**
