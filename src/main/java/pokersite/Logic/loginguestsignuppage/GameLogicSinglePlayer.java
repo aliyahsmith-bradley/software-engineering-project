@@ -43,25 +43,14 @@ public class GameLogicSinglePlayer {
         game.initializeGame();
 
         // Display initial game state
-        System.out.println("Welcome to Single Player Poker!");
+        System.out.println("Welcome to Single Player Five Card Draw!");
         game.displayUserCoins();
         game.displayPotAmount();
 
-        // Start the game loop
-        while (true) {
-            // User's turn
-            game.usersFirstTurn();
 
-            // Check if the game should continue (based on user input)
-            System.out.println("Do you want to play another round? (yes/no)");
-            String playAgain = scanner.nextLine();
-            if (!playAgain.equalsIgnoreCase("yes")) {
-                break;  // Exit the game loop if the user doesn't want to play again
-            }
+        game.usersFirstTurn();
 
-            // Reset game state for the next round
-            game.initializeGame();
-        }
+
 
         //close the scanner
         scanner.close();
@@ -99,6 +88,13 @@ public class GameLogicSinglePlayer {
         System.out.println("Your Hand: ");
         for (int i = 0; i < userHand.size(); i++) {
             System.out.println(i + ": " + userHand.get(i));
+        }
+    }
+
+    public static void displayComputerHand() {
+        System.out.println("Your Hand: ");
+        for (int i = 0; i < computerHand.size(); i++) {
+            System.out.println(i + ": " + computerHand.get(i));
         }
     }
 
@@ -151,7 +147,7 @@ public class GameLogicSinglePlayer {
         displayUserHand();
 
         System.out.print("Hello User and welcome to Five Card Draw! Since this is the start of the game, everyone must" +
-                "put in $10 into the pot: ");
+                " put in $10 into the pot: ");
         userCoins -= 10;
         computerCoins -= 10;
         pot = 20;
@@ -194,6 +190,7 @@ public class GameLogicSinglePlayer {
             System.out.println("Computer Checked");
             userNewCards();
             computerChecked = true;
+            userNewCards();
         }
 
         // if the userbet1 was not too big but not too small, computer will call
@@ -205,6 +202,7 @@ public class GameLogicSinglePlayer {
             displayPotAmount();
             userNewCards();
             computerChecked = false;
+            userNewCards();
 
         }
         //if the userbet1 is too small, lets raise it
@@ -215,18 +213,22 @@ public class GameLogicSinglePlayer {
             computerCoins -= computerBet;
             System.out.println("Computer raised your bet of " + userBet1 + " with " + computerBet);
             betAmount += computerBet;
-            System.out.println("User, you must add the different of computers bet and your bet and add it to the pot");
+            System.out.println("User, you must add the difference of computers bet and your past bet and add it to the pot");
             difference = computerBet - userBet1;
             computerCoins -= difference;
             pot += difference;
+            userCoins = userCoins -difference;
             displayPotAmount();
+            displayUserCoins();
             userNewCards();
             computerChecked = false;
+            userNewCards();
 
         } else {
             System.out.println("Computer Folds, your turn");
             userNewCards();
             computerChecked = false;
+            userNewCards();
         }
         return  computerChecked;
     }
@@ -240,11 +242,17 @@ public class GameLogicSinglePlayer {
         System.out.println("Do you want to exchange cards? (yes/no)");
         String exchangeChoice = scanner.nextLine();
 
-        if (exchangeChoice.equalsIgnoreCase("yes")) {
-            exchangeUserCards();
+        while(!exchangeChoice.equalsIgnoreCase("yes") && !exchangeChoice.equalsIgnoreCase("no")){
+            System.out.println("Please enter yes or no");
+            exchangeChoice = scanner.nextLine();
         }
 
-        computerNewCards();
+        if(exchangeChoice.equalsIgnoreCase("yes")){
+            exchangeUserCards();
+        }
+        else{
+            computerNewCards();
+        }
     }
 
     /*
@@ -309,8 +317,17 @@ public class GameLogicSinglePlayer {
 
         // Exchange cards
         for (int index : indicesToExchange) {
-            String removedCard = computerHand.remove(index);
-            deck.add(removedCard);
+            //System.out.println("Index to remove: " + index);
+            if(index >= 0 && index <computerHand.size()) {
+
+
+                String removedCard = computerHand.remove(index);
+                deck.add(removedCard);
+                userRounds();
+            }else{
+                //System.out.println("Invalid index: " + index);
+                userRounds();
+            }
         }
 
         // Deal new cards to the computer
@@ -335,8 +352,7 @@ public class GameLogicSinglePlayer {
     /*
         Purpose: to do one more round for the player
      */
-    public static void userRounds(){
-
+    public static void userRounds() {
         displayUserHand();
 
         System.out.println("This is the final round, User would you like to check, call, raise or fold?");
@@ -351,36 +367,28 @@ public class GameLogicSinglePlayer {
         String userChoice2 = "";
         String userChoice3 = "";
 
-        if(userChoice.equalsIgnoreCase("check")){
+        if (userChoice.equalsIgnoreCase("check")) {
             if (computerChecked) {
                 System.out.println("You checked");
                 computersTurn2();
-
             } else {
                 System.out.println("Computer didn't check. You must do something else.");
 
-                //ask them if they want to raise, call or fold
+                // ask them if they want to raise, call or fold
                 System.out.println("Do you want to raise, call, or fold?");
                 userChoice2 = scanner.nextLine();
-                while (!userChoice2.equalsIgnoreCase("raise") && !userChoice2.equalsIgnoreCase("call") &&
-                        !userChoice2.equalsIgnoreCase("fold")) {
-                    System.out.println("Invalid choice. Please enter either 'raise', 'call', or 'fold'");
-                    userChoice2 = scanner.nextLine();
-                    computersTurn2();
-                }
-
             }
-        } else if (userChoice.equalsIgnoreCase("call") || userChoice2.equalsIgnoreCase("call")){
-            System.out.println("You must match the bet of: " + betAmount + "this is your current coin balance " + userCoins);
+        } else if (userChoice.equalsIgnoreCase("call")) {
+            System.out.println("You must match the bet of: " + betAmount + " this is your current coin balance " + userCoins);
             System.out.println("Would you like to match the bet? (y/n)");
             String choice = scanner.nextLine();
 
-            while(!choice.equalsIgnoreCase("y") || !choice.equalsIgnoreCase("n")){
+            while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")) {
                 System.out.println("Please enter y (for yes) or n (for n)");
                 choice = scanner.nextLine();
             }
 
-            if(choice.equalsIgnoreCase("y")){
+            if (choice.equalsIgnoreCase("y")) {
                 userCoins -= betAmount;
                 pot += betAmount;
                 betAmount += betAmount;
@@ -389,44 +397,34 @@ public class GameLogicSinglePlayer {
                 displayUserCoins();
                 displayBetAmount();
                 computersTurn2();
-            }
-            else{
+                return; // Added to exit the method after calling computersTurn2()
+            } else {
                 System.out.print("You entered no, pick a new choice (raise or fold)");
-                userChoice3= scanner.nextLine();
-                while(!userChoice3.equalsIgnoreCase("raise") || !userChoice3.equalsIgnoreCase("fold")){
-                    System.out.println("Please enter raise or fold");
-                    userChoice3 = scanner.nextLine();
-                }
-
-                computersTurn2();
+                userChoice3 = scanner.nextLine();
             }
-
-
-        } else if (userChoice.equalsIgnoreCase("raise") || userChoice2.equalsIgnoreCase("raise") ||
-                userChoice3.equalsIgnoreCase("raise")) {
-
+        } else if (userChoice.equalsIgnoreCase("raise")) {
             displayUserCoins();
             displayBetAmount();
 
             System.out.println("What would you like to bet? ");
             int finalBet = getUserBet();
 
-            if (finalBet <= betAmount || finalBet > userCoins) {
+            while (finalBet <= betAmount || finalBet > userCoins) {
                 System.out.println("Your raise has to be bigger than the bet amount, or you bet too much");
                 finalBet = getUserBet();
-
-            } else {
-                betAmount += finalBet;
-                pot += finalBet;
-                userCoins -= finalBet;
-                computersTurn2();
             }
-        }
-        else {
+
+            betAmount += finalBet;
+            pot += finalBet;
+            userCoins -= finalBet;
+        } else {
             System.out.print("You folded, going to computers turn");
             computersTurn2();
+            return; // Added to exit the method after calling computersTurn2()
         }
 
+        // Call computersTurn2() outside the if-else block
+        computersTurn2();
     }
 
 
@@ -438,7 +436,7 @@ public class GameLogicSinglePlayer {
             System.out.println("Computer Checked");
 
 
-            //go to winner Function
+           winner();
         }
 
         // if the user choice is call was not too big but not too small, computer will call
@@ -449,7 +447,7 @@ public class GameLogicSinglePlayer {
             System.out.println("Computer matched the bet of " + getCurrentBetAmount());
             displayPotAmount();
 
-            //go to winners function
+            winner();
 
         }
         //if the userchoice is raise
@@ -467,24 +465,247 @@ public class GameLogicSinglePlayer {
             displayPotAmount();
 
 
-            // go to winners function
+            winner();
 
 
         } else { //if user choice is fold
-            System.out.println("Computer Folds, your turn");
+            System.out.println("Computer Folds");
 
 
-            //go to winners function
+            winner();
 
         }
 
     }
 
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------
     /*
         Purpose: to see who has the highest hand and wins
      */
-    public static void winner(){
+    public static void winner() {
+       displayUserHand();
+       displayComputerHand();
 
+        boolean userRoyalFlush = hasRoyalFlush(userHand);
+        boolean computerRoyalFlush = hasRoyalFlush(computerHand);
+
+        boolean userStraightFlush = hasStraightFlush(userHand);
+        boolean computerStraightFlush = hasStraightFlush(computerHand);
+
+        boolean userFourOfAKind = hasFourOfAKind(userHand);
+        boolean computerFourOfAKind = hasFourOfAKind(computerHand);
+
+        boolean userFullHouse = hasFullHouse(userHand);
+        boolean computerFullHouse = hasFullHouse(computerHand);
+
+        boolean userFlush = hasFlush(userHand);
+        boolean computerFlush = hasFlush(computerHand);
+
+        boolean userStraight = hasStraight(userHand);
+        boolean computerStraight = hasStraight(computerHand);
+
+        boolean userThreeOfAKind = hasThreeOfAKind(userHand);
+        boolean computerThreeOfAKind = hasThreeOfAKind(computerHand);
+
+        boolean userTwoPair = hasTwoPair(userHand);
+        boolean computerTwoPair = hasTwoPair(computerHand);
+
+        boolean userOnePair = hasOnePair(userHand);
+        boolean computerOnePair = hasOnePair(computerHand);
+
+        // Compare hand ranks to determine the winner
+        if (userRoyalFlush || userStraightFlush || userFourOfAKind || userFullHouse || userFlush ||
+                userStraight || userThreeOfAKind || userTwoPair || userOnePair) {
+
+            if (computerRoyalFlush || computerStraightFlush || computerFourOfAKind || computerFullHouse ||
+                    computerFlush || computerStraight || computerThreeOfAKind || computerTwoPair || computerOnePair) {
+
+                // Both have valid hands, compare ranks
+                int userRank = getHandRank(userHand);
+                int computerRank = getHandRank(computerHand);
+
+                if (userRank > computerRank) {
+                    System.out.println("Congratulations! You win!");
+                    userCoins += pot;
+                } else if (userRank < computerRank) {
+                    System.out.println("Computer wins. Better luck next time!");
+                    computerCoins += pot;
+                } else {
+                    System.out.println("It's a tie! The pot will be split.");
+                    int halfPot = pot / 2;
+                    userCoins += halfPot;
+                    computerCoins += halfPot;
+                }
+            } else {
+                System.out.println("Congratulations! You win!");
+                userCoins += pot;
+            }
+        } else {
+            if (computerRoyalFlush || computerStraightFlush || computerFourOfAKind || computerFullHouse ||
+                    computerFlush || computerStraight || computerThreeOfAKind || computerTwoPair || computerOnePair) {
+                System.out.println("Computer wins. Better luck next time!");
+                computerCoins += pot;
+            } else {
+                System.out.println("It's a tie! The pot will be split.");
+                int halfPot = pot / 2;
+                userCoins += halfPot;
+                computerCoins += halfPot;
+            }
+        }
+        System.out.println("Thanks for playing! Goodbye!");
+        System.exit(0);
+
+    }
+
+    private static boolean hasRoyalFlush(List<String> hand) {
+        // Check for a Royal Flush: A, K, Q, J, 10 of the same suit
+        return hasStraightFlush(hand) && hand.contains("Ace_of") && hand.contains("King_of") &&
+                hand.contains("Queen_of") && hand.contains("Jack_of") && hand.contains("10_of");
+    }
+
+    private static boolean hasStraightFlush(List<String> hand) {
+        // Check for a Straight Flush: Five consecutive cards of the same suit
+        return hasFlush(hand) && hasStraight(hand);
+    }
+
+    private static boolean hasFourOfAKind(List<String> hand) {
+        // Check for Four of a Kind: Four cards of the same rank
+        for (String rank : getRanks()) {
+            if (Collections.frequency(hand, rank) == 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasFullHouse(List<String> hand) {
+        // Check for a Full House: Three cards of one rank and two cards of another rank
+        boolean hasThreeOfAKind = false;
+        boolean hasPair = false;
+
+        for (String rank : getRanks()) {
+            int frequency = Collections.frequency(hand, rank);
+            if (frequency == 3) {
+                hasThreeOfAKind = true;
+            } else if (frequency == 2) {
+                hasPair = true;
+            }
+        }
+
+        return hasThreeOfAKind && hasPair;
+    }
+
+    private static boolean hasFlush(List<String> hand) {
+        // Check for a Flush: All cards of the same suit
+        String suit = hand.get(0).split("_of_")[1];
+        return hand.stream().allMatch(card -> card.endsWith(suit));
+    }
+
+    private static boolean hasStraight(List<String> hand) {
+        // Check for a Straight: Five consecutive cards of different suits
+        List<String> ranks = getRanks();
+        Collections.sort(ranks);
+
+        for (int i = 0; i < ranks.size() - 1; i++) {
+            int currentRankIndex = ranks.indexOf(hand.get(i).split("_of_")[0]);
+            int nextRankIndex = ranks.indexOf(hand.get(i + 1).split("_of_")[0]);
+
+            if (nextRankIndex - currentRankIndex != 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean hasThreeOfAKind(List<String> hand) {
+        // Check for Three of a Kind: Three cards of the same rank
+        for (String rank : getRanks()) {
+            if (Collections.frequency(hand, rank) == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasTwoPair(List<String> hand) {
+        // Check for Two Pair: Two pairs of cards with the same rank
+        int pairCount = 0;
+
+        for (String rank : getRanks()) {
+            if (Collections.frequency(hand, rank) == 2) {
+                pairCount++;
+            }
+        }
+
+        return pairCount == 2;
+    }
+
+    private static boolean hasOnePair(List<String> hand) {
+        // Check for One Pair: Two cards of the same rank
+        for (String rank : getRanks()) {
+            if (Collections.frequency(hand, rank) == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static List<String> getRanks() {
+        // Helper method to get a list of all ranks
+        return Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace");
+    }
+
+    private static int getHandRank(List<String> hand) {
+        List<String> ranks = getRanks();
+
+        // Check for Royal Flush
+        if (hasRoyalFlush(hand)) {
+            return 10;
+        }
+
+        // Check for Straight Flush
+        if (hasStraightFlush(hand)) {
+            return 9;
+        }
+
+        // Check for Four of a Kind
+        if (hasFourOfAKind(hand)) {
+            return 8;
+        }
+
+        // Check for Full House
+        if (hasFullHouse(hand)) {
+            return 7;
+        }
+
+        // Check for Flush
+        if (hasFlush(hand)) {
+            return 6;
+        }
+
+        // Check for Straight
+        if (hasStraight(hand)) {
+            return 5;
+        }
+
+        // Check for Three of a Kind
+        if (hasThreeOfAKind(hand)) {
+            return 4;
+        }
+
+        // Check for Two Pair
+        if (hasTwoPair(hand)) {
+            return 3;
+        }
+
+        // Check for One Pair
+        if (hasOnePair(hand)) {
+            return 2;
+        }
+
+        // High Card
+        return ranks.indexOf(Collections.max(hand, Comparator.comparing(card -> card.split("_of_")[0])));
     }
 
 }
