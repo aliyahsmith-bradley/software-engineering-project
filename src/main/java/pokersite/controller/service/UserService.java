@@ -2,9 +2,11 @@ package pokersite.controller.service;
 
 import pokersite.model.dao.FriendRequestDAO;
 import pokersite.model.dao.FriendshipDAO;
+import pokersite.model.dao.IssueDAO;
 import pokersite.model.dao.UserDAO;
 import pokersite.model.entity.Friend_Request;
 import pokersite.model.entity.Friendship;
+import pokersite.model.entity.Issue;
 import pokersite.model.entity.User;
 import pokersite.util.PasswordUtil;
 
@@ -14,6 +16,8 @@ public class UserService {
     public static UserDAO dao = new UserDAO();
     public static FriendRequestDAO frdao = new FriendRequestDAO();
     public static FriendshipDAO fsdao = new FriendshipDAO();
+
+    public static IssueDAO isdao = new IssueDAO();
 
     public static void setDAO(UserDAO dao){
         UserService.dao = dao;
@@ -107,5 +111,11 @@ public class UserService {
         fsdao.delete(fs);
         frdao.update(fr);
         frdao.delete(fr);
+    }
+
+    // Issue services
+    public static Issue submitIssue(Issue newIssue) {
+        Issue issue = isdao.create(newIssue);
+        return issue;
     }
 }
