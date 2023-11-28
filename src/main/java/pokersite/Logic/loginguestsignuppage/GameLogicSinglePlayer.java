@@ -92,11 +92,11 @@ public class GameLogicSinglePlayer {
     }
 
     public static void displayComputerHand() {
-        System.out.println("Your Hand: ");
-        for (int i = 0; i < computerHand.size(); i++) {
-            System.out.println(i + ": " + computerHand.get(i));
+            System.out.println("Computer Hand: ");
+            for (int i = 0; i < computerHand.size(); i++) {
+                System.out.println(i + ": " + computerHand.get(i));
+            }
         }
-    }
 
     public static void displayUserCoins() {
         System.out.println("User Coins: " + userCoins);
@@ -187,9 +187,11 @@ public class GameLogicSinglePlayer {
 
         // if the user checked, the computer will also check
         if (userBet1 == 0) {
-            System.out.println("Computer Checked");
-            userNewCards();
+            System.out.println("Computer Bets");
             computerChecked = true;
+            betAmount += 5;
+            pot += 5;
+            computerCoins -= 5;
             userNewCards();
         }
 
@@ -306,7 +308,7 @@ public class GameLogicSinglePlayer {
     /*
         Purpose is to swap out Computer Cards the same way as user
      */
-    public static void computerNewCards(){
+    public static void computerNewCards() {
         System.out.println("Computer is exchanging cards...");
 
         // Determine the number of cards the computer can exchange
@@ -317,25 +319,23 @@ public class GameLogicSinglePlayer {
 
         // Exchange cards
         for (int index : indicesToExchange) {
-            //System.out.println("Index to remove: " + index);
-            if(index >= 0 && index <computerHand.size()) {
-
-
+            if (index >= 0 && index < computerHand.size()) {
                 String removedCard = computerHand.remove(index);
                 deck.add(removedCard);
-                userRounds();
-            }else{
-                //System.out.println("Invalid index: " + index);
-                userRounds();
+            } else {
+                System.out.println("Invalid index: " + index);
             }
         }
 
-        // Deal new cards to the computer
-        computerHand.addAll(dealHand());
+        // Deal new cards to the computer to ensure it has only 5 cards
+        computerHand = dealHand();
 
         System.out.println("Computer has exchanged cards.");
+
+        // After exchanging cards, go to the userRounds function
         userRounds();
     }
+
 
     /*
         Purpose: Generates a random number for computer for its cards
@@ -483,66 +483,57 @@ public class GameLogicSinglePlayer {
         Purpose: to see who has the highest hand and wins
      */
     public static void winner() {
-       displayUserHand();
-       displayComputerHand();
+        displayUserHand();
+        displayComputerHand();
 
-        boolean userRoyalFlush = hasRoyalFlush(userHand);
-        boolean computerRoyalFlush = hasRoyalFlush(computerHand);
 
-        boolean userStraightFlush = hasStraightFlush(userHand);
-        boolean computerStraightFlush = hasStraightFlush(computerHand);
-
-        boolean userFourOfAKind = hasFourOfAKind(userHand);
-        boolean computerFourOfAKind = hasFourOfAKind(computerHand);
-
-        boolean userFullHouse = hasFullHouse(userHand);
-        boolean computerFullHouse = hasFullHouse(computerHand);
-
-        boolean userFlush = hasFlush(userHand);
-        boolean computerFlush = hasFlush(computerHand);
-
-        boolean userStraight = hasStraight(userHand);
-        boolean computerStraight = hasStraight(computerHand);
-
-        boolean userThreeOfAKind = hasThreeOfAKind(userHand);
-        boolean computerThreeOfAKind = hasThreeOfAKind(computerHand);
+        boolean userPair = hasPair(userHand);
+        boolean computerPair = hasPair(computerHand);
 
         boolean userTwoPair = hasTwoPair(userHand);
         boolean computerTwoPair = hasTwoPair(computerHand);
 
-        boolean userOnePair = hasOnePair(userHand);
-        boolean computerOnePair = hasOnePair(computerHand);
+        boolean userThreeOfAKind = hasThreeOfAKind(userHand);
+        boolean computerThreeOfAKind = hasThreeOfAKind(computerHand);
 
-        // Compare hand ranks to determine the winner
-        if (userRoyalFlush || userStraightFlush || userFourOfAKind || userFullHouse || userFlush ||
-                userStraight || userThreeOfAKind || userTwoPair || userOnePair) {
+        boolean userStraight = hasStraight(userHand);
+        boolean computerStraight = hasStraight(computerHand);
 
-            if (computerRoyalFlush || computerStraightFlush || computerFourOfAKind || computerFullHouse ||
-                    computerFlush || computerStraight || computerThreeOfAKind || computerTwoPair || computerOnePair) {
+        boolean userFlush = hasFlush(userHand);
+        boolean computerFlush = hasFlush(computerHand);
 
-                // Both have valid hands, compare ranks
-                int userRank = getHandRank(userHand);
-                int computerRank = getHandRank(computerHand);
+        boolean userFullHouse = hasFullHouse(userHand);
+        boolean computerFullHouse = hasFullHouse(computerHand);
 
-                if (userRank > computerRank) {
-                    System.out.println("Congratulations! You win!");
-                    userCoins += pot;
-                } else if (userRank < computerRank) {
-                    System.out.println("Computer wins. Better luck next time!");
-                    computerCoins += pot;
-                } else {
-                    System.out.println("It's a tie! The pot will be split.");
-                    int halfPot = pot / 2;
-                    userCoins += halfPot;
-                    computerCoins += halfPot;
-                }
-            } else {
+        boolean userFourOfAKind = hasFourOfAKind(userHand);
+        boolean computerFourOfAKind = hasFourOfAKind(computerHand);
+
+        boolean userStraightFlush = hasStraightFlush(userHand);
+        boolean computerStraightFlush = hasStraightFlush(computerHand);
+
+        boolean userRoyalFlush = hasRoyalFlush(userHand);
+        boolean computerRoyalFlush = hasRoyalFlush(computerHand);
+
+
+        if ((userFlush || userPair || userTwoPair || userThreeOfAKind || userStraight || userFullHouse || userFourOfAKind || userStraightFlush || userRoyalFlush)
+                && (!computerFlush && !computerPair && !computerTwoPair && !computerThreeOfAKind && !computerStraight && !computerFullHouse && !computerFourOfAKind && !computerStraightFlush && !computerRoyalFlush)) {
+            System.out.println("Congratulations! You win!");
+            userCoins += pot;
+        }
+        else if ((computerFlush || computerPair || computerTwoPair || computerThreeOfAKind || computerStraight || computerFullHouse || computerFourOfAKind || computerStraightFlush || computerRoyalFlush) &&
+                (!userFlush && !userPair && !userTwoPair && !userThreeOfAKind && !userStraight && !userFullHouse && !userFourOfAKind && !userStraightFlush && !userRoyalFlush)) {
+            System.out.println("Computer wins. Better luck next time!");
+            computerCoins += pot;
+
+        }
+        else {
+            int userHighCard = getHighestCardRank(userHand);
+            int computerHighCard = getHighestCardRank(computerHand);
+
+            if (userHighCard > computerHighCard) {
                 System.out.println("Congratulations! You win!");
                 userCoins += pot;
-            }
-        } else {
-            if (computerRoyalFlush || computerStraightFlush || computerFourOfAKind || computerFullHouse ||
-                    computerFlush || computerStraight || computerThreeOfAKind || computerTwoPair || computerOnePair) {
+            } else if (userHighCard < computerHighCard) {
                 System.out.println("Computer wins. Better luck next time!");
                 computerCoins += pot;
             } else {
@@ -552,57 +543,68 @@ public class GameLogicSinglePlayer {
                 computerCoins += halfPot;
             }
         }
+
         System.out.println("Thanks for playing! Goodbye!");
         System.exit(0);
-
     }
 
-    private static boolean hasRoyalFlush(List<String> hand) {
-        // Check for a Royal Flush: A, K, Q, J, 10 of the same suit
-        return hasStraightFlush(hand) && hand.contains("Ace_of") && hand.contains("King_of") &&
-                hand.contains("Queen_of") && hand.contains("Jack_of") && hand.contains("10_of");
+    private static List<String> getRanks() {
+        // Helper method to get a list of all ranks
+        return Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace");
     }
 
-    private static boolean hasStraightFlush(List<String> hand) {
-        // Check for a Straight Flush: Five consecutive cards of the same suit
-        return hasFlush(hand) && hasStraight(hand);
-    }
+    private static int getHighestCardRank(List<String> hand) {
+        List<String> ranks = getRanks();
 
-    private static boolean hasFourOfAKind(List<String> hand) {
-        // Check for Four of a Kind: Four cards of the same rank
-        for (String rank : getRanks()) {
-            if (Collections.frequency(hand, rank) == 4) {
-                return true;
-            }
-        }
-        return false;
-    }
+        int maxRankIndex = -1;
 
-    private static boolean hasFullHouse(List<String> hand) {
-        // Check for a Full House: Three cards of one rank and two cards of another rank
-        boolean hasThreeOfAKind = false;
-        boolean hasPair = false;
+        for (String card : hand) {
+            String cardRank = card.split("_of_")[0];
+            int currentRankIndex = ranks.indexOf(cardRank);
 
-        for (String rank : getRanks()) {
-            int frequency = Collections.frequency(hand, rank);
-            if (frequency == 3) {
-                hasThreeOfAKind = true;
-            } else if (frequency == 2) {
-                hasPair = true;
+            if (currentRankIndex > maxRankIndex) {
+                maxRankIndex = currentRankIndex;
             }
         }
 
-        return hasThreeOfAKind && hasPair;
+        return maxRankIndex;
     }
 
-    private static boolean hasFlush(List<String> hand) {
-        // Check for a Flush: All cards of the same suit
-        String suit = hand.get(0).split("_of_")[1];
-        return hand.stream().allMatch(card -> card.endsWith(suit));
+
+    private static Map<String, Integer> getRanksFrequency(List<String> hand) {
+        // Helper method to get a map of frequencies for each rank
+        Map<String, Integer> rankFrequency = new HashMap<>();
+
+        for (String rank : getRanks()) {
+            rankFrequency.put(rank, Collections.frequency(hand, rank));
+        }
+
+        return rankFrequency;
+    }
+
+
+    private static boolean hasPair(List<String> hand) {
+        return getRanksFrequency(hand).containsValue(2);  // Check if there is a pair
+    }
+
+    private static boolean hasTwoPair(List<String> hand) {
+        Map<String, Integer> ranksFrequency = getRanksFrequency(hand);
+        int pairCount = 0;
+
+        for (int frequency : ranksFrequency.values()) {
+            if (frequency == 2) {
+                pairCount++;
+            }
+        }
+
+        return pairCount == 2;  // Check if there are two pairs
+    }
+
+    private static boolean hasThreeOfAKind(List<String> hand) {
+        return getRanksFrequency(hand).containsValue(3);  // Check if there is three of a kind
     }
 
     private static boolean hasStraight(List<String> hand) {
-        // Check for a Straight: Five consecutive cards of different suits
         List<String> ranks = getRanks();
         Collections.sort(ranks);
 
@@ -615,97 +617,41 @@ public class GameLogicSinglePlayer {
             }
         }
 
-        return true;
+        return true;  // Check if it is a straight
     }
 
-    private static boolean hasThreeOfAKind(List<String> hand) {
-        // Check for Three of a Kind: Three cards of the same rank
-        for (String rank : getRanks()) {
-            if (Collections.frequency(hand, rank) == 3) {
-                return true;
+    private static boolean hasFlush(List<String> hand) {
+        String suit = hand.get(0).split("_of_")[1];
+        return hand.stream().allMatch(card -> card.endsWith(suit));  // Check if it is a flush
+    }
+
+    private static boolean hasFullHouse(List<String> hand) {
+        Map<String, Integer> ranksFrequency = getRanksFrequency(hand);
+        boolean hasThreeOfAKind = false;
+        boolean hasPair = false;
+
+        for (int frequency : ranksFrequency.values()) {
+            if (frequency == 3) {
+                hasThreeOfAKind = true;
+            } else if (frequency == 2) {
+                hasPair = true;
             }
         }
-        return false;
+
+        return hasThreeOfAKind && hasPair;  // Check if it is a full house
     }
 
-    private static boolean hasTwoPair(List<String> hand) {
-        // Check for Two Pair: Two pairs of cards with the same rank
-        int pairCount = 0;
-
-        for (String rank : getRanks()) {
-            if (Collections.frequency(hand, rank) == 2) {
-                pairCount++;
-            }
-        }
-
-        return pairCount == 2;
+    private static boolean hasFourOfAKind(List<String> hand) {
+        return getRanksFrequency(hand).containsValue(4);  // Check if there is four of a kind
     }
 
-    private static boolean hasOnePair(List<String> hand) {
-        // Check for One Pair: Two cards of the same rank
-        for (String rank : getRanks()) {
-            if (Collections.frequency(hand, rank) == 2) {
-                return true;
-            }
-        }
-        return false;
+    private static boolean hasStraightFlush(List<String> hand) {
+        return hasFlush(hand) && hasStraight(hand);  // Check if it is a straight flush
     }
 
-    private static List<String> getRanks() {
-        // Helper method to get a list of all ranks
-        return Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace");
-    }
-
-    private static int getHandRank(List<String> hand) {
-        List<String> ranks = getRanks();
-
-        // Check for Royal Flush
-        if (hasRoyalFlush(hand)) {
-            return 10;
-        }
-
-        // Check for Straight Flush
-        if (hasStraightFlush(hand)) {
-            return 9;
-        }
-
-        // Check for Four of a Kind
-        if (hasFourOfAKind(hand)) {
-            return 8;
-        }
-
-        // Check for Full House
-        if (hasFullHouse(hand)) {
-            return 7;
-        }
-
-        // Check for Flush
-        if (hasFlush(hand)) {
-            return 6;
-        }
-
-        // Check for Straight
-        if (hasStraight(hand)) {
-            return 5;
-        }
-
-        // Check for Three of a Kind
-        if (hasThreeOfAKind(hand)) {
-            return 4;
-        }
-
-        // Check for Two Pair
-        if (hasTwoPair(hand)) {
-            return 3;
-        }
-
-        // Check for One Pair
-        if (hasOnePair(hand)) {
-            return 2;
-        }
-
-        // High Card
-        return ranks.indexOf(Collections.max(hand, Comparator.comparing(card -> card.split("_of_")[0])));
+    private static boolean hasRoyalFlush(List<String> hand) {
+        return hasStraightFlush(hand) && hand.contains("Ace_of") && hand.contains("King_of") &&
+                hand.contains("Queen_of") && hand.contains("Jack_of") && hand.contains("10_of");  // Check if it is a royal flush
     }
 
 }
