@@ -13,7 +13,7 @@ public class LogoutUser extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("User");
-        response.sendRedirect("testPage.jsp");
+        response.sendRedirect("SignInPage.jsp");
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request,response);

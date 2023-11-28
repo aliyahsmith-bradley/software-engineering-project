@@ -1,4 +1,7 @@
+<%@ page import="pokersite.model.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% User logged = (User) session.getAttribute("User"); %>
+
 <!DOCTYPE html>
 <html style="height:100%;">
 <head>
@@ -114,6 +117,19 @@
     </style>
 </head>
 <body>
+<div>
+    <h2>Are you signed in?</h2>
+
+    <% if(logged == null) { %>
+    <h3>You are not logged in</h3>
+    <% } else { %>
+    <h3>You are logged in! Welcome <%=logged.getUsername()%></h3>
+    <h3>Want to log out?</h3>
+    <form method="post" action="logoutUser">
+        <input type="submit" value="Logout!">
+    </form>
+    <% } %>
+</div>
 <h1>Feeling Lucky?</h1>
 <div class="red-rectangle"></div>
 <a href="index.jsp" class="home_button"></a>
@@ -123,7 +139,7 @@
     <br>
     <span class="button-text">Account</span>
 </a>
-<a href="SignInPage.jsp" class="button-link-2">
+<a href="Login.jsp" class="button-link-2">
     <span class="button-text">Sign In</span>
 </a>
 <a href="TableGame.jsp" class="button-link-3">

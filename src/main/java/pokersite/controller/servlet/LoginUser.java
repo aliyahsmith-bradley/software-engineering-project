@@ -21,7 +21,7 @@ public class LoginUser extends HttpServlet {
             HttpSession session = request.getSession();
             logged.setPassword(""); //For security lets scrub the password
             session.setAttribute("User",logged); //adding user to session
-            response.sendRedirect("testPage.jsp");
+            response.sendRedirect("SignInPage.jsp");
         } else {
             response.sendRedirect("login.jsp?msg=1");
         }
