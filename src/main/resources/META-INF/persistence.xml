@@ -7,7 +7,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/users_db?useSSL=false" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.233.146.116:3306/users_db?useSSL=false" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="topsecretdatabase1" />
             <property name="hibernate.hbm2ddl.auto" value="update"/>
@@ -19,7 +19,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test_database" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.233.146.116:3306/test_database" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="topsecretdatabase1" />
             <property name="hibernate.show_sql" value="true" />
