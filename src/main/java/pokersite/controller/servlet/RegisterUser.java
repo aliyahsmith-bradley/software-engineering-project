@@ -26,7 +26,8 @@ public class RegisterUser extends HttpServlet {
         newUser.setPhone_number(phone_number);
         UserService.registerUser(newUser);
 
-        response.sendRedirect("index.jsp");
+        // Should redirect to User Profile page, but currently is not
+        response.sendRedirect("UserProfile.jsp");
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request,response);

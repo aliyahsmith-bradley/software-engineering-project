@@ -25,7 +25,7 @@
             flex-direction: column;
             justify-content: flex-end;
             width: 400px;
-            height: 400px;
+            height: 450px;
             float: left;
         }
         .casino-chips-2 {
