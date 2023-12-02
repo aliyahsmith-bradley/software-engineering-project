@@ -15,7 +15,7 @@ public class FriendshipDAO extends GenericDAO<Friendship> {
         EntityManager em = getEntityManager();
 
         //language=SQL
-        String query = "SELECT u FROM " + getTableName() + " u WHERE u.id_user2 = :userID";
+        String query = "SELECT u FROM " + getTableName() + " u WHERE u.id_user2 = :userID OR u.id_user1 = :userID";
         List<Friendship> friends = null;
 
         // removed try and catch here
