@@ -1,6 +1,19 @@
-<%@ page import="pokersite.model.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="pokersite.model.entity.User" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+<%@ page import="java.util.List" %>
+<%@ page import="pokersite.model.entity.Friendship" %>
+<%@ page import="com.fasterxml.jackson.core.type.TypeReference" %>
+<%@ page import="pokersite.controller.service.UserService" %>
+
 <% User logged = (User) session.getAttribute("User"); %>
+
+<%
+    // get the json user data and parse it to a list of users using jackson
+    String jsonData = (String) request.getAttribute("jsonData");
+    ObjectMapper objectMapper = new ObjectMapper();
+    List<Friendship> friendshipList = objectMapper.readValue(jsonData, new TypeReference<List<Friendship>>() {});
+%>
 
 <!DOCTYPE html>
 <html style="height:100%;">
@@ -25,6 +38,29 @@
             border-radius: 0;
             padding: 10px 20px;
             z-index: 1;
+        }
+
+        .arrow-button {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+
+        .arrow-button::before {
+            content: "\2190";
+            font-size: 50px;
+        }
+
+        .arrow-button:hover::before {
+            color: red;
         }
 
         .red-rectangle-01 {
@@ -251,6 +287,7 @@
     </style>
 </head>
 <body>
+    <a href="SignInPage.jsp" class="arrow-button"></a>
     <h1>Your Profile</h1>
     <div class="red-rectangle-01"></div>
     <div class="white-rectangle-01"></div>
@@ -259,13 +296,13 @@
         Personal Info
     </div>
     <div class="text-02">
-        Username: <strong>userName</strong>
+        Username: <strong><%=logged.getUsername()%>></strong>
         <br>
         <br>
-        Email: <strong>email@gmail.com</strong>
+        Email: <strong><%=logged.getEmail()%></strong>
         <br>
         <br>
-        Phone Number: <strong>XXX-XXX-XXXX</strong>
+        Phone Number: <strong><%=logged.getPhone_number()%></strong>
     </div>
     <div class="white-rectangle-02"></div>
     <div class="red-rectangle-03"></div>
@@ -273,7 +310,7 @@
         Balance
     </div>
     <div class="text-04">
-        Coins: <strong>0</strong>
+        Coins: <strong><%=logged.getCoins()%></strong>
     </div>
     <div class="buy-more-button-container">
         <button class="buy-more-button" onclick="redirectToInAppPurchases()">Buy More Coins</button>

@@ -18,6 +18,29 @@ h1 {
     z-index: 1;
 }
 
+.arrow-button {
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.arrow-button::before {
+    content: "\2190";
+    font-size: 50px;
+}
+
+.arrow-button:hover::before {
+    color: red;
+}
+
 .red-rectangle {
     background-color: darkred;
     width: 820px;
@@ -34,16 +57,19 @@ body {
 
 .casino-chips-1 {
     /* background-image: url("../images/casino-chips_1.png"); originally had wrong filepath so I fixed it, but it looks wierd and idk if it's intentional.*/
+    background-image: url("../images/casino-chips_1.png");
     flex-direction: column;
     justify-content: flex-end;
     width: 400px;
     height: 500px;
     position: fixed;
     right: 1120px;
+    z-index: 1;
 }
 
 .casino-chips-2 {
     /* background-image: url("../images/casino-chips-2.png"); originally had wrong filepath so I fixed it, but it looks wierd and idk if it's intentional.*/
+    background-image: url("../images/casino-chips-2.png");
     flex-direction: column;
     justify-content: flex-end;
     width: 400px;

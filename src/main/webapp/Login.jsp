@@ -38,7 +38,7 @@
         if(errorCode != null && errorCode.equals("1")) {
     %>
     <br>
-    <div style="color: red;">Invalid username or password. Please try again.</div>
+    <div style="color: yellow;">Invalid username or password. Please try again.</div>
     <%
         }
     %>

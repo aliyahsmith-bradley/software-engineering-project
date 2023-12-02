@@ -8,7 +8,7 @@
 <body>
 <div class="casino-chips-1"></div>
 <div class="casino-chips-2"></div>
-<div class="arrow_button"></div>
+<a href="SignInPage.jsp" class="arrow-button"></a>
 <div class="red-rectangle"></div>
 <h1>How to Play Five Draw</h1>
 <p>
@@ -125,7 +125,40 @@
     their hand. The highest ranking hand wins the full pot.
     <br>
     <br>
-    <i>Citation: “How to Play 5-Card Draw.” Poker.Org, 20 Oct. 2022, www.poker.org/poker-strategy/how-to-play-5-card-draw/#:~:text=In%20five%2Dcard%20draw%2C%20the,replace%20from%20your%20starting%20hand.</i>
+    <strong>Developing a winning 5-card draw strategy</strong>
+    <br>
+    <br>
+    Just like with any style of poker, you’ll only get better at five-card draw the more you play it. When you’re still
+    getting the hang of the game, there are a few important gameplay basics to keep in mind to increase your chances of
+    success.
+    <br>
+    <br>
+    <strong>You don’t have to play every hand</strong>
+    <br>
+    <br>
+    Because the game moves quickly, you can easily run out of chips if you stay in when you don’t have high ranking
+    cards. Remember that you don’t have to play every hand. If your starting hand doesn’t contain any consecutive,
+    suited, or matching cards, it’s very unlikely that you’ll get a winning hand in the drawing round. Unless you’re a
+    master at bluffing, it’s good to let the weak hands go and wait for your luck to improve.
+    <br>
+    <br>
+    <strong>If you’re staying in, be bold</strong>
+    <br>
+    <br>
+    The bolder you are with your bets, the bolder the bets after you will be. Players will either fold or help raise the
+    value of the pot. The more players fold, the better your chances of winning.
+    <br>
+    <br>
+    <strong>Don’t create behavioral patterns</strong>
+    <br>
+    <br>
+    If you always bluff or only ever raise when you have a really high ranking hand, the other players will notice and
+    change how they react to you at the table. In general, you want to avoid other players from being able to figure out
+    your strategy. Whenever possible, adjust your approach to stay unpredictable as an opponent.
+    <br>
+    <br>
+    <i>Citation: “How to Play 5-Card Draw.” Poker.Org, 20 Oct. 2022, www.poker.org/poker-strategy/how-to-play-5-card-
+        draw/#:~:text=In%20five%2Dcard%20draw%2C%20the,replace%20from%20your%20starting%20hand.</i>
 </p>
 </body>
 </html>
