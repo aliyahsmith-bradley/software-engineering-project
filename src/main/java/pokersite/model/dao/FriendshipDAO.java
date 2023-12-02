@@ -1,6 +1,5 @@
 package pokersite.model.dao;
 
-import pokersite.model.entity.Friend_Request;
 import pokersite.model.entity.Friendship;
 
 import javax.persistence.EntityManager;

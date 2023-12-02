@@ -33,6 +33,12 @@
                 <input type="hidden" name="friend" value="<%=friend.getID()%>">
                 <input type="submit" value="remove">
             </form>
+
+            <form method="post" action="sendMessage">
+                <input type="hidden" name="friend" value="<%=friend.getID()%>">
+                Message <input type="text" name="message">
+                <input type="submit" value="send message">
+            </form>
         <% } %>
     </ul>
 </div>

@@ -1,13 +1,7 @@
 package pokersite.controller.service;
 
-import pokersite.model.dao.FriendRequestDAO;
-import pokersite.model.dao.FriendshipDAO;
-import pokersite.model.dao.IssueDAO;
-import pokersite.model.dao.UserDAO;
-import pokersite.model.entity.Friend_Request;
-import pokersite.model.entity.Friendship;
-import pokersite.model.entity.Issue;
-import pokersite.model.entity.User;
+import pokersite.model.dao.*;
+import pokersite.model.entity.*;
 import pokersite.util.PasswordUtil;
 
 import java.util.List;
@@ -16,6 +10,7 @@ public class UserService {
     public static UserDAO dao = new UserDAO();
     public static FriendRequestDAO frdao = new FriendRequestDAO();
     public static FriendshipDAO fsdao = new FriendshipDAO();
+    public static MessageDAO msdao = new MessageDAO();
 
     public static IssueDAO isdao = new IssueDAO();
 
@@ -117,5 +112,10 @@ public class UserService {
     public static Issue submitIssue(Issue newIssue) {
         Issue issue = isdao.create(newIssue);
         return issue;
+    }
+
+    // Message Services
+    public static Message sendMessage(Message message) {
+        return msdao.create(message);
     }
 }

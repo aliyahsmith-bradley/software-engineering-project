@@ -175,6 +175,10 @@
     </form>
     <% } %>
 </div>
+<div>
+    <h3>Found a bug? Report here!</h3>
+    <button onclick="location.href = 'ReportBug.jsp'">Report Bug</button>
+</div>
 
 <h1>Feeling Lucky?</h1>
 <div class="red-rectangle"></div>
