@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.*;
 @WebServlet(name = "registerUser", value = "/registerUser")
 public class RegisterUser extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Retrieve user info from sign up form
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -17,6 +18,7 @@ public class RegisterUser extends HttpServlet {
         String last_name = request.getParameter("last_name");
         String phone_number = request.getParameter("phone_number");
 
+        // Create a new user
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password);
@@ -26,9 +28,21 @@ public class RegisterUser extends HttpServlet {
         newUser.setPhone_number(phone_number);
         UserService.registerUser(newUser);
 
-        // Should redirect to User Profile page, but currently is not
-        response.sendRedirect("UserProfile.jsp");
+        /*
+        // Log the user into their account and redirect back to Sign In Page (if successful)
+        User logged = UserService.registerUser(newUser);
+
+        if(logged!=null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("User", newUser);
+            response.sendRedirect("SignInPage.jsp");
+        } else {
+            // If the log in fails, user will be redirected to main page
+            response.sendRedirect("index.jsp");
+        }
+         */
     }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request,response);
     }
