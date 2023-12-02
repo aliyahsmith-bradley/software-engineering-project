@@ -1,12 +1,12 @@
 <%@ page import="pokersite.model.entity.User" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% User logged = (User) session.getAttribute("User"); %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>JSP - Login </title>
 </head>
 <body>
 <div class="container">
@@ -21,12 +21,27 @@
 
     <% if(logged == null) { %>
     <h2>Already have an account? Login!</h2>
+    <p>Please enter your email and password below to continue. </p>
     <form method="post" action="loginUser">
-        Email: <input type="text" name="email">
-        Password: <input type="password" name="password">
+        Email: <label>
+            <input type="text" name="email">
+        </label>
+        Password: <label>
+            <input type="password" name="password">
+        </label>
         <input type="submit" value="Login!">
     </form>
-<% } %>
+    <% } %>
+
+    <%
+        String errorCode = request.getParameter("error");
+        if(errorCode != null && errorCode.equals("1")) {
+    %>
+    <br>
+    <div style="color: red;">Invalid username or password. Please try again.</div>
+    <%
+        }
+    %>
 </div>
 </body>
 </html>
