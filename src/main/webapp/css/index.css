@@ -1,0 +1,77 @@
+/* Applied gradient to background of web page */
+html {
+    height: 100%;
+    background: linear-gradient(to bottom, #FF0000, #FFCCCB);
+    color: darkred;
+}
+/* Groups text and button toward bottom of web page */
+.content {
+    display: flex;
+    align-items: center;
+    height: 90vh;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+.casino-chips-1 {
+    background-image: url("../images/casino-chips_1.png");
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 400px;
+    height: 450px;
+    float: left;
+}
+.casino-chips-2 {
+    background-image: url("../images/casino-chips-2.png");
+    background-size: cover;
+    width: 400px;
+    height: 400px;
+    float: right;
+}
+.deck-of-cards {
+    background-image: url("../images/deck_of_cards.png");
+    background-size: cover;
+    width: 900px;
+    height: 700px;
+    display: block;
+    margin: 0 auto;
+    position: fixed;
+    top: 50px;
+    right: 340px;
+}
+h1 {
+    font-size: 100px;
+    font-family: "SansSerif", sans-serif;
+    position: fixed;
+    margin-bottom: 20px;
+    bottom: 95px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 0;
+    padding: 10px 20px;
+    z-index: 1;
+}
+.red-rectangle {
+    background-color: darkred;
+    width: 770px;
+    height: 140px;
+    position: fixed;
+    bottom: 95px;
+    right: 320px;
+}
+.rounded-button {
+    background-color: white;
+    border: none;
+    color:black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 40px;
+    right: 670px;
+}

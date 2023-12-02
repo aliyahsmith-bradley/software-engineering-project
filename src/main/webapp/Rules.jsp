@@ -1,78 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html style="height:100%;">
+<link href="css/rules.css" rel="stylesheet" type="text/css">
 <head>
     <title>JSP - Rules Page</title>
-    <style>
-        /* Applied gradient to background of web page */
-        html {
-            height: 100%;
-            background: linear-gradient(to bottom, #FF0000, #FFCCCB);
-            color: darkred;
-        }
-
-        h1 {
-            font-size: 75px;
-            font-family: "SansSerif", sans-serif;
-            position: fixed;
-            top: 50px;
-            left: 300px;
-            white-space: nowrap; /* Prevent line breaks */
-            background-color: white;
-            border-radius: 0;
-            padding: 10px 20px;
-            z-index: 1;
-        }
-
-        .red-rectangle {
-            background-color: darkred;
-            width: 820px;
-            height: 95px;
-            position: fixed;
-            top: 85px;
-            left: 280px;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .casino-chips-1 {
-            background-image: url("../../../Images/casino-chips_1.png");
-            flex-direction: column;
-            justify-content: flex-end;
-            width: 400px;
-            height: 500px;
-            position: fixed;
-            right: 1120px;
-        }
-
-        .casino-chips-2 {
-            background-image: url("../../../Images/casino-chips-2.png");
-            flex-direction: column;
-            justify-content: flex-end;
-            width: 400px;
-            height: 500px;
-            position: fixed;
-            left: 1050px;
-        }
-
-        p {
-            font-size: 22px;
-            font-family: "SansSerif", sans-serif;
-            color: darkred;
-            align-items: center;
-            justify-content: center;
-            width: 60%;
-            padding: 20px;
-            position: fixed;
-            top: 190px;
-            left: 260px;
-            overflow: auto; /* Add scrollbars when content exceeds the container */
-            max-height: 68vh; /* Set a maximum height for the container */
-        }
-    </style>
 </head>
 <body>
 <div class="casino-chips-1"></div>
