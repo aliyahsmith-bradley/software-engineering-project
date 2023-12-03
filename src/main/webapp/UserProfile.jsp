@@ -1,19 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="pokersite.model.entity.User" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-<%@ page import="java.util.List" %>
-<%@ page import="pokersite.model.entity.Friendship" %>
-<%@ page import="com.fasterxml.jackson.core.type.TypeReference" %>
-<%@ page import="pokersite.controller.service.UserService" %>
 
 <% User logged = (User) session.getAttribute("User"); %>
-
-<%
-    // get the json user data and parse it to a list of users using jackson
-    String jsonData = (String) request.getAttribute("jsonData");
-    ObjectMapper objectMapper = new ObjectMapper();
-    List<Friendship> friendshipList = objectMapper.readValue(jsonData, new TypeReference<List<Friendship>>() {});
-%>
 
 <!DOCTYPE html>
 <html style="height:100%;">
