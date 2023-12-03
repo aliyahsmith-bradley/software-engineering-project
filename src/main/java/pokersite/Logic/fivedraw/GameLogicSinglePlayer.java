@@ -11,10 +11,12 @@ public class GameLogicSinglePlayer {
 
     private static final int INITIAL_COINS = 100;
     private static final int HAND_SIZE = 5;
-
-    private static final int PLAYER_NUM = 2;
+    private static final int MIN_NUM_PLAYERS = 2;
+    private static final int MAX_NUM_PLAYERS = 6;
+    private int num_users = 1;
     private static final List<String> cardDeck = new ArrayList<>();
     private static List<String> deck = new ArrayList<>();
+    private List<PlayerLogic> players = new ArrayList<>();
     private static List<String> userHand = new ArrayList<>();
     private static List<String> computerHand = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
@@ -24,6 +26,7 @@ public class GameLogicSinglePlayer {
     private static int pot = 0;
     private static int userBet1 = 0;
     private static boolean computerChecked = false;
+    int players_size = 0;
 
     static {
         String[] suits = new String[]{"Hearts", "Diamonds", "Clubs", "Spades"};
@@ -61,15 +64,39 @@ public class GameLogicSinglePlayer {
         System.out.println("Thanks for playing! Goodbye!");
     }
 
-    public static void initializeGame() {
+    public void initializeGame() {
         deck = new ArrayList<>(cardDeck);
         Collections.shuffle(deck);
-        userHand = dealHand();
-        computerHand = dealHand();
+        dealTable();
         userCoins = INITIAL_COINS;
         computerCoins = INITIAL_COINS;
         pot = 0;
         betAmount = 0;
+    }
+
+    public void dealTable(){
+
+        if (num_users <= MAX_NUM_PLAYERS) {
+            for (int i = 0; i < num_users; i++) {
+                userHand = dealHand();
+
+                PlayerLogic player = new PlayerLogic();
+                player.setHand(userHand);
+
+                players.add(player);
+                players_size++;
+            }
+            while (players.size() < MIN_NUM_PLAYERS){
+                // add bots
+                computerHand = dealHand();
+
+                PlayerLogic player = new ComputerPlayerLogic();
+                player.setHand(computerHand);
+
+                players.add(player);
+                players_size++;
+            }
+        }
     }
 
     public static List<String> dealHand() {
@@ -124,8 +151,40 @@ public class GameLogicSinglePlayer {
         return pot;
     }
 
+    public List<PlayerLogic> getPlayers() {
+        return players;
+    }
+
+    public static int getMaxNumPlayers() {
+        return MAX_NUM_PLAYERS;
+    }
+
+    public static int getMinNumPlayers() {
+        return MIN_NUM_PLAYERS;
+    }
+
+    public int getNum_users() {
+        return num_users;
+    }
+
+    public List<String> getUserHand(){
+        return userHand;
+    }
+
+    public static List<String> getComputerHand() {
+        return computerHand;
+    }
+
+    public static int getHandSize() {
+        return HAND_SIZE;
+    }
+
     public static int getCurrentBetAmount() {
         return betAmount;
+    }
+
+    public int getPlayers_size() {
+        return players_size;
     }
 
     public static Integer validateBet(Integer bet){

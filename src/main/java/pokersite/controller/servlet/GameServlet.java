@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pokersite.Logic.loginguestsignuppage.GameLogicSinglePlayer;
+import pokersite.Logic.fivedraw.GameLogicSinglePlayer;
 
 import java.io.IOException;
 
