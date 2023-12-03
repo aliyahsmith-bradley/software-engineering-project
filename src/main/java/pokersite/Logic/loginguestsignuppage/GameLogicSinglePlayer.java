@@ -16,7 +16,7 @@ public class GameLogicSinglePlayer {
     private static List<String> userHand = new ArrayList<>();
     private static List<String> computerHand = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    private static int userCoins = 0;
+    public static int userCoins = 0;
     private static int computerCoins = 0;
     private static int betAmount = 0;
     private static int pot = 0;

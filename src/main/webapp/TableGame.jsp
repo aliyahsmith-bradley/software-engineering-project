@@ -100,24 +100,6 @@
         <div class="c-pos-4"></div>
         <div class="c-pos-5"></div>
     </div>
-    <div class="opponent-1">
-        <div class="op-card-container">
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        </div>
-    </div>
-    <div class="opponent-2">
-    <div class="op-card-container">
-        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-    </div>
-</div>
     <div class="opponent-3">
         <div class="op-card-container">
             <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
@@ -127,25 +109,7 @@
             <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
         </div>
     </div>
-    <div class="opponent-4">
-        <div class="op-card-container">
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        </div>
-    </div>
-    <div class="opponent-5">
-        <div class="op-card-container">
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-            <div class="grid-item"><img class="op-card" src="images/card-back.jpg" ></div>
-        </div>
-    </div>
-    <script>createCards()</script>
+
     <div class="betting-button">
         <button type="button" class="button" onclick="alert('you raise!')">Raise</button>
         <h1></h1>
