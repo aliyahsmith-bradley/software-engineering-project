@@ -34,24 +34,24 @@
             <% if(us.getID() != friend.getId_user1()) { %>
                 <li>Friend: <%=UserService.findUserByUserID(friend.getId_user1()).getUsername()%></li>
                 <form method="post" action="removeFriend">
-                    <input type="hidden" name="friend" value="<%=friend.getID()%>">
+                    <input type="hidden" name="friend" value="<%=friend.getId_user1()%>">
                     <input type="submit" value="remove">
                 </form>
 
                 <form method="post" action="sendMessage">
-                    <input type="hidden" name="friend" value="<%=friend.getID()%>">
+                    <input type="hidden" name="friend" value="<%=friend.getId_user1()%>">
                     Message <input type="text" name="message">
                     <input type="submit" value="send message">
                 </form>
             <% } else { %>
                 <li>Friend: <%=UserService.findUserByUserID(friend.getId_user2()).getUsername()%></li>
                 <form method="post" action="removeFriend">
-                    <input type="hidden" name="friend" value="<%=friend.getID()%>">
+                    <input type="hidden" name="friend" value="<%=friend.getId_user2()%>">
                     <input type="submit" value="remove">
                 </form>
 
                 <form method="post" action="sendMessage">
-                    <input type="hidden" name="friend" value="<%=friend.getID()%>">
+                    <input type="hidden" name="friend" value="<%=friend.getId_user2()%>">
                     Message <input type="text" name="message">
                     <input type="submit" value="send message">
                 </form>

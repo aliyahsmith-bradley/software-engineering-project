@@ -4,6 +4,8 @@
 <% User logged = (User) session.getAttribute("User"); %>
 
 <html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="scripts/getMessages.js"></script>
 <div>
     <h2>Are you signed in?</h2>
 
@@ -45,6 +47,14 @@
         <form method="get" action="searchFriendsList">
             <input type="submit" value="View Friends!">
         </form>
+
+        <h2>View messages</h2>
+        <form method="get" action="getMessagesOLD">
+            <input type="submit" value="see messages">
+        </form>
+
+        <p id="messages"></p>
+        <button onclick="getMessages()">TESTING</button>
 
         <h2>Want to log out?</h2>
         <form method="post" action="logoutUser">

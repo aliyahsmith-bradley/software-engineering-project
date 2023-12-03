@@ -118,4 +118,7 @@ public class UserService {
     public static Message sendMessage(Message message) {
         return msdao.create(message);
     }
+    public static List<Message> getMessages(User user) {
+        return msdao.getMessages(user);
+    }
 }
