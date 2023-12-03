@@ -16,7 +16,7 @@ public class GameLogicSinglePlayer {
     private int num_users = 1;
     private static final List<String> cardDeck = new ArrayList<>();
     private static List<String> deck = new ArrayList<>();
-    private List<PlayerLogic> players = new ArrayList<>();
+    private static List<PlayerLogic> players = new ArrayList<>();
     private static List<String> userHand = new ArrayList<>();
     private static List<String> computerHand = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
@@ -24,8 +24,9 @@ public class GameLogicSinglePlayer {
     private static int computerCoins = 0;
     private static int betAmount = 0;
     private static int pot = 0;
-    private static int userBet1 = 0;
+    private static int highestBet = 0;
     private static boolean computerChecked = false;
+
     int players_size = 0;
 
     static {
@@ -128,7 +129,11 @@ public class GameLogicSinglePlayer {
         }
 
     public static void displayUserCoins() {
-        System.out.println("User Coins: " + userCoins);
+        if (!players.isEmpty()) {
+            System.out.println("User Coins: " + players.get(0).getCoins());
+        }else {
+            System.out.println("User Coins: " + userCoins);
+        }
     }
 
     public static void displayPotAmount() {
@@ -210,6 +215,12 @@ public class GameLogicSinglePlayer {
         }
     }
 
+    public void setHighestBet(int betAmount){
+        if(betAmount > highestBet){
+            highestBet = betAmount;
+        }
+    }
+
 
     public void usersFirstTurn() {
         displayUserHand();
@@ -239,10 +250,12 @@ public class GameLogicSinglePlayer {
 
         if (userChoice1.equals("bet")) {
             System.out.println("How much would you like to bet?");
-            userBet1 = getUserBet();
+            int userBet1 = getUserBet();
             betAmount += userBet1;
             pot += userBet1;
-            userCoins -= userBet1;
+            //user
+            players.get(1).bet(userBet1);
+
             displayPotAmount();
             displayUserCoins();
             computersTurn(userBet1);

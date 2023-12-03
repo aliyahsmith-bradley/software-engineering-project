@@ -1,12 +1,13 @@
 package pokersite.Logic.fivedraw;
 
+import java.math.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerLogic {
     static final int INITIAL_COINS = 100;
     static final int MAX_HAND_SIZE = 5;
-    static final int MIN_BET_AMOUNT = 5;
+    static final int MIN_BET_AMOUNT = 0;
     ArrayList<String> hand = new ArrayList<String>();
 
     int coins = INITIAL_COINS;
@@ -33,9 +34,17 @@ public class PlayerLogic {
     }
 
     public void addCoins(int coins){
+        coins = Math.abs(coins);
+        this.coins += coins;
+    }
+
+    public int subCoins(int coins){
+        coins = -1 * Math.abs(coins);
         if (this.coins + coins >=0){
-            this.coins += coins;
+            this.coins -= coins;
+            return 1;
         }
+        return 0;
     }
 
     public void setBetAmount(int betAmount) {
@@ -76,6 +85,18 @@ public class PlayerLogic {
         return coins;
     }
 
+    public static int getInitialCoins() {
+        return INITIAL_COINS;
+    }
+
+    public static int getMaxHandSize() {
+        return MAX_HAND_SIZE;
+    }
+
+    public static int getMinBetAmount() {
+        return MIN_BET_AMOUNT;
+    }
+
     public Integer validateBet(Integer bet){
         if (bet > coins) {
             System.out.println("You don't have that many coins. Please enter a valid bet amount. You have: " + coins + " coins");
@@ -85,6 +106,15 @@ public class PlayerLogic {
         return 0;
     }
 
-
+    public int bet(int betAmount){
+        if (validateBet(betAmount) == 1){
+            // then bet away!
+            setBetAmount(betAmount);
+            subCoins(betAmount);
+            setHasBet(true);
+            return 1;
+        }
+        return 0;
+    }
 
 }
