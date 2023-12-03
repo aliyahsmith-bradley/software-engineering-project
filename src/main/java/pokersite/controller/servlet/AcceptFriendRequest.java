@@ -1,3 +1,4 @@
+
 package pokersite.controller.servlet;
 
 import jakarta.servlet.annotation.WebServlet;
@@ -38,3 +39,4 @@ public class AcceptFriendRequest extends HttpServlet {
         processRequest(request,response);
     }
 }
+
