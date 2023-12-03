@@ -1,19 +1,36 @@
-package pokersite.Logic.loginguestsignuppage;
+package pokersite.Logic.fivedraw;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class FiveCardDrawGame {
     private static final int HAND_SIZE = 5;
     private ArrayList<String> playerHand;
     private ArrayList<String> computerHand;
+    private ArrayList<ArrayList<String>> players;
 
     public FiveCardDrawGame() {
         playerHand = new ArrayList<>();
         computerHand = new ArrayList<>();
+
+        players.add(playerHand);
+        players.add(computerHand);
     }
 
+//    public String displayHand(ArrayList<String> hand){
+//
+//    }
+//    public void displayHands(){
+//
+//    }
+    public void placeBets(){
+
+    }
     public void playGame() {
         System.out.println("Welcome to Five Card Draw!");
 

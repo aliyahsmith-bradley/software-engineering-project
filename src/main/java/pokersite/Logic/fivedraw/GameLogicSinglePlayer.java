@@ -1,4 +1,4 @@
-package pokersite.Logic.loginguestsignuppage;
+package pokersite.Logic.fivedraw;
 
 
 import java.util.*;
@@ -11,6 +11,8 @@ public class GameLogicSinglePlayer {
 
     private static final int INITIAL_COINS = 100;
     private static final int HAND_SIZE = 5;
+
+    private static final int PLAYER_NUM = 2;
     private static final List<String> cardDeck = new ArrayList<>();
     private static List<String> deck = new ArrayList<>();
     private static List<String> userHand = new ArrayList<>();
@@ -126,14 +128,21 @@ public class GameLogicSinglePlayer {
         return betAmount;
     }
 
+    public static Integer validateBet(Integer bet){
+        if (bet > userCoins) {
+            System.out.println("You don't have that many coins. Please enter a valid bet amount. You have: " + userCoins + " coins");
+        } else {
+            return 1;
+        }
+        return 0;
+    }
+
     private static int getUserBet() {
         while (true) {
             try {
-                int userBet1 = scanner.nextInt();
-                if (userBet1 > userCoins) {
-                    System.out.println("You don't have that many coins. Please enter a valid bet amount. You have: " + userCoins + " coins");
-                } else {
-                    return userBet1;
+                int userBet = scanner.nextInt();
+                if (validateBet(userBet) == 1){
+                    return userBet;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a valid integer for the bet amount.");
