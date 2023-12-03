@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/adServlet")
+@WebServlet(name = "adServlet", value = "/addServlet")
 public class AdServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
