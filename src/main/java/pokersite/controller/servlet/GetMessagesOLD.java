@@ -2,6 +2,8 @@ package pokersite.controller.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +16,8 @@ import pokersite.model.entity.User;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "getMessages", value = "/getMessages")
-public class GetMessages extends HttpServlet {
+@WebServlet(name = "getMessagesOLD", value = "/getMessagesOLD")
+public class GetMessagesOLD extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         User us = (User) session.getAttribute("User");
@@ -25,7 +27,12 @@ public class GetMessages extends HttpServlet {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(messages);
 
-        response.setContentType("application/json");
-        response.getWriter().write(json);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("viewMessages.jsp");
+        request.setAttribute("jsonData", json);
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
