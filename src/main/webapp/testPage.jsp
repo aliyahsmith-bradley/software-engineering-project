@@ -46,6 +46,11 @@
             <input type="submit" value="View Friends!">
         </form>
 
+        <h2>View messages</h2>
+        <form method="get" action="getMessages">
+            <input type="submit" value="see messages">
+        </form>
+
         <h2>Want to log out?</h2>
         <form method="post" action="logoutUser">
             <input type="submit" value="Logout!">
