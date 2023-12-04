@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameLogicSinglePlayer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.Logic.fivedraw</a> &gt; <span class="el_source">GameLogicSinglePlayer.java</span></div><h1>GameLogicSinglePlayer.java</h1><pre class="source lang-java linenums">package pokersite.Logic.fivedraw;
+
+
+import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+
+<span class="fc" id="L10">public class GameLogicSinglePlayer {</span>
+
+    private static final int INITIAL_COINS = 100;
+    private static final int HAND_SIZE = 5;
+    private static final int MIN_NUM_PLAYERS = 2;
+    private static final int MAX_NUM_PLAYERS = 6;
+<span class="fc" id="L16">    private int num_users = 1;</span>
+<span class="fc" id="L17">    private static final List&lt;String&gt; cardDeck = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">    private static List&lt;String&gt; deck = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">    private static List&lt;PlayerLogic&gt; players = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L20">    private static List&lt;String&gt; userHand = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L21">    private static List&lt;String&gt; computerHand = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L22">    private static Scanner scanner = new Scanner(System.in);</span>
+<span class="fc" id="L23">    public static int userCoins = 0;</span>
+<span class="fc" id="L24">    private static int computerCoins = 0;</span>
+<span class="fc" id="L25">    private static int betAmount = 0;</span>
+<span class="fc" id="L26">    private static int pot = 0;</span>
+<span class="fc" id="L27">    private static int highestBet = 0;</span>
+<span class="fc" id="L28">    private static boolean computerChecked = false;</span>
+
+<span class="fc" id="L30">    int players_size = 0;</span>
+
+    static {
+<span class="fc" id="L33">        String[] suits = new String[]{&quot;Hearts&quot;, &quot;Diamonds&quot;, &quot;Clubs&quot;, &quot;Spades&quot;};</span>
+<span class="fc" id="L34">        String[] ranks = new String[]{&quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;Jack&quot;, &quot;Queen&quot;, &quot;King&quot;, &quot;Ace&quot;};</span>
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (String suit : suits) {</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            for (String rank : ranks) {</span>
+<span class="fc" id="L38">                cardDeck.add(rank + &quot;_of_&quot; + suit);</span>
+            }
+        }
+<span class="fc" id="L41">    }</span>
+
+    public static void main(String[] args) {
+
+
+<span class="nc" id="L46">        GameLogicSinglePlayer game = new GameLogicSinglePlayer();</span>
+
+        // Initialize the game
+<span class="nc" id="L49">        game.initializeGame();</span>
+
+        // Display initial game state
+<span class="nc" id="L52">        System.out.println(&quot;Welcome to Single Player Five Card Draw!&quot;);</span>
+<span class="nc" id="L53">        game.displayUserCoins();</span>
+<span class="nc" id="L54">        game.displayPotAmount();</span>
+
+
+<span class="nc" id="L57">        game.usersFirstTurn();</span>
+
+
+
+        //close the scanner
+<span class="nc" id="L62">        scanner.close();</span>
+
+        // Display farewell message
+<span class="nc" id="L65">        System.out.println(&quot;Thanks for playing! Goodbye!&quot;);</span>
+<span class="nc" id="L66">    }</span>
+
+    public void initializeGame() {
+<span class="fc" id="L69">        deck = new ArrayList&lt;&gt;(cardDeck);</span>
+<span class="fc" id="L70">        Collections.shuffle(deck);</span>
+<span class="fc" id="L71">        dealTable();</span>
+<span class="fc" id="L72">        userCoins = INITIAL_COINS;</span>
+<span class="fc" id="L73">        computerCoins = INITIAL_COINS;</span>
+<span class="fc" id="L74">        pot = 0;</span>
+<span class="fc" id="L75">        betAmount = 0;</span>
+<span class="fc" id="L76">    }</span>
+
+    public void dealTable(){
+
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (num_users &lt;= MAX_NUM_PLAYERS) {</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">            for (int i = 0; i &lt; num_users; i++) {</span>
+<span class="fc" id="L82">                userHand = dealHand();</span>
+
+<span class="fc" id="L84">                PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L85">                player.setHand(userHand);</span>
+
+<span class="fc" id="L87">                players.add(player);</span>
+<span class="fc" id="L88">                players_size++;</span>
+            }
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            while (players.size() &lt; MIN_NUM_PLAYERS){</span>
+                // add bots
+<span class="fc" id="L92">                computerHand = dealHand();</span>
+
+<span class="fc" id="L94">                PlayerLogic player = new ComputerPlayerLogic();</span>
+<span class="fc" id="L95">                player.setHand(computerHand);</span>
+
+<span class="fc" id="L97">                players.add(player);</span>
+<span class="fc" id="L98">                players_size++;</span>
+<span class="fc" id="L99">            }</span>
+        }
+<span class="fc" id="L101">    }</span>
+
+    public static List&lt;String&gt; dealHand() {
+<span class="fc" id="L104">        List&lt;String&gt; hand = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (int i = 0; i &lt; HAND_SIZE; i++) {</span>
+<span class="fc" id="L107">            hand.add(deck.get(i));</span>
+        }
+<span class="fc" id="L109">        removeCardsFromDeck(hand);</span>
+<span class="fc" id="L110">        return hand;</span>
+    }
+
+    public static void removeCardsFromDeck(List&lt;String&gt; cardsToRemove) {
+<span class="fc" id="L114">        deck.removeAll(cardsToRemove);</span>
+<span class="fc" id="L115">    }</span>
+
+    public static void displayUserHand() {
+<span class="nc" id="L118">        System.out.println(&quot;Your Hand: &quot;);</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        for (int i = 0; i &lt; userHand.size(); i++) {</span>
+<span class="nc" id="L120">            System.out.println(i + &quot;: &quot; + userHand.get(i));</span>
+        }
+<span class="nc" id="L122">    }</span>
+
+    public static void displayComputerHand() {
+<span class="nc" id="L125">            System.out.println(&quot;Computer Hand: &quot;);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            for (int i = 0; i &lt; computerHand.size(); i++) {</span>
+<span class="nc" id="L127">                System.out.println(i + &quot;: &quot; + computerHand.get(i));</span>
+            }
+<span class="nc" id="L129">        }</span>
+
+    public static void displayUserCoins() {
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (!players.isEmpty()) {</span>
+<span class="nc" id="L133">            System.out.println(&quot;User Coins: &quot; + players.get(0).getCoins());</span>
+        }else {
+<span class="nc" id="L135">            System.out.println(&quot;User Coins: &quot; + userCoins);</span>
+        }
+<span class="nc" id="L137">    }</span>
+
+    public static void displayPotAmount() {
+<span class="nc" id="L140">        System.out.println(&quot;Pot Amount: &quot; + pot);</span>
+<span class="nc" id="L141">    }</span>
+
+    public static void displayBetAmount() {
+<span class="nc" id="L144">        System.out.println(&quot;Bet Amount &quot; + betAmount);</span>
+<span class="nc" id="L145">    }</span>
+
+    public static int getUserCoins() {
+<span class="nc" id="L148">        return userCoins;</span>
+    }
+
+    public static int getComputerCoins() {
+<span class="nc" id="L152">        return computerCoins;</span>
+    }
+
+    public static int getPotAmount() {
+<span class="nc" id="L156">        return pot;</span>
+    }
+
+    public List&lt;PlayerLogic&gt; getPlayers() {
+<span class="fc" id="L160">        return players;</span>
+    }
+
+    public static int getMaxNumPlayers() {
+<span class="fc" id="L164">        return MAX_NUM_PLAYERS;</span>
+    }
+
+    public static int getMinNumPlayers() {
+<span class="fc" id="L168">        return MIN_NUM_PLAYERS;</span>
+    }
+
+    public int getNum_users() {
+<span class="nc" id="L172">        return num_users;</span>
+    }
+
+    public List&lt;String&gt; getUserHand(){
+<span class="fc" id="L176">        return userHand;</span>
+    }
+
+    public static List&lt;String&gt; getComputerHand() {
+<span class="fc" id="L180">        return computerHand;</span>
+    }
+
+    public static int getHandSize() {
+<span class="fc" id="L184">        return HAND_SIZE;</span>
+    }
+
+    public static int getCurrentBetAmount() {
+<span class="nc" id="L188">        return betAmount;</span>
+    }
+
+    public int getPlayers_size() {
+<span class="nc" id="L192">        return players_size;</span>
+    }
+
+    public static Integer validateBet(Integer bet){
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        if (bet &gt; userCoins) {</span>
+<span class="nc" id="L197">            System.out.println(&quot;You don't have that many coins. Please enter a valid bet amount. You have: &quot; + userCoins + &quot; coins&quot;);</span>
+        } else {
+<span class="nc" id="L199">            return 1;</span>
+        }
+<span class="nc" id="L201">        return 0;</span>
+    }
+
+    private static int getUserBet() {
+        while (true) {
+            try {
+<span class="nc" id="L207">                int userBet = scanner.nextInt();</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                if (validateBet(userBet) == 1){</span>
+<span class="nc" id="L209">                    return userBet;</span>
+                }
+<span class="nc" id="L211">            } catch (InputMismatchException e) {</span>
+<span class="nc" id="L212">                System.out.println(&quot;Invalid input. Please enter a valid integer for the bet amount.&quot;);</span>
+<span class="nc" id="L213">                scanner.next(); // Consume the invalid input to avoid an infinite loop</span>
+<span class="nc" id="L214">            }</span>
+        }
+    }
+
+    public void setHighestBet(int betAmount){
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        if(betAmount &gt; highestBet){</span>
+<span class="nc" id="L220">            highestBet = betAmount;</span>
+        }
+<span class="nc" id="L222">    }</span>
+
+
+    public void usersFirstTurn() {
+<span class="nc" id="L226">        displayUserHand();</span>
+
+<span class="nc" id="L228">        System.out.print(&quot;Hello User and welcome to Five Card Draw! Since this is the start of the game, everyone must&quot; +</span>
+                &quot; put in $10 into the pot: &quot;);
+<span class="nc" id="L230">        userCoins -= 10;</span>
+<span class="nc" id="L231">        computerCoins -= 10;</span>
+<span class="nc" id="L232">        pot = 20;</span>
+
+<span class="nc" id="L234">        displayUserCoins();</span>
+<span class="nc" id="L235">        displayPotAmount();</span>
+
+<span class="nc" id="L237">        System.out.println(&quot;Would you like to check or bet?&quot;);</span>
+<span class="nc" id="L238">        String userChoice1 = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L240" title="All 4 branches missed.">        while (!userChoice1.equalsIgnoreCase(&quot;check&quot;) &amp;&amp; !userChoice1.equalsIgnoreCase(&quot;bet&quot;)) {</span>
+<span class="nc" id="L241">            System.out.println(&quot;Invalid choice. Please enter either 'check' or 'bet&quot;);</span>
+<span class="nc" id="L242">            userChoice1 = scanner.nextLine();</span>
+        }
+
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        if (userChoice1.equals(&quot;check&quot;)) {</span>
+<span class="nc" id="L246">            System.out.print(&quot;Ok, you bet nothing, moving on to computer.&quot;);</span>
+<span class="nc" id="L247">            int userBet1 = 0;</span>
+<span class="nc" id="L248">            computersTurn(userBet1);</span>
+        }
+
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        if (userChoice1.equals(&quot;bet&quot;)) {</span>
+<span class="nc" id="L252">            System.out.println(&quot;How much would you like to bet?&quot;);</span>
+<span class="nc" id="L253">            int userBet1 = getUserBet();</span>
+<span class="nc" id="L254">            betAmount += userBet1;</span>
+<span class="nc" id="L255">            pot += userBet1;</span>
+            //user
+<span class="nc" id="L257">            players.get(1).bet(userBet1);</span>
+
+<span class="nc" id="L259">            displayPotAmount();</span>
+<span class="nc" id="L260">            displayUserCoins();</span>
+<span class="nc" id="L261">            computersTurn(userBet1);</span>
+        }
+<span class="nc" id="L263">    }</span>
+
+    public static Boolean computersTurn(int userBet1) {
+<span class="nc" id="L266">        int computerBet = 0;</span>
+<span class="nc" id="L267">        boolean computerChecked = false;</span>
+
+        // if the user checked, the computer will also check
+<span class="nc bnc" id="L270" title="All 2 branches missed.">        if (userBet1 == 0) {</span>
+<span class="nc" id="L271">            System.out.println(&quot;Computer Bets&quot;);</span>
+<span class="nc" id="L272">            computerChecked = true;</span>
+<span class="nc" id="L273">            betAmount += 5;</span>
+<span class="nc" id="L274">            pot += 5;</span>
+<span class="nc" id="L275">            computerCoins -= 5;</span>
+<span class="nc" id="L276">            userNewCards();</span>
+        }
+
+        // if the userbet1 was not too big but not too small, computer will call
+<span class="nc bnc" id="L280" title="All 4 branches missed.">        else if (userBet1 &gt;= 20 &amp;&amp; userBet1 &lt;= 30) {</span>
+<span class="nc" id="L281">            computerBet = userBet1;</span>
+<span class="nc" id="L282">            pot += computerBet;</span>
+<span class="nc" id="L283">            computerCoins -= computerBet;</span>
+<span class="nc" id="L284">            System.out.println(&quot;Computer matched your bet of &quot; + userBet1);</span>
+<span class="nc" id="L285">            displayPotAmount();</span>
+<span class="nc" id="L286">            userNewCards();</span>
+<span class="nc" id="L287">            computerChecked = false;</span>
+<span class="nc" id="L288">            userNewCards();</span>
+
+        }
+        //if the userbet1 is too small, lets raise it
+<span class="nc bnc" id="L292" title="All 4 branches missed.">        else if (userBet1 &gt;= 1 &amp;&amp; userBet1 &lt; 20) {</span>
+<span class="nc" id="L293">            int difference = 0;</span>
+<span class="nc" id="L294">            computerBet = userBet1 + 5;</span>
+<span class="nc" id="L295">            pot += computerBet;</span>
+<span class="nc" id="L296">            computerCoins -= computerBet;</span>
+<span class="nc" id="L297">            System.out.println(&quot;Computer raised your bet of &quot; + userBet1 + &quot; with &quot; + computerBet);</span>
+<span class="nc" id="L298">            betAmount += computerBet;</span>
+<span class="nc" id="L299">            System.out.println(&quot;User, you must add the difference of computers bet and your past bet and add it to the pot&quot;);</span>
+<span class="nc" id="L300">            difference = computerBet - userBet1;</span>
+<span class="nc" id="L301">            computerCoins -= difference;</span>
+<span class="nc" id="L302">            pot += difference;</span>
+<span class="nc" id="L303">            userCoins = userCoins -difference;</span>
+<span class="nc" id="L304">            displayPotAmount();</span>
+<span class="nc" id="L305">            displayUserCoins();</span>
+<span class="nc" id="L306">            userNewCards();</span>
+<span class="nc" id="L307">            computerChecked = false;</span>
+<span class="nc" id="L308">            userNewCards();</span>
+
+<span class="nc" id="L310">        } else {</span>
+<span class="nc" id="L311">            System.out.println(&quot;Computer Folds, your turn&quot;);</span>
+<span class="nc" id="L312">            userNewCards();</span>
+<span class="nc" id="L313">            computerChecked = false;</span>
+<span class="nc" id="L314">            userNewCards();</span>
+        }
+<span class="nc" id="L316">        return  computerChecked;</span>
+    }
+
+    /*
+        Purpose: To see if the user wants new cards or not
+     */
+    public static void userNewCards() {
+<span class="nc" id="L323">        displayUserHand();</span>
+
+<span class="nc" id="L325">        System.out.println(&quot;Do you want to exchange cards? (yes/no)&quot;);</span>
+<span class="nc" id="L326">        String exchangeChoice = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L328" title="All 4 branches missed.">        while(!exchangeChoice.equalsIgnoreCase(&quot;yes&quot;) &amp;&amp; !exchangeChoice.equalsIgnoreCase(&quot;no&quot;)){</span>
+<span class="nc" id="L329">            System.out.println(&quot;Please enter yes or no&quot;);</span>
+<span class="nc" id="L330">            exchangeChoice = scanner.nextLine();</span>
+        }
+
+<span class="nc bnc" id="L333" title="All 2 branches missed.">        if(exchangeChoice.equalsIgnoreCase(&quot;yes&quot;)){</span>
+<span class="nc" id="L334">            exchangeUserCards();</span>
+        }
+        else{
+<span class="nc" id="L337">            computerNewCards();</span>
+        }
+<span class="nc" id="L339">    }</span>
+
+    /*
+        Purpose: before the next round, the user has the option to get new cards
+     */
+    public static void exchangeUserCards(){
+
+<span class="nc" id="L346">        displayUserHand();</span>
+
+        //checks to see if the user has a ace
+<span class="nc" id="L349">        boolean hasAce = userHand.stream().anyMatch(card -&gt; card.contains(&quot;Ace&quot;));</span>
+
+        // Determine the maximum number of cards to exchange based on the presence of Ace
+<span class="nc bnc" id="L352" title="All 2 branches missed.">        int maxCardsToExchange = hasAce ? 4 : 3;</span>
+
+<span class="nc" id="L354">        System.out.println(&quot;Enter the indices (starting at 0) of the cards you want to replace (comma-separated, up&quot; +</span>
+                &quot;to &quot; +maxCardsToExchange + &quot;)&quot;);
+<span class="nc" id="L356">        String input = scanner.nextLine();</span>
+<span class="nc" id="L357">        String[] indicesStr = input.split(&quot;,&quot;);</span>
+<span class="nc" id="L358">        List&lt;Integer&gt; indices = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L360" title="All 2 branches missed.">        for (String indexStr : indicesStr) {</span>
+            try {
+<span class="nc" id="L362">                int index = Integer.parseInt(indexStr.trim());</span>
+<span class="nc bnc" id="L363" title="All 4 branches missed.">                if (index &gt;= 0 &amp;&amp; index &lt; HAND_SIZE) {</span>
+<span class="nc" id="L364">                    indices.add(index);</span>
+                } else {
+<span class="nc" id="L366">                    System.out.println(&quot;Invalid index: &quot; + index);</span>
+                }
+<span class="nc" id="L368">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L369">                System.out.println(&quot;Invalid input: &quot; + indexStr);</span>
+<span class="nc" id="L370">            }</span>
+        }
+
+        // Check if the number of selected cards is within the allowed range
+<span class="nc bnc" id="L374" title="All 2 branches missed.">        if (indices.size() &gt; maxCardsToExchange) {</span>
+<span class="nc" id="L375">            System.out.println(&quot;You can only exchange up to &quot; + maxCardsToExchange + &quot; cards.&quot;);</span>
+<span class="nc" id="L376">            return;</span>
+        }
+
+        // Replace selected cards
+<span class="nc bnc" id="L380" title="All 2 branches missed.">        for (int index : indices) {</span>
+<span class="nc" id="L381">            userHand.set(index, deck.remove(0));</span>
+<span class="nc" id="L382">        }</span>
+
+        // Display new hand
+<span class="nc" id="L385">        displayUserHand();</span>
+<span class="nc" id="L386">        computerNewCards();</span>
+<span class="nc" id="L387">    }</span>
+
+    /*
+        Purpose is to swap out Computer Cards the same way as user
+     */
+    public static void computerNewCards() {
+<span class="nc" id="L393">        System.out.println(&quot;Computer is exchanging cards...&quot;);</span>
+
+        // Determine the number of cards the computer can exchange
+<span class="nc bnc" id="L396" title="All 2 branches missed.">        int maxCardsToExchange = (computerHand.contains(&quot;Ace&quot;)) ? 4 : 3;</span>
+
+        // Generate a list of random indices to exchange
+<span class="nc" id="L399">        List&lt;Integer&gt; indicesToExchange = generateRandomIndices(maxCardsToExchange);</span>
+
+        // Exchange cards
+<span class="nc bnc" id="L402" title="All 2 branches missed.">        for (int index : indicesToExchange) {</span>
+<span class="nc bnc" id="L403" title="All 4 branches missed.">            if (index &gt;= 0 &amp;&amp; index &lt; computerHand.size()) {</span>
+<span class="nc" id="L404">                String removedCard = computerHand.remove(index);</span>
+<span class="nc" id="L405">                deck.add(removedCard);</span>
+<span class="nc" id="L406">            } else {</span>
+<span class="nc" id="L407">                System.out.println(&quot;Invalid index: &quot; + index);</span>
+            }
+<span class="nc" id="L409">        }</span>
+
+        // Deal new cards to the computer to ensure it has only 5 cards
+<span class="nc" id="L412">        computerHand = dealHand();</span>
+
+<span class="nc" id="L414">        System.out.println(&quot;Computer has exchanged cards.&quot;);</span>
+
+        // After exchanging cards, go to the userRounds function
+<span class="nc" id="L417">        userRounds();</span>
+<span class="nc" id="L418">    }</span>
+
+
+    /*
+        Purpose: Generates a random number for computer for its cards
+     */
+    private static List&lt;Integer&gt; generateRandomIndices(int count) {
+<span class="nc" id="L425">        List&lt;Integer&gt; indices = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">        for (int i = 0; i &lt; count; i++) {</span>
+<span class="nc" id="L427">            int randomIndex = new Random().nextInt(computerHand.size());</span>
+<span class="nc" id="L428">            indices.add(randomIndex);</span>
+        }
+<span class="nc" id="L430">        return indices;</span>
+    }
+
+    /*
+        Purpose: to do one more round for the player
+     */
+    public static void userRounds() {
+<span class="nc" id="L437">        displayUserHand();</span>
+
+<span class="nc" id="L439">        System.out.println(&quot;This is the final round, User would you like to check, call, raise or fold?&quot;);</span>
+<span class="nc" id="L440">        String userChoice = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L442" title="All 4 branches missed.">        while (!userChoice.equalsIgnoreCase(&quot;check&quot;) &amp;&amp; !userChoice.equalsIgnoreCase(&quot;call&quot;) &amp;&amp;</span>
+<span class="nc bnc" id="L443" title="All 4 branches missed.">                !userChoice.equalsIgnoreCase(&quot;raise&quot;) &amp;&amp; !userChoice.equalsIgnoreCase(&quot;fold&quot;)) {</span>
+<span class="nc" id="L444">            System.out.println(&quot;Invalid choice. Please enter either 'check', 'call', 'raise', 'fold'&quot;);</span>
+<span class="nc" id="L445">            userChoice = scanner.nextLine();</span>
+        }
+
+<span class="nc" id="L448">        String userChoice2 = &quot;&quot;;</span>
+<span class="nc" id="L449">        String userChoice3 = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L451" title="All 2 branches missed.">        if (userChoice.equalsIgnoreCase(&quot;check&quot;)) {</span>
+<span class="nc bnc" id="L452" title="All 2 branches missed.">            if (computerChecked) {</span>
+<span class="nc" id="L453">                System.out.println(&quot;You checked&quot;);</span>
+<span class="nc" id="L454">                computersTurn2();</span>
+            } else {
+<span class="nc" id="L456">                System.out.println(&quot;Computer didn't check. You must do something else.&quot;);</span>
+
+                // ask them if they want to raise, call or fold
+<span class="nc" id="L459">                System.out.println(&quot;Do you want to raise, call, or fold?&quot;);</span>
+<span class="nc" id="L460">                userChoice2 = scanner.nextLine();</span>
+            }
+<span class="nc bnc" id="L462" title="All 2 branches missed.">        } else if (userChoice.equalsIgnoreCase(&quot;call&quot;)) {</span>
+<span class="nc" id="L463">            System.out.println(&quot;You must match the bet of: &quot; + betAmount + &quot; this is your current coin balance &quot; + userCoins);</span>
+<span class="nc" id="L464">            System.out.println(&quot;Would you like to match the bet? (y/n)&quot;);</span>
+<span class="nc" id="L465">            String choice = scanner.nextLine();</span>
+
+<span class="nc bnc" id="L467" title="All 4 branches missed.">            while (!choice.equalsIgnoreCase(&quot;y&quot;) &amp;&amp; !choice.equalsIgnoreCase(&quot;n&quot;)) {</span>
+<span class="nc" id="L468">                System.out.println(&quot;Please enter y (for yes) or n (for n)&quot;);</span>
+<span class="nc" id="L469">                choice = scanner.nextLine();</span>
+            }
+
+<span class="nc bnc" id="L472" title="All 2 branches missed.">            if (choice.equalsIgnoreCase(&quot;y&quot;)) {</span>
+<span class="nc" id="L473">                userCoins -= betAmount;</span>
+<span class="nc" id="L474">                pot += betAmount;</span>
+<span class="nc" id="L475">                betAmount += betAmount;</span>
+
+<span class="nc" id="L477">                displayPotAmount();</span>
+<span class="nc" id="L478">                displayUserCoins();</span>
+<span class="nc" id="L479">                displayBetAmount();</span>
+<span class="nc" id="L480">                computersTurn2();</span>
+<span class="nc" id="L481">                return; // Added to exit the method after calling computersTurn2()</span>
+            } else {
+<span class="nc" id="L483">                System.out.print(&quot;You entered no, pick a new choice (raise or fold)&quot;);</span>
+<span class="nc" id="L484">                userChoice3 = scanner.nextLine();</span>
+            }
+<span class="nc bnc" id="L486" title="All 2 branches missed.">        } else if (userChoice.equalsIgnoreCase(&quot;raise&quot;)) {</span>
+<span class="nc" id="L487">            displayUserCoins();</span>
+<span class="nc" id="L488">            displayBetAmount();</span>
+
+<span class="nc" id="L490">            System.out.println(&quot;What would you like to bet? &quot;);</span>
+<span class="nc" id="L491">            int finalBet = getUserBet();</span>
+
+<span class="nc bnc" id="L493" title="All 4 branches missed.">            while (finalBet &lt;= betAmount || finalBet &gt; userCoins) {</span>
+<span class="nc" id="L494">                System.out.println(&quot;Your raise has to be bigger than the bet amount, or you bet too much&quot;);</span>
+<span class="nc" id="L495">                finalBet = getUserBet();</span>
+            }
+
+<span class="nc" id="L498">            betAmount += finalBet;</span>
+<span class="nc" id="L499">            pot += finalBet;</span>
+<span class="nc" id="L500">            userCoins -= finalBet;</span>
+<span class="nc" id="L501">        } else {</span>
+<span class="nc" id="L502">            System.out.print(&quot;You folded, going to computers turn&quot;);</span>
+<span class="nc" id="L503">            computersTurn2();</span>
+<span class="nc" id="L504">            return; // Added to exit the method after calling computersTurn2()</span>
+        }
+
+        // Call computersTurn2() outside the if-else block
+<span class="nc" id="L508">        computersTurn2();</span>
+<span class="nc" id="L509">    }</span>
+
+
+    public static void computersTurn2() {
+<span class="nc" id="L513">        int computerBet = 0;</span>
+
+        // if betAmount is still 0, that means everyone checked
+<span class="nc bnc" id="L516" title="All 2 branches missed.">        if (getCurrentBetAmount() == 0) {</span>
+<span class="nc" id="L517">            System.out.println(&quot;Computer Checked&quot;);</span>
+
+
+<span class="nc" id="L520">           winner();</span>
+        }
+
+        // if the user choice is call was not too big but not too small, computer will call
+<span class="nc bnc" id="L524" title="All 4 branches missed.">        else if (getCurrentBetAmount()&gt;= 20 &amp;&amp; getCurrentBetAmount() &lt;= 30) {</span>
+<span class="nc" id="L525">            computerBet = betAmount;</span>
+<span class="nc" id="L526">            pot += computerBet;</span>
+<span class="nc" id="L527">            computerCoins -= computerBet;</span>
+<span class="nc" id="L528">            System.out.println(&quot;Computer matched the bet of &quot; + getCurrentBetAmount());</span>
+<span class="nc" id="L529">            displayPotAmount();</span>
+
+<span class="nc" id="L531">            winner();</span>
+
+        }
+        //if the userchoice is raise
+<span class="nc bnc" id="L535" title="All 4 branches missed.">        else if (getCurrentBetAmount() &gt;= 1 &amp;&amp; getCurrentBetAmount() &lt; 20) {</span>
+<span class="nc" id="L536">            int difference = 0;</span>
+<span class="nc" id="L537">            computerBet = betAmount + 5;</span>
+<span class="nc" id="L538">            pot += computerBet;</span>
+<span class="nc" id="L539">            computerCoins -= computerBet;</span>
+<span class="nc" id="L540">            System.out.println(&quot;Computer raised the bet of &quot; + getCurrentBetAmount() + &quot; with &quot; + computerBet);</span>
+<span class="nc" id="L541">            betAmount += computerBet;</span>
+<span class="nc" id="L542">            System.out.println(&quot;User, you must add the different of computers bet and your bet and add it to the pot&quot;);</span>
+<span class="nc" id="L543">            difference = computerBet - betAmount;</span>
+<span class="nc" id="L544">            computerCoins -= difference;</span>
+<span class="nc" id="L545">            pot += difference;</span>
+<span class="nc" id="L546">            displayPotAmount();</span>
+
+
+<span class="nc" id="L549">            winner();</span>
+
+
+<span class="nc" id="L552">        } else { //if user choice is fold</span>
+<span class="nc" id="L553">            System.out.println(&quot;Computer Folds&quot;);</span>
+
+
+<span class="nc" id="L556">            winner();</span>
+
+        }
+
+<span class="nc" id="L560">    }</span>
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------
+    /*
+        Purpose: to see who has the highest hand and wins
+     */
+    public static void winner() {
+<span class="nc" id="L567">        displayUserHand();</span>
+<span class="nc" id="L568">        displayComputerHand();</span>
+
+
+<span class="nc" id="L571">        boolean userPair = hasPair(userHand);</span>
+<span class="nc" id="L572">        boolean computerPair = hasPair(computerHand);</span>
+
+<span class="nc" id="L574">        boolean userTwoPair = hasTwoPair(userHand);</span>
+<span class="nc" id="L575">        boolean computerTwoPair = hasTwoPair(computerHand);</span>
+
+<span class="nc" id="L577">        boolean userThreeOfAKind = hasThreeOfAKind(userHand);</span>
+<span class="nc" id="L578">        boolean computerThreeOfAKind = hasThreeOfAKind(computerHand);</span>
+
+<span class="nc" id="L580">        boolean userStraight = hasStraight(userHand);</span>
+<span class="nc" id="L581">        boolean computerStraight = hasStraight(computerHand);</span>
+
+<span class="nc" id="L583">        boolean userFlush = hasFlush(userHand);</span>
+<span class="nc" id="L584">        boolean computerFlush = hasFlush(computerHand);</span>
+
+<span class="nc" id="L586">        boolean userFullHouse = hasFullHouse(userHand);</span>
+<span class="nc" id="L587">        boolean computerFullHouse = hasFullHouse(computerHand);</span>
+
+<span class="nc" id="L589">        boolean userFourOfAKind = hasFourOfAKind(userHand);</span>
+<span class="nc" id="L590">        boolean computerFourOfAKind = hasFourOfAKind(computerHand);</span>
+
+<span class="nc" id="L592">        boolean userStraightFlush = hasStraightFlush(userHand);</span>
+<span class="nc" id="L593">        boolean computerStraightFlush = hasStraightFlush(computerHand);</span>
+
+<span class="nc" id="L595">        boolean userRoyalFlush = hasRoyalFlush(userHand);</span>
+<span class="nc" id="L596">        boolean computerRoyalFlush = hasRoyalFlush(computerHand);</span>
+
+
+<span class="nc bnc" id="L599" title="All 36 branches missed.">        if ((userFlush || userPair || userTwoPair || userThreeOfAKind || userStraight || userFullHouse || userFourOfAKind || userStraightFlush || userRoyalFlush)</span>
+                &amp;&amp; (!computerFlush &amp;&amp; !computerPair &amp;&amp; !computerTwoPair &amp;&amp; !computerThreeOfAKind &amp;&amp; !computerStraight &amp;&amp; !computerFullHouse &amp;&amp; !computerFourOfAKind &amp;&amp; !computerStraightFlush &amp;&amp; !computerRoyalFlush)) {
+<span class="nc" id="L601">            System.out.println(&quot;Congratulations! You win!&quot;);</span>
+<span class="nc" id="L602">            userCoins += pot;</span>
+        }
+<span class="nc bnc" id="L604" title="All 36 branches missed.">        else if ((computerFlush || computerPair || computerTwoPair || computerThreeOfAKind || computerStraight || computerFullHouse || computerFourOfAKind || computerStraightFlush || computerRoyalFlush) &amp;&amp;</span>
+                (!userFlush &amp;&amp; !userPair &amp;&amp; !userTwoPair &amp;&amp; !userThreeOfAKind &amp;&amp; !userStraight &amp;&amp; !userFullHouse &amp;&amp; !userFourOfAKind &amp;&amp; !userStraightFlush &amp;&amp; !userRoyalFlush)) {
+<span class="nc" id="L606">            System.out.println(&quot;Computer wins. Better luck next time!&quot;);</span>
+<span class="nc" id="L607">            computerCoins += pot;</span>
+
+        }
+        else {
+<span class="nc" id="L611">            int userHighCard = getHighestCardRank(userHand);</span>
+<span class="nc" id="L612">            int computerHighCard = getHighestCardRank(computerHand);</span>
+
+<span class="nc bnc" id="L614" title="All 2 branches missed.">            if (userHighCard &gt; computerHighCard) {</span>
+<span class="nc" id="L615">                System.out.println(&quot;Congratulations! You win!&quot;);</span>
+<span class="nc" id="L616">                userCoins += pot;</span>
+<span class="nc bnc" id="L617" title="All 2 branches missed.">            } else if (userHighCard &lt; computerHighCard) {</span>
+<span class="nc" id="L618">                System.out.println(&quot;Computer wins. Better luck next time!&quot;);</span>
+<span class="nc" id="L619">                computerCoins += pot;</span>
+            } else {
+<span class="nc" id="L621">                System.out.println(&quot;It's a tie! The pot will be split.&quot;);</span>
+<span class="nc" id="L622">                int halfPot = pot / 2;</span>
+<span class="nc" id="L623">                userCoins += halfPot;</span>
+<span class="nc" id="L624">                computerCoins += halfPot;</span>
+            }
+        }
+
+<span class="nc" id="L628">        System.out.println(&quot;Thanks for playing! Goodbye!&quot;);</span>
+<span class="nc" id="L629">        System.exit(0);</span>
+<span class="nc" id="L630">    }</span>
+
+    private static List&lt;String&gt; getRanks() {
+        // Helper method to get a list of all ranks
+<span class="nc" id="L634">        return Arrays.asList(&quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;Jack&quot;, &quot;Queen&quot;, &quot;King&quot;, &quot;Ace&quot;);</span>
+    }
+
+    private static int getHighestCardRank(List&lt;String&gt; hand) {
+<span class="nc" id="L638">        List&lt;String&gt; ranks = getRanks();</span>
+
+<span class="nc" id="L640">        int maxRankIndex = -1;</span>
+
+<span class="nc bnc" id="L642" title="All 2 branches missed.">        for (String card : hand) {</span>
+<span class="nc" id="L643">            String cardRank = card.split(&quot;_of_&quot;)[0];</span>
+<span class="nc" id="L644">            int currentRankIndex = ranks.indexOf(cardRank);</span>
+
+<span class="nc bnc" id="L646" title="All 2 branches missed.">            if (currentRankIndex &gt; maxRankIndex) {</span>
+<span class="nc" id="L647">                maxRankIndex = currentRankIndex;</span>
+            }
+<span class="nc" id="L649">        }</span>
+
+<span class="nc" id="L651">        return maxRankIndex;</span>
+    }
+
+
+    private static Map&lt;String, Integer&gt; getRanksFrequency(List&lt;String&gt; hand) {
+        // Helper method to get a map of frequencies for each rank
+<span class="nc" id="L657">        Map&lt;String, Integer&gt; rankFrequency = new HashMap&lt;&gt;();</span>
+
+<span class="nc bnc" id="L659" title="All 2 branches missed.">        for (String rank : getRanks()) {</span>
+<span class="nc" id="L660">            rankFrequency.put(rank, Collections.frequency(hand, rank));</span>
+<span class="nc" id="L661">        }</span>
+
+<span class="nc" id="L663">        return rankFrequency;</span>
+    }
+
+
+    private static boolean hasPair(List&lt;String&gt; hand) {
+<span class="nc" id="L668">        return getRanksFrequency(hand).containsValue(2);  // Check if there is a pair</span>
+    }
+
+    private static boolean hasTwoPair(List&lt;String&gt; hand) {
+<span class="nc" id="L672">        Map&lt;String, Integer&gt; ranksFrequency = getRanksFrequency(hand);</span>
+<span class="nc" id="L673">        int pairCount = 0;</span>
+
+<span class="nc bnc" id="L675" title="All 2 branches missed.">        for (int frequency : ranksFrequency.values()) {</span>
+<span class="nc bnc" id="L676" title="All 2 branches missed.">            if (frequency == 2) {</span>
+<span class="nc" id="L677">                pairCount++;</span>
+            }
+<span class="nc" id="L679">        }</span>
+
+<span class="nc bnc" id="L681" title="All 2 branches missed.">        return pairCount == 2;  // Check if there are two pairs</span>
+    }
+
+    private static boolean hasThreeOfAKind(List&lt;String&gt; hand) {
+<span class="nc" id="L685">        return getRanksFrequency(hand).containsValue(3);  // Check if there is three of a kind</span>
+    }
+
+    private static boolean hasStraight(List&lt;String&gt; hand) {
+<span class="nc" id="L689">        List&lt;String&gt; ranks = getRanks();</span>
+<span class="nc" id="L690">        Collections.sort(ranks);</span>
+
+<span class="nc bnc" id="L692" title="All 2 branches missed.">        for (int i = 0; i &lt; ranks.size() - 1; i++) {</span>
+<span class="nc" id="L693">            int currentRankIndex = ranks.indexOf(hand.get(i).split(&quot;_of_&quot;)[0]);</span>
+<span class="nc" id="L694">            int nextRankIndex = ranks.indexOf(hand.get(i + 1).split(&quot;_of_&quot;)[0]);</span>
+
+<span class="nc bnc" id="L696" title="All 2 branches missed.">            if (nextRankIndex - currentRankIndex != 1) {</span>
+<span class="nc" id="L697">                return false;</span>
+            }
+        }
+
+<span class="nc" id="L701">        return true;  // Check if it is a straight</span>
+    }
+
+    private static boolean hasFlush(List&lt;String&gt; hand) {
+<span class="nc" id="L705">        String suit = hand.get(0).split(&quot;_of_&quot;)[1];</span>
+<span class="nc" id="L706">        return hand.stream().allMatch(card -&gt; card.endsWith(suit));  // Check if it is a flush</span>
+    }
+
+    private static boolean hasFullHouse(List&lt;String&gt; hand) {
+<span class="nc" id="L710">        Map&lt;String, Integer&gt; ranksFrequency = getRanksFrequency(hand);</span>
+<span class="nc" id="L711">        boolean hasThreeOfAKind = false;</span>
+<span class="nc" id="L712">        boolean hasPair = false;</span>
+
+<span class="nc bnc" id="L714" title="All 2 branches missed.">        for (int frequency : ranksFrequency.values()) {</span>
+<span class="nc bnc" id="L715" title="All 2 branches missed.">            if (frequency == 3) {</span>
+<span class="nc" id="L716">                hasThreeOfAKind = true;</span>
+<span class="nc bnc" id="L717" title="All 2 branches missed.">            } else if (frequency == 2) {</span>
+<span class="nc" id="L718">                hasPair = true;</span>
+            }
+<span class="nc" id="L720">        }</span>
+
+<span class="nc bnc" id="L722" title="All 4 branches missed.">        return hasThreeOfAKind &amp;&amp; hasPair;  // Check if it is a full house</span>
+    }
+
+    private static boolean hasFourOfAKind(List&lt;String&gt; hand) {
+<span class="nc" id="L726">        return getRanksFrequency(hand).containsValue(4);  // Check if there is four of a kind</span>
+    }
+
+    private static boolean hasStraightFlush(List&lt;String&gt; hand) {
+<span class="nc bnc" id="L730" title="All 4 branches missed.">        return hasFlush(hand) &amp;&amp; hasStraight(hand);  // Check if it is a straight flush</span>
+    }
+
+    private static boolean hasRoyalFlush(List&lt;String&gt; hand) {
+<span class="nc bnc" id="L734" title="All 6 branches missed.">        return hasStraightFlush(hand) &amp;&amp; hand.contains(&quot;Ace_of&quot;) &amp;&amp; hand.contains(&quot;King_of&quot;) &amp;&amp;</span>
+<span class="nc bnc" id="L735" title="All 6 branches missed.">                hand.contains(&quot;Queen_of&quot;) &amp;&amp; hand.contains(&quot;Jack_of&quot;) &amp;&amp; hand.contains(&quot;10_of&quot;);  // Check if it is a royal flush</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

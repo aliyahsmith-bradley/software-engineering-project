@@ -11,8 +11,8 @@ public class UserService {
     public static FriendRequestDAO frdao = new FriendRequestDAO();
     public static FriendshipDAO fsdao = new FriendshipDAO();
     public static MessageDAO msdao = new MessageDAO();
-
     public static IssueDAO isdao = new IssueDAO();
+    public static BadWordDAO bwdao = new BadWordDAO();
 
     public static void setDAO(UserDAO dao){
         UserService.dao = dao;
@@ -24,6 +24,15 @@ public class UserService {
 
     public static void setDAO(FriendshipDAO fsdao) {
         UserService.fsdao = fsdao;
+    }
+    public static void setDAO(IssueDAO isdao) {
+        UserService.isdao = isdao;
+    }
+    public static void setDAO(MessageDAO msdao) {
+        UserService.msdao = msdao;
+    }
+    public static void setDao(BadWordDAO bwdao) {
+        UserService.bwdao = bwdao;
     }
 
     /***
@@ -120,5 +129,13 @@ public class UserService {
     }
     public static List<Message> getMessages(User user) {
         return msdao.getMessages(user);
+    }
+
+    // badword services
+    public static BadWord banWord(BadWord bw) {
+        return bwdao.create(bw);
+    }
+    public static List<BadWord> getBannedWords() {
+        return bwdao.getBadWords();
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.servlet</a> &gt; <span class="el_source">AdServlet.java</span></div><h1>AdServlet.java</h1><pre class="source lang-java linenums">package pokersite.controller.servlet;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet(name = &quot;adServlet&quot;, value = &quot;/addServlet&quot;)
+<span class="nc" id="L12">public class AdServlet extends HttpServlet {</span>
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Specify the ad images filenames
+<span class="nc" id="L18">        String[] adImageNames = {</span>
+                &quot;Christmas_ad.png&quot;,
+                &quot;New_game.png&quot;
+        };
+
+        // Pick a random image filename
+<span class="nc" id="L24">        int randomIndex = (int) (Math.random() * adImageNames.length);</span>
+<span class="nc" id="L25">        String adImageName = adImageNames[randomIndex];</span>
+
+        // Construct the relative path to the image
+<span class="nc" id="L28">        String relativeImagePath = &quot;images/&quot; + adImageName;</span>
+
+        // Set the image path in the request attribute
+<span class="nc" id="L31">        request.setAttribute(&quot;adContent&quot;, relativeImagePath);</span>
+
+        // Forward to the JSP page
+<span class="nc" id="L34">        request.getRequestDispatcher(&quot;/ad.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L35">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

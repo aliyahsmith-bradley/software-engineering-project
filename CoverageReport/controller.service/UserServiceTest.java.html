@@ -3,13 +3,10 @@
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.verification.Times;
 import pokersite.controller.service.UserService;
-import pokersite.model.dao.FriendRequestDAO;
-import pokersite.model.dao.FriendshipDAO;
-import pokersite.model.dao.UserDAO;
-import pokersite.model.entity.Friend_Request;
-import pokersite.model.entity.Friendship;
-import pokersite.model.entity.User;
+import pokersite.model.dao.*;
+import pokersite.model.entity.*;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -20,210 +17,213 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 
-<span class="fc" id="L23">public class UserServiceTest {</span>
+<span class="fc" id="L20">public class UserServiceTest {</span>
     @Test public void testRegisterUser() {
-<span class="fc" id="L25">        User registered = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;);</span>
-<span class="fc" id="L26">        User newuser = new User(null, &quot;testman&quot;, &quot;123&quot;, &quot;test@test.com&quot;, &quot;test&quot;, &quot;man&quot;, &quot;123123123&quot;);</span>
+<span class="fc" id="L22">        User registered = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0);</span>
+<span class="fc" id="L23">        User newuser = new User(null, &quot;testman&quot;, &quot;123&quot;, &quot;test@test.com&quot;, &quot;test&quot;, &quot;man&quot;, &quot;123123123&quot;, 0);</span>
 
-<span class="fc" id="L28">        UserDAO mockDAO = mock(UserDAO.class);</span>
-<span class="fc" id="L29">        when(mockDAO.create(any(User.class))).thenReturn(registered);</span>
-<span class="fc" id="L30">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L25">        UserDAO mockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L26">        when(mockDAO.create(any(User.class))).thenReturn(registered);</span>
+<span class="fc" id="L27">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L32">        User returned = UserService.registerUser(newuser);</span>
+<span class="fc" id="L29">        User returned = UserService.registerUser(newuser);</span>
 
-<span class="fc" id="L34">        assertAll(</span>
-<span class="fc" id="L35">                ()-&gt; assertEquals(returned.getID(), registered.getID())</span>
+<span class="fc" id="L31">        assertAll(</span>
+<span class="fc" id="L32">                ()-&gt; assertEquals(returned.getID(), registered.getID())</span>
         );
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L34">    }</span>
 
     @Test public void testLoginUser() {
-<span class="fc" id="L40">        User user = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;);</span>
+<span class="fc" id="L37">        User user = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0);</span>
 
-<span class="fc" id="L42">        UserDAO mockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L39">        UserDAO mockDAO = mock(UserDAO.class);</span>
 
-<span class="fc" id="L44">        when(mockDAO.findUserByLogin(anyString())).thenReturn(user);</span>
-<span class="fc" id="L45">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L41">        when(mockDAO.findUserByLogin(anyString())).thenReturn(user);</span>
+<span class="fc" id="L42">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L47">        User logged = UserService.loginUser(&quot;bobuilder@gmail.com&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L44">        User logged = UserService.loginUser(&quot;bobuilder@gmail.com&quot;, &quot;123&quot;);</span>
 
-<span class="fc" id="L49">        assertAll(</span>
-<span class="fc" id="L50">                ()-&gt; assertNotNull(logged),</span>
-<span class="fc" id="L51">                ()-&gt; assertEquals(user.getID(), logged.getID())</span>
+<span class="fc" id="L46">        assertAll(</span>
+<span class="fc" id="L47">                ()-&gt; assertNotNull(logged),</span>
+<span class="fc" id="L48">                ()-&gt; assertEquals(user.getID(), logged.getID())</span>
         );
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L50">    }</span>
 
     @Test public void testFindByUserName() {
-<span class="fc" id="L56">        List&lt;User&gt; userToFind = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L57">        userToFind.add(new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;));</span>
+<span class="fc" id="L53">        List&lt;User&gt; userToFind = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L54">        userToFind.add(new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0));</span>
 
-<span class="fc" id="L59">        UserDAO mockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L56">        UserDAO mockDAO = mock(UserDAO.class);</span>
 
-<span class="fc" id="L61">        when(mockDAO.searchForUsersByUserName(anyString())).thenReturn(userToFind);</span>
-<span class="fc" id="L62">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L58">        when(mockDAO.searchForUsersByUserName(anyString())).thenReturn(userToFind);</span>
+<span class="fc" id="L59">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L64">        List&lt;User&gt; findUserByUsername = UserService.searchForUsersByUserName(&quot;Bob The Builder&quot;);</span>
+<span class="fc" id="L61">        List&lt;User&gt; findUserByUsername = UserService.searchForUsersByUserName(&quot;Bob The Builder&quot;);</span>
 
-<span class="fc" id="L66">        assertAll(</span>
-<span class="fc" id="L67">                ()-&gt; assertNotNull(findUserByUsername),</span>
-<span class="fc" id="L68">                ()-&gt; assertEquals(userToFind.get(0), findUserByUsername.get(0))</span>
+<span class="fc" id="L63">        assertAll(</span>
+<span class="fc" id="L64">                ()-&gt; assertNotNull(findUserByUsername),</span>
+<span class="fc" id="L65">                ()-&gt; assertEquals(userToFind.get(0), findUserByUsername.get(0))</span>
         );
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L67">    }</span>
 
     @Test public void testFindByID() {
-<span class="fc" id="L73">        User userToFind = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;);</span>
+<span class="fc" id="L70">        User userToFind = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0);</span>
 
-<span class="fc" id="L75">        UserDAO mockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L72">        UserDAO mockDAO = mock(UserDAO.class);</span>
 
-<span class="fc" id="L77">        when(mockDAO.findUserByID(anyInt())).thenReturn(userToFind);</span>
-<span class="fc" id="L78">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L74">        when(mockDAO.findUserByID(anyInt())).thenReturn(userToFind);</span>
+<span class="fc" id="L75">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L80">        User findByUserID = UserService.findUserByUserID(50);</span>
+<span class="fc" id="L77">        User findByUserID = UserService.findUserByUserID(50);</span>
 
-<span class="fc" id="L82">        assertAll(</span>
-<span class="fc" id="L83">                ()-&gt; assertNotNull(findByUserID),</span>
-<span class="fc" id="L84">                ()-&gt; assertEquals(userToFind.getID(), findByUserID.getID())</span>
+<span class="fc" id="L79">        assertAll(</span>
+<span class="fc" id="L80">                ()-&gt; assertNotNull(findByUserID),</span>
+<span class="fc" id="L81">                ()-&gt; assertEquals(userToFind.getID(), findByUserID.getID())</span>
         );
-<span class="fc" id="L86">    }</span>
+<span class="fc" id="L83">    }</span>
 
     @Test public void testFindFriendRequests() {
-<span class="fc" id="L89">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L86">        Timestamp ts = Timestamp.from(Instant.now());</span>
 
-<span class="fc" id="L91">        User findUsersFrs = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;);</span>
+<span class="fc" id="L88">        User findUsersFrs = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0);</span>
 
-<span class="fc" id="L93">        List&lt;Friend_Request&gt; frToFind = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L94">        frToFind.add(new Friend_Request(10, 1, 50, (byte) 0, ts));</span>
+<span class="fc" id="L90">        List&lt;Friend_Request&gt; frToFind = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L91">        frToFind.add(new Friend_Request(10, 1, 50, (byte) 0, ts));</span>
 
-<span class="fc" id="L96">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L93">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
 
-<span class="fc" id="L98">        when(mockDAO.findFriendRequestsByUserID(anyInt())).thenReturn(frToFind);</span>
-<span class="fc" id="L99">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L95">        when(mockDAO.findFriendRequestsByUserID(anyInt())).thenReturn(frToFind);</span>
+<span class="fc" id="L96">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L101">        List&lt;Friend_Request&gt; findFriendRequests = UserService.findFriendRequestsByUser(findUsersFrs);</span>
+<span class="fc" id="L98">        List&lt;Friend_Request&gt; findFriendRequests = UserService.findFriendRequestsByUser(findUsersFrs);</span>
 
-<span class="fc" id="L103">        assertAll(</span>
-<span class="fc" id="L104">                ()-&gt; assertNotNull(findFriendRequests),</span>
-<span class="fc" id="L105">                ()-&gt; assertEquals(frToFind.get(0).getID(), findFriendRequests.get(0).getID())</span>
+<span class="fc" id="L100">        assertAll(</span>
+<span class="fc" id="L101">                ()-&gt; assertNotNull(findFriendRequests),</span>
+<span class="fc" id="L102">                ()-&gt; assertEquals(frToFind.get(0).getID(), findFriendRequests.get(0).getID())</span>
         );
-<span class="fc" id="L107">    }</span>
+<span class="fc" id="L104">    }</span>
 
     @Test public void testFindFriendRequestByID() {
-<span class="fc" id="L110">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L107">        Timestamp ts = Timestamp.from(Instant.now());</span>
 
-<span class="fc" id="L112">        User findUsersFrs = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;);</span>
-<span class="fc" id="L113">        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);</span>
+<span class="fc" id="L109">        User findUsersFrs = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0);</span>
+<span class="fc" id="L110">        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);</span>
 
-<span class="fc" id="L115">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L112">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
 
-<span class="fc" id="L117">        when(mockDAO.findFriendRequestByFrID(anyInt())).thenReturn(fr);</span>
-<span class="fc" id="L118">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L114">        when(mockDAO.findFriendRequestByFrID(anyInt())).thenReturn(fr);</span>
+<span class="fc" id="L115">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L120">        Friend_Request findFriendRequest = UserService.findFriendRequestByFrID(fr.getID());</span>
+<span class="fc" id="L117">        Friend_Request findFriendRequest = UserService.findFriendRequestByFrID(fr.getID());</span>
 
-<span class="fc" id="L122">        assertAll(</span>
-<span class="fc" id="L123">                ()-&gt; assertNotNull(findFriendRequest),</span>
-<span class="fc" id="L124">                ()-&gt; assertEquals(fr, findFriendRequest)</span>
+<span class="fc" id="L119">        assertAll(</span>
+<span class="fc" id="L120">                ()-&gt; assertNotNull(findFriendRequest),</span>
+<span class="fc" id="L121">                ()-&gt; assertEquals(fr, findFriendRequest)</span>
         );
-<span class="fc" id="L126">    }</span>
+<span class="fc" id="L123">    }</span>
 
     @Test public void testFindFrByUserIDSenderAndUserIDReceiver() {
-<span class="fc" id="L129">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L126">        Timestamp ts = Timestamp.from(Instant.now());</span>
 
-<span class="fc" id="L131">        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);</span>
-<span class="fc" id="L132">        User findUserfr = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;);</span>
+<span class="fc" id="L128">        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);</span>
+<span class="fc" id="L129">        User findUserfr = new User(50, &quot;Bob The Builder&quot;, &quot;123&quot;, &quot;bobbuilder@gmail.com&quot;, &quot;Bob&quot;, &quot;Builder&quot;, &quot;505050505&quot;, 0);</span>
 
-<span class="fc" id="L134">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L131">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
 
-<span class="fc" id="L136">        when(mockDAO.findFrByUserIDSenderAndUserIDReceiver(anyInt(), anyInt())).thenReturn(fr);</span>
-<span class="fc" id="L137">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L133">        when(mockDAO.findFrByUserIDSenderAndUserIDReceiver(anyInt(), anyInt())).thenReturn(fr);</span>
+<span class="fc" id="L134">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L139">        Friend_Request findFriendRequest = UserService.findFrByUserIDSenderAndUserIDReceiver(1,findUserfr.getID());</span>
+<span class="fc" id="L136">        Friend_Request findFriendRequest = UserService.findFrByUserIDSenderAndUserIDReceiver(1,findUserfr.getID());</span>
 
-<span class="fc" id="L141">        assertAll(</span>
-<span class="fc" id="L142">                ()-&gt; assertNotNull(findFriendRequest),</span>
-<span class="fc" id="L143">                ()-&gt; assertEquals(fr, findFriendRequest)</span>
+<span class="fc" id="L138">        assertAll(</span>
+<span class="fc" id="L139">                ()-&gt; assertNotNull(findFriendRequest),</span>
+<span class="fc" id="L140">                ()-&gt; assertEquals(fr, findFriendRequest)</span>
         );
-<span class="fc" id="L145">    }</span>
+<span class="fc" id="L142">    }</span>
 
     @Test public void testSendFriendRequest() {
-<span class="fc" id="L148">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L145">        Timestamp ts = Timestamp.from(Instant.now());</span>
 
-<span class="fc" id="L150">        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);</span>
+<span class="fc" id="L147">        Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);</span>
 
-<span class="fc" id="L152">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L149">        FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);</span>
 
-<span class="fc" id="L154">        when(mockDAO.create(any())).thenReturn(fr);</span>
-<span class="fc" id="L155">        UserService.setDAO(mockDAO);</span>
+<span class="fc" id="L151">        when(mockDAO.create(any())).thenReturn(fr);</span>
+<span class="fc" id="L152">        UserService.setDAO(mockDAO);</span>
 
-<span class="fc" id="L157">        Friend_Request createdfr = UserService.sendFriendRequest(fr);</span>
+<span class="fc" id="L154">        Friend_Request createdfr = UserService.sendFriendRequest(fr);</span>
 
-<span class="fc" id="L159">        assertAll(</span>
-<span class="fc" id="L160">                ()-&gt; assertNotNull(createdfr),</span>
-<span class="fc" id="L161">                ()-&gt; assertEquals(fr.getID(), createdfr.getID())</span>
+<span class="fc" id="L156">        assertAll(</span>
+<span class="fc" id="L157">                ()-&gt; assertNotNull(createdfr),</span>
+<span class="fc" id="L158">                ()-&gt; assertEquals(fr.getID(), createdfr.getID())</span>
         );
-<span class="fc" id="L163">    }</span>
+<span class="fc" id="L160">    }</span>
 
     @Test public void testAcceptFriendRequest() {
-<span class="fc" id="L166">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;);</span>
-<span class="fc" id="L167">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;);</span>
+<span class="fc" id="L163">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;, 0);</span>
+<span class="fc" id="L164">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;, 0);</span>
 
-<span class="fc" id="L169">        Timestamp ts = Timestamp.from(Instant.now());</span>
-<span class="fc" id="L170">        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);</span>
-<span class="fc" id="L171">        Friendship fs = new Friendship(1, 1, 2, ts);</span>
+<span class="fc" id="L166">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L167">        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);</span>
+<span class="fc" id="L168">        Friendship fs = new Friendship(1, 1, 2, ts);</span>
 
-<span class="fc" id="L173">        UserDAO userMockDAO = mock(UserDAO.class);</span>
-<span class="fc" id="L174">        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);</span>
-<span class="fc" id="L175">        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);</span>
+<span class="fc" id="L170">        UserDAO userMockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L171">        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L172">        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);</span>
 
-<span class="fc" id="L177">        UserService.setDAO(userMockDAO);</span>
-<span class="fc" id="L178">        UserService.registerUser(user1);</span>
-<span class="fc" id="L179">        UserService.registerUser(user2);</span>
+<span class="fc" id="L174">        UserService.setDAO(userMockDAO);</span>
+<span class="fc" id="L175">        UserService.registerUser(user1);</span>
+<span class="fc" id="L176">        UserService.registerUser(user2);</span>
 
-<span class="fc" id="L181">        UserService.setDAO(frMockDAO);</span>
-<span class="fc" id="L182">        UserService.sendFriendRequest(fr);</span>
+<span class="fc" id="L178">        UserService.setDAO(frMockDAO);</span>
+<span class="fc" id="L179">        UserService.sendFriendRequest(fr);</span>
 
-<span class="fc" id="L184">        when(fsMockDAO.create(fs)).thenReturn(fs);</span>
-<span class="fc" id="L185">        UserService.setDAO(fsMockDAO);</span>
+<span class="fc" id="L181">        when(fsMockDAO.create(fs)).thenReturn(fs);</span>
+<span class="fc" id="L182">        UserService.setDAO(fsMockDAO);</span>
 
-<span class="fc" id="L187">        Friendship newfs = UserService.acceptFriendRequest(fs, fr);</span>
+<span class="fc" id="L184">        Friendship newfs = UserService.acceptFriendRequest(fs, fr);</span>
 
-<span class="fc" id="L189">        assertAll(</span>
-<span class="fc" id="L190">                ()-&gt; assertNotNull(newfs),</span>
-<span class="fc" id="L191">                ()-&gt; assertEquals(fs, newfs)</span>
+<span class="fc" id="L186">        assertAll(</span>
+<span class="fc" id="L187">                ()-&gt; assertNotNull(newfs),</span>
+<span class="fc" id="L188">                ()-&gt; assertEquals(fs, newfs)</span>
         );
-<span class="fc" id="L193">    }</span>
+<span class="fc" id="L190">    }</span>
 
-//    @Test public void testFindFriendsByUser() {
-//        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;);
-//        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;);
-//
-//        Timestamp ts = Timestamp.from(Instant.now());
-//        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
-//        Friendship fs = new Friendship(1, 1, 2, ts);
-//
-//
-//        UserDAO userMockDAO = mock(UserDAO.class);
-//        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);
-//        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);
-//
-//        UserService.setDAO(userMockDAO);
-//        UserService.registerUser(user1);
-//        UserService.registerUser(user2);
-//
-//        UserService.setDAO(frMockDAO);
-//        UserService.sendFriendRequest(fr);
-//
-//        when(fsMockDAO.create(fs)).thenReturn(fs);
-//        when(fsMockDAO.findFriendsByUserID(anyInt())).thenReturn(fs);
-//
-//        UserService.setDAO(fsMockDAO);
-//        Friendship newfs = UserService.acceptFriendRequest(fs, fr);
-//
-//        List&lt;Friendship&gt; friendsList = UserService.findFriendsByUser(user1);
-//    }
+    @Test public void testFindFriendsByUser() {
+<span class="fc" id="L193">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;, 0);</span>
+<span class="fc" id="L194">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;, 0);</span>
+
+<span class="fc" id="L196">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L197">        Friend_Request fr = new Friend_Request(1, user1.getID(), user2.getID(), (byte) 0, ts);</span>
+<span class="fc" id="L198">        Friendship fs = new Friendship(1, user1.getID(), user2.getID(), ts);</span>
+
+<span class="fc" id="L200">        UserDAO userMockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L201">        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L202">        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);</span>
+
+<span class="fc" id="L204">        UserService.setDAO(userMockDAO);</span>
+<span class="fc" id="L205">        UserService.registerUser(user1);</span>
+<span class="fc" id="L206">        UserService.registerUser(user2);</span>
+
+<span class="fc" id="L208">        UserService.setDAO(frMockDAO);</span>
+<span class="fc" id="L209">        UserService.sendFriendRequest(fr);</span>
+
+<span class="fc" id="L211">        List&lt;Friendship&gt; friends = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L212">        friends.add(fs);</span>
+
+<span class="fc" id="L214">        when(fsMockDAO.findFriendsByUserID(anyInt())).thenReturn(friends);</span>
+<span class="fc" id="L215">        UserService.setDAO(fsMockDAO);</span>
+
+<span class="fc" id="L217">        List&lt;Friendship&gt; foundFriends = UserService.findFriendsByUser(user1);</span>
+
+<span class="fc" id="L219">        assertAll(</span>
+<span class="fc" id="L220">                ()-&gt; assertEquals(fs.getID(), foundFriends.get(0).getID())</span>
+        );
+<span class="fc" id="L222">    }</span>
 
     @Test public void testFindFriendByFriendshipID() {
-<span class="fc" id="L225">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;);</span>
-<span class="fc" id="L226">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;);</span>
+<span class="fc" id="L225">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;, 0);</span>
+<span class="fc" id="L226">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;, 0);</span>
 
 <span class="fc" id="L228">        Timestamp ts = Timestamp.from(Instant.now());</span>
 <span class="fc" id="L229">        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);</span>
@@ -251,30 +251,95 @@ import static org.junit.jupiter.api.Assertions.*;
         );
 <span class="fc" id="L252">    }</span>
 
-//    @Test public void testRemoveFriend() {
-//        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;);
-//        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;);
-//
-//        Timestamp ts = Timestamp.from(Instant.now());
-//        Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
-//        Friendship fs = new Friendship(1, 1, 2, ts);
-//
-//        UserDAO userMockDAO = mock(UserDAO.class);
-//        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);
-//        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);
-//
-//        UserService.setDAO(userMockDAO);
-//        UserService.registerUser(user1);
-//        UserService.registerUser(user2);
-//
-//        UserService.setDAO(frMockDAO);
-//        UserService.sendFriendRequest(fr);
-//
-//        when(fsMockDAO.findFriendByFriendshipID(anyInt())).thenReturn(fs);
-//        UserService.setDAO(fsMockDAO);
-//        fsMockDAO.delete(fs);
-//        frMockDAO.update(fr);
-//        frMockDAO.delete(fr);
-//    }
+    @Test public void testRemoveFriend() {
+<span class="fc" id="L255">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;, 0);</span>
+<span class="fc" id="L256">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;, 0);</span>
+
+<span class="fc" id="L258">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L259">        Friend_Request fr = new Friend_Request(1, user1.getID(), user2.getID(), (byte) 0, ts);</span>
+<span class="fc" id="L260">        Friendship fs = new Friendship(1, user1.getID(), user2.getID(), ts);</span>
+
+<span class="fc" id="L262">        UserDAO userMockDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L263">        FriendRequestDAO frMockDAO = mock(FriendRequestDAO.class);</span>
+<span class="fc" id="L264">        FriendshipDAO fsMockDAO = mock(FriendshipDAO.class);</span>
+
+<span class="fc" id="L266">        UserService.setDAO(userMockDAO);</span>
+<span class="fc" id="L267">        UserService.registerUser(user1);</span>
+<span class="fc" id="L268">        UserService.registerUser(user2);</span>
+
+<span class="fc" id="L270">        UserService.setDAO(frMockDAO);</span>
+<span class="fc" id="L271">        UserService.sendFriendRequest(fr);</span>
+
+<span class="fc" id="L273">        UserService.setDAO(fsMockDAO);</span>
+<span class="fc" id="L274">        UserService.acceptFriendRequest(fs, fr);</span>
+
+<span class="fc" id="L276">        UserService.removeFriend(fs,fr);</span>
+
+<span class="fc" id="L278">        Friendship foundFriendship = UserService.findFriendByFriendshipID(fs.getID());</span>
+
+<span class="fc" id="L280">        assertAll(</span>
+<span class="fc" id="L281">                ()-&gt; assertNull(foundFriendship)</span>
+        );
+<span class="fc" id="L283">    }</span>
+    @Test public void testSubmitIssue() {
+<span class="fc" id="L285">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L286">        Issue issue = new Issue(1, &quot;Problem&quot;, &quot;Website doesnt work&quot;, ts);</span>
+<span class="fc" id="L287">        Issue newissue = new Issue(null, &quot;Problem&quot;, &quot;Website doesnt work&quot;, ts);</span>
+
+<span class="fc" id="L289">        IssueDAO issueMockDAO = mock(IssueDAO.class);</span>
+<span class="fc" id="L290">        when(issueMockDAO.create(any(Issue.class))).thenReturn(issue);</span>
+<span class="fc" id="L291">        UserService.setDAO(issueMockDAO);</span>
+
+<span class="fc" id="L293">        Issue createdIssue = UserService.submitIssue(newissue);</span>
+
+<span class="fc" id="L295">        assertAll(</span>
+<span class="fc" id="L296">                ()-&gt; assertNotNull(createdIssue)</span>
+        );
+<span class="fc" id="L298">    }</span>
+
+    @Test public void testSendMessage() {
+<span class="fc" id="L301">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L302">        Message message = new Message(1, 1, 2, &quot;Hello There&quot;, ts);</span>
+<span class="fc" id="L303">        Message newMessage = new Message(null, 1, 2, &quot;Hello There&quot;, ts);</span>
+
+<span class="fc" id="L305">        MessageDAO messageDAO = mock(MessageDAO.class);</span>
+<span class="fc" id="L306">        when(messageDAO.create(any(Message.class))).thenReturn(message);</span>
+<span class="fc" id="L307">        Message createdMessage = UserService.sendMessage(newMessage);</span>
+
+
+<span class="fc" id="L310">        assertAll(</span>
+<span class="fc" id="L311">                ()-&gt; assertNotNull(createdMessage)</span>
+        );
+<span class="fc" id="L313">    }</span>
+
+    @Test public void testGetMessage() {
+<span class="fc" id="L316">        Timestamp ts = Timestamp.from(Instant.now());</span>
+<span class="fc" id="L317">        User user1 = new User(1, &quot;bob&quot;, &quot;bob&quot;, &quot;bob@gmail.com&quot;, &quot;bob&quot;, &quot;bob&quot;, &quot;1111111111&quot;, 0);</span>
+<span class="fc" id="L318">        User user2 = new User(2,&quot;bill&quot;,&quot;bill&quot;,&quot;bill@gmail.com&quot;,&quot;bill&quot;,&quot;bill&quot;,&quot;2222222222&quot;, 0);</span>
+
+<span class="fc" id="L320">        Message message = new Message(1, 1, 2, &quot;Hello There&quot;, ts);</span>
+
+<span class="fc" id="L322">        UserDAO userDAO = mock(UserDAO.class);</span>
+<span class="fc" id="L323">        MessageDAO messageDAO = mock(MessageDAO.class);</span>
+
+<span class="fc" id="L325">        UserService.setDAO(userDAO);</span>
+<span class="fc" id="L326">        UserService.registerUser(user1);</span>
+<span class="fc" id="L327">        UserService.registerUser(user2);</span>
+
+<span class="fc" id="L329">        UserService.setDAO(messageDAO);</span>
+<span class="fc" id="L330">        UserService.sendMessage(message);</span>
+<span class="fc" id="L331">        UserService.getMessages(user2);</span>
+
+<span class="fc" id="L333">        List&lt;Message&gt; messages = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L334">        messages.add(message);</span>
+<span class="fc" id="L335">        when(messageDAO.getMessages(any(User.class))).thenReturn(messages);</span>
+
+<span class="fc" id="L337">        List&lt;Message&gt; foundMessages = UserService.getMessages(user2);</span>
+
+<span class="fc" id="L339">        assertAll(</span>
+<span class="fc" id="L340">                ()-&gt; assertNotNull(foundMessages),</span>
+<span class="fc" id="L341">                ()-&gt; assertEquals(message.getID(), foundMessages.get(0).getID())</span>
+        );
+<span class="fc" id="L343">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

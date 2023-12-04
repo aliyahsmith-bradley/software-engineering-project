@@ -12,17 +12,15 @@ public class User extends BaseEntity {
     private String username;
     private String Password;
     private String email;
-
     private String first_name;
     private String last_name;
-
     private String phone_number;
     private int coins;
-
+    private Integer permission;
     public User(){
     }
 
-    public User(Integer ID, String username, String password, String email, String first_name, String last_name, String phone_number) {
+    public User(Integer ID, String username, String password, String email, String first_name, String last_name, String phone_number, Integer permission) {
         this.ID = ID;
         Password = password;
         this.username = username;
@@ -31,6 +29,7 @@ public class User extends BaseEntity {
         this.last_name = last_name;
         this.phone_number = phone_number;
         this.coins = 0;
+        this.setPermission(permission);
     }
 
     public String getUsername() {
@@ -81,6 +80,14 @@ public class User extends BaseEntity {
         }else{
             System.out.println("Insufficient coins to purchase " + product.getName());
         }
+    }
+
+    public Integer getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Integer permission) {
+        this.permission = permission;
     }
 }
 

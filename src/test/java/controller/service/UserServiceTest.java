@@ -3,13 +3,10 @@ package controller.service;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.verification.Times;
 import pokersite.controller.service.UserService;
-import pokersite.model.dao.FriendRequestDAO;
-import pokersite.model.dao.FriendshipDAO;
-import pokersite.model.dao.UserDAO;
-import pokersite.model.entity.Friend_Request;
-import pokersite.model.entity.Friendship;
-import pokersite.model.entity.User;
+import pokersite.model.dao.*;
+import pokersite.model.entity.*;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -22,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
     @Test public void testRegisterUser() {
-        User registered = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
-        User newuser = new User(null, "testman", "123", "test@test.com", "test", "man", "123123123");
+        User registered = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
+        User newuser = new User(null, "testman", "123", "test@test.com", "test", "man", "123123123", 0);
 
         UserDAO mockDAO = mock(UserDAO.class);
         when(mockDAO.create(any(User.class))).thenReturn(registered);
@@ -37,7 +34,7 @@ public class UserServiceTest {
     }
 
     @Test public void testLoginUser() {
-        User user = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User user = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -54,7 +51,7 @@ public class UserServiceTest {
 
     @Test public void testFindByUserName() {
         List<User> userToFind = new ArrayList<>();
-        userToFind.add(new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505"));
+        userToFind.add(new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0));
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -70,7 +67,7 @@ public class UserServiceTest {
     }
 
     @Test public void testFindByID() {
-        User userToFind = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User userToFind = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -88,7 +85,7 @@ public class UserServiceTest {
     @Test public void testFindFriendRequests() {
         Timestamp ts = Timestamp.from(Instant.now());
 
-        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         List<Friend_Request> frToFind = new ArrayList<>();
         frToFind.add(new Friend_Request(10, 1, 50, (byte) 0, ts));
@@ -109,7 +106,7 @@ public class UserServiceTest {
     @Test public void testFindFriendRequestByID() {
         Timestamp ts = Timestamp.from(Instant.now());
 
-        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
         Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
 
         FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
@@ -129,7 +126,7 @@ public class UserServiceTest {
         Timestamp ts = Timestamp.from(Instant.now());
 
         Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
-        User findUserfr = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User findUserfr = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
 
@@ -163,8 +160,8 @@ public class UserServiceTest {
     }
 
     @Test public void testAcceptFriendRequest() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
@@ -193,8 +190,8 @@ public class UserServiceTest {
     }
 
     @Test public void testFindFriendsByUser() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, user1.getID(), user2.getID(), (byte) 0, ts);
@@ -225,8 +222,8 @@ public class UserServiceTest {
     }
 
     @Test public void testFindFriendByFriendshipID() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
@@ -255,8 +252,8 @@ public class UserServiceTest {
     }
 
     @Test public void testRemoveFriend() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, user1.getID(), user2.getID(), (byte) 0, ts);
@@ -282,6 +279,66 @@ public class UserServiceTest {
 
         assertAll(
                 ()-> assertNull(foundFriendship)
+        );
+    }
+    @Test public void testSubmitIssue() {
+        Timestamp ts = Timestamp.from(Instant.now());
+        Issue issue = new Issue(1, "Problem", "Website doesnt work", ts);
+        Issue newissue = new Issue(null, "Problem", "Website doesnt work", ts);
+
+        IssueDAO issueMockDAO = mock(IssueDAO.class);
+        when(issueMockDAO.create(any(Issue.class))).thenReturn(issue);
+        UserService.setDAO(issueMockDAO);
+
+        Issue createdIssue = UserService.submitIssue(newissue);
+
+        assertAll(
+                ()-> assertNotNull(createdIssue)
+        );
+    }
+
+    @Test public void testSendMessage() {
+        Timestamp ts = Timestamp.from(Instant.now());
+        Message message = new Message(1, 1, 2, "Hello There", ts);
+        Message newMessage = new Message(null, 1, 2, "Hello There", ts);
+
+        MessageDAO messageDAO = mock(MessageDAO.class);
+        when(messageDAO.create(any(Message.class))).thenReturn(message);
+        Message createdMessage = UserService.sendMessage(newMessage);
+
+
+        assertAll(
+                ()-> assertNotNull(createdMessage)
+        );
+    }
+
+    @Test public void testGetMessage() {
+        Timestamp ts = Timestamp.from(Instant.now());
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
+
+        Message message = new Message(1, 1, 2, "Hello There", ts);
+
+        UserDAO userDAO = mock(UserDAO.class);
+        MessageDAO messageDAO = mock(MessageDAO.class);
+
+        UserService.setDAO(userDAO);
+        UserService.registerUser(user1);
+        UserService.registerUser(user2);
+
+        UserService.setDAO(messageDAO);
+        UserService.sendMessage(message);
+        UserService.getMessages(user2);
+
+        List<Message> messages = new ArrayList<>();
+        messages.add(message);
+        when(messageDAO.getMessages(any(User.class))).thenReturn(messages);
+
+        List<Message> foundMessages = UserService.getMessages(user2);
+
+        assertAll(
+                ()-> assertNotNull(foundMessages),
+                ()-> assertEquals(message.getID(), foundMessages.get(0).getID())
         );
     }
 }

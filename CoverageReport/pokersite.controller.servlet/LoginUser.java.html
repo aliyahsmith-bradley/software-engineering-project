@@ -15,16 +15,20 @@ import java.io.IOException;
 <span class="nc" id="L15">        String email = request.getParameter(&quot;email&quot;);</span>
 <span class="nc" id="L16">        String password = request.getParameter(&quot;password&quot;);</span>
 
-<span class="nc" id="L18">        User logged = UserService.loginUser(email, password);</span>
-<span class="nc bnc" id="L19" title="All 2 branches missed.">        if(logged!=null){</span>
+        // Authenticate user
+<span class="nc" id="L19">        User logged = UserService.loginUser(email, password);</span>
+
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if(logged!=null){</span>
+            // Login succeeded
             //Session is how we (safe) persist info from a specif user in a webapp
-<span class="nc" id="L21">            HttpSession session = request.getSession();</span>
-<span class="nc" id="L22">            logged.setPassword(&quot;&quot;); //For security lets scrub the password</span>
-<span class="nc" id="L23">            session.setAttribute(&quot;User&quot;,logged); //adding user to session</span>
-<span class="nc" id="L24">            response.sendRedirect(&quot;testPage.jsp&quot;);</span>
-<span class="nc" id="L25">        } else {</span>
-<span class="nc" id="L26">            response.sendRedirect(&quot;login.jsp?msg=1&quot;);</span>
+<span class="nc" id="L24">            HttpSession session = request.getSession();</span>
+<span class="nc" id="L25">            logged.setPassword(&quot;&quot;); //For security lets scrub the password</span>
+<span class="nc" id="L26">            session.setAttribute(&quot;User&quot;,logged); //adding user to session</span>
+<span class="nc" id="L27">            response.sendRedirect(&quot;SignInPage.jsp&quot;);</span>
+<span class="nc" id="L28">        } else {</span>
+            // Login failed
+<span class="nc" id="L30">            response.sendRedirect(&quot;Login.jsp?error=1&quot;);</span>
         }
-<span class="nc" id="L28">    }</span>
+<span class="nc" id="L32">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import pokersite.controller.service.UserService;
+import pokersite.model.entity.BadWord;
 import pokersite.model.entity.Friendship;
 import pokersite.model.entity.Message;
 import pokersite.model.entity.User;
@@ -13,6 +14,7 @@ import pokersite.model.entity.User;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.List;
 
 @WebServlet(name = "sendMessage", value = "/sendMessage")
 public class SendMessage extends HttpServlet {
@@ -21,6 +23,12 @@ public class SendMessage extends HttpServlet {
         User us = (User) session.getAttribute("User");
         User userToSendMessage = UserService.findUserByUserID(Integer.valueOf(request.getParameter("friend")));
         String message = request.getParameter("message");
+
+        List<BadWord> bannedWords = UserService.getBannedWords();
+        for(int i = 0; i < bannedWords.size(); i++) {
+            message = message.replace(bannedWords.get(i).getBadword(), "*****");
+        }
+        
         Message ms = new Message();
         ms.setId_user_sender(us.getID());
         ms.setId_user_receiver(userToSendMessage.getID());

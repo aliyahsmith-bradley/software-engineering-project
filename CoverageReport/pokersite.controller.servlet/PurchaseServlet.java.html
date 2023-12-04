@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurchaseServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.servlet</a> &gt; <span class="el_source">PurchaseServlet.java</span></div><h1>PurchaseServlet.java</h1><pre class="source lang-java linenums">package pokersite.controller.servlet;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+@WebServlet(&quot;/PurchaseServlet&quot;)
+<span class="nc" id="L13">public class PurchaseServlet extends HttpServlet {</span>
+    private static final long serialVersionUID = 1L;
+
+<span class="nc" id="L16">    private static final Map&lt;String, Double&gt; featurePurchaseAmounts = new HashMap&lt;&gt;();</span>
+
+    static{
+<span class="nc" id="L19">        featurePurchaseAmounts.put(&quot;bucket of coins&quot;, 30.0);</span>
+<span class="nc" id="L20">        featurePurchaseAmounts.put(&quot;cup of coins&quot;, 10.0);</span>
+<span class="nc" id="L21">        featurePurchaseAmounts.put(&quot;three coins&quot;, 5.0);</span>
+<span class="nc" id="L22">        featurePurchaseAmounts.put(&quot;sounds&quot;, 8.0);</span>
+<span class="nc" id="L23">        featurePurchaseAmounts.put(&quot;backgrounds&quot;, 10.0);</span>
+
+<span class="nc" id="L25">    }</span>
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+<span class="nc" id="L28">        String feature = request.getParameter(&quot;feature&quot;);</span>
+
+<span class="nc" id="L30">        Double currentBalance = (Double) request.getSession().getAttribute(&quot;balance&quot;);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if(currentBalance == null){</span>
+<span class="nc" id="L32">            currentBalance = 0.0;</span>
+        }
+
+<span class="nc" id="L35">        Double purchaseAmount = featurePurchaseAmounts.get(feature);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if(purchaseAmount == null){</span>
+<span class="nc" id="L37">            purchaseAmount = 10.0;</span>
+        }
+
+<span class="nc" id="L40">        currentBalance -= purchaseAmount;</span>
+<span class="nc" id="L41">        request.getSession().setAttribute(&quot;balance&quot;, currentBalance);</span>
+
+<span class="nc" id="L43">        response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span>
+<span class="nc" id="L44">        try (PrintWriter out = response.getWriter()) {</span>
+<span class="nc" id="L45">            out.println(&quot;&lt;html&gt;&quot;);</span>
+<span class="nc" id="L46">            out.println(&quot;&lt;head&gt;&quot;);</span>
+<span class="nc" id="L47">            out.println(&quot;&lt;title&gt;Purchase Result&lt;/title&gt;&quot;);</span>
+<span class="nc" id="L48">            out.println(&quot;&lt;/head&gt;&quot;);</span>
+<span class="nc" id="L49">            out.println(&quot;&lt;body&gt;&quot;);</span>
+<span class="nc" id="L50">            out.println(&quot;&lt;h1&gt;You have purchased more &quot; + feature + &quot;.&lt;/h1&gt;&quot;);</span>
+<span class="nc" id="L51">            out.println(&quot;&lt;p&gt;Your new balance is $&quot; + currentBalance + &quot;&lt;/p&gt;&quot;);</span>
+<span class="nc" id="L52">            out.println(&quot;&lt;/body&gt;&quot;);</span>
+<span class="nc" id="L53">            out.println(&quot;&lt;/html&quot;);</span>
+        }
+<span class="nc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

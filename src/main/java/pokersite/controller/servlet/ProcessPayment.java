@@ -17,8 +17,14 @@ public class ProcessPayment extends HttpServlet {
         String expirationDate = request.getParameter("expirationDate");
         String cvv = request.getParameter("cvv");
 
-        // Validate the credit card information and process the payment with a payment gateway.
-        // In a real-world scenario, you would use a secure payment gateway API for this.
+        if (cardNumber == null || expirationDate == null || cvv == null ||
+                cardNumber.isEmpty() || expirationDate.isEmpty() || cvv.isEmpty()) {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println("Invalid credit card information. Please provide all required details.");
+                return;
+            }
+        }
 
         // For demonstration purposes, let's assume the payment is successful.
         boolean paymentSuccessful = true;

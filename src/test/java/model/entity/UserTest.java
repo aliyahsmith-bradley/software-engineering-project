@@ -18,7 +18,7 @@ public class UserTest {
         );
     }
     @Test public void testConstructor() {
-        User u = new User(10, "Bill", "billthebest", "bill@gmail.com", "bill", "guy", "8564738561");
+        User u = new User(10, "Bill", "billthebest", "bill@gmail.com", "bill", "guy", "8564738561", 0);
         assertAll(
                 ()-> assertEquals(10, u.getID()),
                 ()-> assertEquals("Bill", u.getUsername()),

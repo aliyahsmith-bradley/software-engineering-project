@@ -2,6 +2,7 @@
 package pokersite.controller.servlet;
 
 import java.io.*;
+
 import pokersite.controller.service.UserService;
 import pokersite.model.entity.User;
 import jakarta.servlet.http.*;
@@ -26,7 +27,13 @@ public class RegisterUser extends HttpServlet {
         newUser.setFirst_name(first_name);
         newUser.setLast_name(last_name);
         newUser.setPhone_number(phone_number);
-        UserService.registerUser(newUser);
+        newUser.setPermission(0);
+        User logged = UserService.registerUser(newUser);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("User", logged);
+        UserService.loginUser(logged.getEmail(), logged.getPassword());
+        response.sendRedirect("SignInPage.jsp");
 
         /*
         // Log the user into their account and redirect back to Sign In Page (if successful)

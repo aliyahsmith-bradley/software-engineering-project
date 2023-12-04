@@ -13,7 +13,7 @@ import java.io.IOException;
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 <span class="nc" id="L14">        HttpSession session = request.getSession();</span>
 <span class="nc" id="L15">        session.removeAttribute(&quot;User&quot;);</span>
-<span class="nc" id="L16">        response.sendRedirect(&quot;testPage.jsp&quot;);</span>
+<span class="nc" id="L16">        response.sendRedirect(&quot;SignInPage.jsp&quot;);</span>
 <span class="nc" id="L17">    }</span>
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 <span class="nc" id="L19">        processRequest(request,response);</span>

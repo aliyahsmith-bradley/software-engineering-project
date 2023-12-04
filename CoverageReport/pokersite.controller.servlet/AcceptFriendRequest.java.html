@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AcceptFriendRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.servlet</a> &gt; <span class="el_source">AcceptFriendRequest.java</span></div><h1>AcceptFriendRequest.java</h1><pre class="source lang-java linenums">package pokersite.controller.servlet;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AcceptFriendRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.servlet</a> &gt; <span class="el_source">AcceptFriendRequest.java</span></div><h1>AcceptFriendRequest.java</h1><pre class="source lang-java linenums">
+package pokersite.controller.servlet;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,27 +16,28 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @WebServlet(name = &quot;acceptFriendRequest&quot;, value = &quot;/acceptFriendRequest&quot;)
-<span class="nc" id="L18">public class AcceptFriendRequest extends HttpServlet {</span>
+<span class="nc" id="L19">public class AcceptFriendRequest extends HttpServlet {</span>
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-<span class="nc" id="L20">        HttpSession session = request.getSession();</span>
-<span class="nc" id="L21">        User us = (User) session.getAttribute(&quot;User&quot;);</span>
-<span class="nc" id="L22">        User userToAdd = UserService.searchForUsersByUserName(request.getParameter(&quot;username&quot;)).get(0);</span>
+<span class="nc" id="L21">        HttpSession session = request.getSession();</span>
+<span class="nc" id="L22">        User us = (User) session.getAttribute(&quot;User&quot;);</span>
+<span class="nc" id="L23">        User userToAdd = UserService.searchForUsersByUserName(request.getParameter(&quot;username&quot;)).get(0);</span>
 
-<span class="nc" id="L24">        Friendship fs = new Friendship();</span>
-<span class="nc" id="L25">        fs.setId_user1(userToAdd.getID());</span>
-<span class="nc" id="L26">        fs.setId_user2(us.getID());</span>
-<span class="nc" id="L27">        fs.setDt_accepted(Timestamp.from(Instant.now()));</span>
+<span class="nc" id="L25">        Friendship fs = new Friendship();</span>
+<span class="nc" id="L26">        fs.setId_user1(userToAdd.getID());</span>
+<span class="nc" id="L27">        fs.setId_user2(us.getID());</span>
+<span class="nc" id="L28">        fs.setDt_accepted(Timestamp.from(Instant.now()));</span>
 
-<span class="nc" id="L29">        Friend_Request frToAccept = UserService.findFriendRequestByFrID(Integer.valueOf(request.getParameter(&quot;friendRequest&quot;)));</span>
-<span class="nc" id="L30">        frToAccept.setStatus((byte) 1);</span>
+<span class="nc" id="L30">        Friend_Request frToAccept = UserService.findFriendRequestByFrID(Integer.valueOf(request.getParameter(&quot;friendRequest&quot;)));</span>
+<span class="nc" id="L31">        frToAccept.setStatus((byte) 1);</span>
 
-<span class="nc" id="L32">        UserService.acceptFriendRequest(fs, frToAccept);</span>
+<span class="nc" id="L33">        UserService.acceptFriendRequest(fs, frToAccept);</span>
 
 
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L36">    }</span>
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-<span class="nc" id="L38">        processRequest(request,response);</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L39">        processRequest(request,response);</span>
+<span class="nc" id="L40">    }</span>
 }
+
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

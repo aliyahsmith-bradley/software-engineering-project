@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportIssue.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.controller.servlet</a> &gt; <span class="el_source">ReportIssue.java</span></div><h1>ReportIssue.java</h1><pre class="source lang-java linenums">package pokersite.controller.servlet;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import pokersite.model.entity.Issue;
+import pokersite.controller.service.UserService;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+
+@WebServlet(name = &quot;reportIssue&quot;, value = &quot;/reportIssue&quot;)
+<span class="nc" id="L15">public class ReportIssue extends HttpServlet {</span>
+    public void processRequest(HttpServletRequest request, HttpServletResponse respose) throws IOException {
+<span class="nc" id="L17">        String title = request.getParameter(&quot;title&quot;);</span>
+<span class="nc" id="L18">        String description = request.getParameter(&quot;description&quot;);</span>
+
+<span class="nc" id="L20">        Issue newIssue = new Issue();</span>
+<span class="nc" id="L21">        newIssue.setTitle(title);</span>
+<span class="nc" id="L22">        newIssue.setBody(description);</span>
+<span class="nc" id="L23">        newIssue.setDt_sent(Timestamp.from(Instant.now()));</span>
+<span class="nc" id="L24">        UserService.submitIssue(newIssue);</span>
+<span class="nc" id="L25">    }</span>
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+<span class="nc" id="L28">        processRequest(request,response);</span>
+<span class="nc" id="L29">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
