@@ -25,6 +25,12 @@ public class UserService {
     public static void setDAO(FriendshipDAO fsdao) {
         UserService.fsdao = fsdao;
     }
+    public static void setDAO(IssueDAO isdao) {
+        UserService.isdao = isdao;
+    }
+    public static void setDAO(MessageDAO msdao) {
+        UserService.msdao = msdao;
+    }
 
     /***
      * Registers new user in the DB by calling the DAO.
