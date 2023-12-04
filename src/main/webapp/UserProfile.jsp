@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html style="height:100%;">
 <link href="css/userProfile.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="scripts/getFriends.js"></script>
+<script src="scripts/getMessages.js"></script>
+
 <head>
     <title>JSP - User Profile</title>
 </head>
@@ -19,7 +23,7 @@
         Personal Info
     </div>
     <div class="text-02">
-        Username: <strong><%=logged.getUsername()%>></strong>
+        Username: <strong><%=logged.getUsername()%></strong>
         <br>
         <br>
         Email: <strong><%=logged.getEmail()%></strong>
@@ -74,7 +78,20 @@
     <div class="white-rectangle-04"></div>
     <div class="red-rectangle-05"></div>
     <div class="text-08">
-        Friends List
+        Your Friendslist!
+        <div>
+<%--            <form method="get" action="searchFriendsList">--%>
+<%--                <input type="submit" value="View Friends!">--%>
+<%--            </form>--%>
+            <p id="friends" class="friendslist"></p>
+            <button onclick="getFriends()">View Friends</button>
+        </div>
+        <div class="friendslist">Messages</div>
+        <div>
+            <p id="messages" class="friendslist"></p>
+            <button onclick="getMessages()">View Messages</button>
+        </div>
     </div>
+
 </body>
 </html>
