@@ -12,6 +12,15 @@ public class Message extends BaseEntity {
     private String message;
     private Timestamp dt_sent;
 
+    public Message() {
+    }
+    public Message(Integer ID, Integer sender, Integer receiver, String message, Timestamp dt_sent) {
+        this.ID = ID;
+        id_user_sender = sender;
+        id_user_receiver = receiver;
+        this.message = message;
+        this.dt_sent = dt_sent;
+    }
     @Override
     public Integer getID() {
         return ID;
