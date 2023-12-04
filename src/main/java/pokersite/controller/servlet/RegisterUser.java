@@ -26,6 +26,7 @@ public class RegisterUser extends HttpServlet {
         newUser.setFirst_name(first_name);
         newUser.setLast_name(last_name);
         newUser.setPhone_number(phone_number);
+        newUser.setPermission(0);
         UserService.registerUser(newUser);
 
         /*
