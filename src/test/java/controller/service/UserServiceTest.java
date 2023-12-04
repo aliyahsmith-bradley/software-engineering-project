@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
     @Test public void testRegisterUser() {
-        User registered = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
-        User newuser = new User(null, "testman", "123", "test@test.com", "test", "man", "123123123");
+        User registered = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
+        User newuser = new User(null, "testman", "123", "test@test.com", "test", "man", "123123123", 0);
 
         UserDAO mockDAO = mock(UserDAO.class);
         when(mockDAO.create(any(User.class))).thenReturn(registered);
@@ -34,7 +34,7 @@ public class UserServiceTest {
     }
 
     @Test public void testLoginUser() {
-        User user = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User user = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -51,7 +51,7 @@ public class UserServiceTest {
 
     @Test public void testFindByUserName() {
         List<User> userToFind = new ArrayList<>();
-        userToFind.add(new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505"));
+        userToFind.add(new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0));
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -67,7 +67,7 @@ public class UserServiceTest {
     }
 
     @Test public void testFindByID() {
-        User userToFind = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User userToFind = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         UserDAO mockDAO = mock(UserDAO.class);
 
@@ -85,7 +85,7 @@ public class UserServiceTest {
     @Test public void testFindFriendRequests() {
         Timestamp ts = Timestamp.from(Instant.now());
 
-        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         List<Friend_Request> frToFind = new ArrayList<>();
         frToFind.add(new Friend_Request(10, 1, 50, (byte) 0, ts));
@@ -106,7 +106,7 @@ public class UserServiceTest {
     @Test public void testFindFriendRequestByID() {
         Timestamp ts = Timestamp.from(Instant.now());
 
-        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User findUsersFrs = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
         Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
 
         FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
@@ -126,7 +126,7 @@ public class UserServiceTest {
         Timestamp ts = Timestamp.from(Instant.now());
 
         Friend_Request fr = new Friend_Request(10, 1, 50, (byte) 0, ts);
-        User findUserfr = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505");
+        User findUserfr = new User(50, "Bob The Builder", "123", "bobbuilder@gmail.com", "Bob", "Builder", "505050505", 0);
 
         FriendRequestDAO mockDAO = mock(FriendRequestDAO.class);
 
@@ -160,8 +160,8 @@ public class UserServiceTest {
     }
 
     @Test public void testAcceptFriendRequest() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
@@ -190,8 +190,8 @@ public class UserServiceTest {
     }
 
     @Test public void testFindFriendsByUser() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, user1.getID(), user2.getID(), (byte) 0, ts);
@@ -222,8 +222,8 @@ public class UserServiceTest {
     }
 
     @Test public void testFindFriendByFriendshipID() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, 1, 2, (byte) 0, ts);
@@ -252,8 +252,8 @@ public class UserServiceTest {
     }
 
     @Test public void testRemoveFriend() {
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Timestamp ts = Timestamp.from(Instant.now());
         Friend_Request fr = new Friend_Request(1, user1.getID(), user2.getID(), (byte) 0, ts);
@@ -314,8 +314,8 @@ public class UserServiceTest {
 
     @Test public void testGetMessage() {
         Timestamp ts = Timestamp.from(Instant.now());
-        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111");
-        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222");
+        User user1 = new User(1, "bob", "bob", "bob@gmail.com", "bob", "bob", "1111111111", 0);
+        User user2 = new User(2,"bill","bill","bill@gmail.com","bill","bill","2222222222", 0);
 
         Message message = new Message(1, 1, 2, "Hello There", ts);
 
