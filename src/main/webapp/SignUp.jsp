@@ -15,12 +15,12 @@
     <h3>Sign Up</h3>
     <form action="registerUser" method="post">
         <label>
-            <input type="text" name="firstName" placeholder="First Name" required>
+            <input type="text" name="first_name" placeholder="First Name" required>
         </label>
         <br>
         <br>
         <label>
-            <input type="text" name="lastName" placeholder="Last Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
         </label>
         <br>
         <br>
@@ -30,7 +30,7 @@
         <br>
         <br>
         <label>
-            <input type="text" name="phoneNumber" placeholder="Phone Number" required>
+            <input type="text" name="phone_number" placeholder="Phone Number" required>
         </label>
         <br>
         <br>
