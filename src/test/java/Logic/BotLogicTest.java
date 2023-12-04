@@ -47,6 +47,4 @@ public class BotLogicTest {
         assertEquals(player.getCompType(), 2);
     }
 
-    @Test
-    public void
 }
