@@ -18,6 +18,10 @@ public class ComputerPlayerLogic extends PlayerLogic {
         this.compName = compName;
     }
 
+    public String getCompName(){
+        return compName;
+    }
+
     public void setCompType(int compType){
         this.compType = compType;
     }
@@ -57,7 +61,7 @@ public class ComputerPlayerLogic extends PlayerLogic {
         // if the user checked, the computer will also check
         if (userBet1 == 0) {
             System.out.println("Computer Bets");
-            checked = true;
+            setChecked(true);
             bet += 5;
             bet(betAmount);
         }
@@ -66,7 +70,7 @@ public class ComputerPlayerLogic extends PlayerLogic {
         else if (userBet1 >= 20 && userBet1 <= 30 && userBet1<= coins) {
             bet(userBet1);
             System.out.println("Computer matched your bet of " + userBet1);
-            checked = false;
+            setChecked(false);
         }
         //if the userbet1 is too small, lets raise it
         else if (userBet1 >= 1 && userBet1 < 20) {
@@ -76,15 +80,13 @@ public class ComputerPlayerLogic extends PlayerLogic {
             System.out.println("Computer raised your bet of " + userBet1 + " with " + bet);
             System.out.println("User, you must add the difference of computers bet and your past bet and add it to the pot");
             difference = bet - userBet1;
-            checked = false;
+            setChecked(false);
 
         } else {
             System.out.println("Computer Folds, your turn");
-            checked = false;
+            setChecked(false);
         }
-
-
-        return 1;
+        return bet;
     }
 
 }

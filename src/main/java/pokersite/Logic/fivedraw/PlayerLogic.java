@@ -100,6 +100,8 @@ public class PlayerLogic {
     public Integer validateBet(Integer bet){
         if (bet > coins) {
             System.out.println("You don't have that many coins. Please enter a valid bet amount. You have: " + coins + " coins");
+        } else if (bet < 0) {
+            System.out.println("That is a negative amount of coins. Please enter a valid bet amount.");
         } else {
             return 1;
         }
