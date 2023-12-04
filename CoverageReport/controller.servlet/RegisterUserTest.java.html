@@ -27,18 +27,18 @@ import static org.junit.jupiter.api.Assertions.*;
 <span class="fc" id="L27">        when(request.getParameter(&quot;phone_number&quot;)).thenReturn(&quot;1234567891&quot;);</span>
 <span class="fc" id="L28">        when(request.getSession()).thenReturn(sessionMock);</span>
 
-<span class="fc" id="L30">        try(MockedStatic&lt;UserService&gt; service = mockStatic(UserService.class)) {</span>
-<span class="fc" id="L31">            service.when(()-&gt; UserService.registerUser(any()) ).thenReturn(new User());</span>
+<span class="nc" id="L30">        try(MockedStatic&lt;UserService&gt; service = mockStatic(UserService.class)) {</span>
+<span class="nc" id="L31">            service.when(()-&gt; UserService.registerUser(any()) ).thenReturn(new User());</span>
 
-<span class="fc" id="L33">            RegisterUser servlet = new RegisterUser();</span>
-<span class="fc" id="L34">            servlet.doPost(request,response);</span>
+<span class="nc" id="L33">            RegisterUser servlet = new RegisterUser();</span>
+<span class="nc" id="L34">            servlet.doPost(request,response);</span>
 
-<span class="fc" id="L36">            assertAll(&quot;Register User Successfully assertions&quot;,</span>
-<span class="fc" id="L37">                    ()-&gt; assertDoesNotThrow(</span>
-<span class="fc" id="L38">                            () -&gt; verify(response).sendRedirect(&quot;index.jsp&quot;)</span>
+<span class="nc" id="L36">            assertAll(&quot;Register User Successfully assertions&quot;,</span>
+<span class="nc" id="L37">                    ()-&gt; assertDoesNotThrow(</span>
+<span class="nc" id="L38">                            () -&gt; verify(response).sendRedirect(&quot;index.jsp&quot;)</span>
                     )
             );
         }
-<span class="fc" id="L42">    }</span>
+<span class="nc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

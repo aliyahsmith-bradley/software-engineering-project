@@ -12,62 +12,83 @@ public class User extends BaseEntity {
     private String username;
     private String Password;
     private String email;
-
     private String first_name;
     private String last_name;
-
     private String phone_number;
+    private int coins;
+    private Integer permission;
+<span class="fc" id="L20">    public User(){</span>
+<span class="fc" id="L21">    }</span>
 
-<span class="fc" id="L21">    public User(){</span>
-<span class="fc" id="L22">    }</span>
-
-<span class="fc" id="L24">    public User(Integer ID, String username, String password, String email, String first_name, String last_name, String phone_number) {</span>
-<span class="fc" id="L25">        this.ID = ID;</span>
-<span class="fc" id="L26">        Password = password;</span>
-<span class="fc" id="L27">        this.username = username;</span>
-<span class="fc" id="L28">        this.email = email;</span>
-<span class="fc" id="L29">        this.first_name = first_name;</span>
-<span class="fc" id="L30">        this.last_name = last_name;</span>
-<span class="fc" id="L31">        this.phone_number = phone_number;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L23">    public User(Integer ID, String username, String password, String email, String first_name, String last_name, String phone_number, Integer permission) {</span>
+<span class="fc" id="L24">        this.ID = ID;</span>
+<span class="fc" id="L25">        Password = password;</span>
+<span class="fc" id="L26">        this.username = username;</span>
+<span class="fc" id="L27">        this.email = email;</span>
+<span class="fc" id="L28">        this.first_name = first_name;</span>
+<span class="fc" id="L29">        this.last_name = last_name;</span>
+<span class="fc" id="L30">        this.phone_number = phone_number;</span>
+<span class="fc" id="L31">        this.coins = 0;</span>
+<span class="fc" id="L32">        this.setPermission(permission);</span>
+<span class="fc" id="L33">    }</span>
 
     public String getUsername() {
-<span class="fc" id="L35">        return username;</span>
+<span class="fc" id="L36">        return username;</span>
     }
     public void setUsername(String username) {
-<span class="fc" id="L38">        this.username = username;</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L39">        this.username = username;</span>
+<span class="fc" id="L40">    }</span>
 
     public Integer getID() {
-<span class="fc" id="L42">        return ID;</span>
+<span class="fc" id="L43">        return ID;</span>
     }
     public void setID(Integer ID) {
-<span class="fc" id="L45">        this.ID = ID;</span>
-<span class="fc" id="L46">    }</span>
+<span class="fc" id="L46">        this.ID = ID;</span>
+<span class="fc" id="L47">    }</span>
 
     public String getPassword() {
-<span class="fc" id="L49">        return Password;</span>
+<span class="fc" id="L50">        return Password;</span>
     }
 
     @JsonIgnore
     public void setPassword(String password) {
-<span class="fc" id="L54">        Password = password;</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L55">        Password = password;</span>
+<span class="fc" id="L56">    }</span>
 
-<span class="fc" id="L57">    public String getEmail() {return email;}</span>
-<span class="fc" id="L58">    public void setEmail(String email) {this.email = email;}</span>
+<span class="fc" id="L58">    public String getEmail() {return email;}</span>
+<span class="fc" id="L59">    public void setEmail(String email) {this.email = email;}</span>
 
-<span class="fc" id="L60">    public String getFirst_name() {return first_name;}</span>
+<span class="fc" id="L61">    public String getFirst_name() {return first_name;}</span>
 
-<span class="fc" id="L62">    public void setFirst_name(String first_name) {this.first_name = first_name;}</span>
+<span class="fc" id="L63">    public void setFirst_name(String first_name) {this.first_name = first_name;}</span>
 
-<span class="fc" id="L64">    public String getLast_name() {return last_name;}</span>
+<span class="fc" id="L65">    public String getLast_name() {return last_name;}</span>
 
-<span class="fc" id="L66">    public void setLast_name(String last_name) {this.last_name = last_name;}</span>
+<span class="fc" id="L67">    public void setLast_name(String last_name) {this.last_name = last_name;}</span>
 
-<span class="fc" id="L68">    public String getPhone_number() {return phone_number;}</span>
+<span class="fc" id="L69">    public String getPhone_number() {return phone_number;}</span>
 
-<span class="fc" id="L70">    public void setPhone_number(String phoneNumber) {this.phone_number = phoneNumber;}</span>
+<span class="fc" id="L71">    public void setPhone_number(String phoneNumber) {this.phone_number = phoneNumber;}</span>
+
+<span class="nc" id="L73">    public int getCoins(){return  coins;}</span>
+<span class="nc" id="L74">    public void setCoins(int coins){this.coins = coins;}</span>
+
+    public void purchase(Product product){
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if(coins &gt;= product.getPrice()){</span>
+<span class="nc" id="L78">            coins -= product.getPrice();</span>
+<span class="nc" id="L79">            System.out.println(&quot;Purchase Successful: &quot; + product.getName());</span>
+        }else{
+<span class="nc" id="L81">            System.out.println(&quot;Insufficient coins to purchase &quot; + product.getName());</span>
+        }
+<span class="nc" id="L83">    }</span>
+
+    public Integer getPermission() {
+<span class="nc" id="L86">        return permission;</span>
+    }
+
+    public void setPermission(Integer permission) {
+<span class="fc" id="L90">        this.permission = permission;</span>
+<span class="fc" id="L91">    }</span>
 }
 
 /**

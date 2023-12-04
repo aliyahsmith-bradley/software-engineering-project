@@ -50,11 +50,11 @@ public abstract class GenericDAO&lt;E extends BaseEntity&gt; {
      */
     protected EntityManager getEntityManager(){
 <span class="fc" id="L52">        EntityManagerFactory fac = null;</span>
-<span class="pc bpc" id="L53" title="2 of 3 branches missed.">        switch (DbTypeOutput){</span>
+<span class="pc bpc" id="L53" title="1 of 3 branches missed.">        switch (DbTypeOutput){</span>
             case STANDARD:
-<span class="nc bnc" id="L55" title="All 2 branches missed.">                if(standardEMF == null) standardEMF = Persistence.createEntityManagerFactory(&quot;standardPersistenceUnit&quot;);</span>
-<span class="nc" id="L56">                fac = standardEMF;</span>
-<span class="nc" id="L57">                break;</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                if(standardEMF == null) standardEMF = Persistence.createEntityManagerFactory(&quot;standardPersistenceUnit&quot;);</span>
+<span class="fc" id="L56">                fac = standardEMF;</span>
+<span class="fc" id="L57">                break;</span>
             case TEST:
 <span class="fc bfc" id="L59" title="All 2 branches covered.">                if(testEMF == null) testEMF = Persistence.createEntityManagerFactory(&quot;testPersistenceUnit&quot;);</span>
 <span class="fc" id="L60">                fac = testEMF;</span>

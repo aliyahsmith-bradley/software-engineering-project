@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComputerPlayerLogic.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.Logic.fivedraw</a> &gt; <span class="el_source">ComputerPlayerLogic.java</span></div><h1>ComputerPlayerLogic.java</h1><pre class="source lang-java linenums">package pokersite.Logic.fivedraw;
+
+<span class="fc" id="L3">public class ComputerPlayerLogic extends PlayerLogic {</span>
+<span class="fc" id="L4">    String compName = &quot;Placeholder&quot;;</span>
+<span class="fc" id="L5">    int compType = 1;</span>
+<span class="fc" id="L6">    int baseBetAmount = 10;</span>
+<span class="fc" id="L7">    boolean checked = false;</span>
+
+    public void setBaseBetAmount(int baseBetAmount){
+<span class="nc" id="L10">        this.baseBetAmount = baseBetAmount;</span>
+<span class="nc" id="L11">    }</span>
+
+    public int getBaseBetAmount() {
+<span class="nc" id="L14">        return baseBetAmount;</span>
+    }
+
+    public void setCompName(String compName){
+<span class="nc" id="L18">        this.compName = compName;</span>
+<span class="nc" id="L19">    }</span>
+
+    public void setCompType(int compType){
+<span class="nc" id="L22">        this.compType = compType;</span>
+<span class="nc" id="L23">    }</span>
+
+    public int getCompType() {
+<span class="nc" id="L26">        return compType;</span>
+    }
+
+    public void setChecked(boolean checked) {
+<span class="nc" id="L30">        this.checked = checked;</span>
+<span class="nc" id="L31">    }</span>
+
+    public boolean getChecked(){
+<span class="nc" id="L34">        return checked;</span>
+    }
+
+    public int chooseBet(){
+
+<span class="nc" id="L39">        return 1;</span>
+    }
+
+    public int bet(int betAmount){
+<span class="nc" id="L43">        int chooseBet = chooseBet();</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (validateBet(betAmount) == 1){</span>
+            // then bet away!
+<span class="nc" id="L46">            setBetAmount(betAmount);</span>
+<span class="nc" id="L47">            subCoins(betAmount);</span>
+<span class="nc" id="L48">            setHasBet(true);</span>
+<span class="nc" id="L49">            return 1;</span>
+        }
+<span class="nc" id="L51">        return 0;</span>
+    }
+
+    public int turn(int userBet1){
+<span class="nc" id="L55">        int bet = 0;</span>
+
+        // if the user checked, the computer will also check
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (userBet1 == 0) {</span>
+<span class="nc" id="L59">            System.out.println(&quot;Computer Bets&quot;);</span>
+<span class="nc" id="L60">            checked = true;</span>
+<span class="nc" id="L61">            bet += 5;</span>
+<span class="nc" id="L62">            bet(betAmount);</span>
+        }
+
+        // if the userbet1 was not too big but not too small, computer will call
+<span class="nc bnc" id="L66" title="All 6 branches missed.">        else if (userBet1 &gt;= 20 &amp;&amp; userBet1 &lt;= 30 &amp;&amp; userBet1&lt;= coins) {</span>
+<span class="nc" id="L67">            bet(userBet1);</span>
+<span class="nc" id="L68">            System.out.println(&quot;Computer matched your bet of &quot; + userBet1);</span>
+<span class="nc" id="L69">            checked = false;</span>
+        }
+        //if the userbet1 is too small, lets raise it
+<span class="nc bnc" id="L72" title="All 4 branches missed.">        else if (userBet1 &gt;= 1 &amp;&amp; userBet1 &lt; 20) {</span>
+<span class="nc" id="L73">            int difference = 0;</span>
+<span class="nc" id="L74">            bet = userBet1 + 5;</span>
+<span class="nc" id="L75">            bet(bet);</span>
+<span class="nc" id="L76">            System.out.println(&quot;Computer raised your bet of &quot; + userBet1 + &quot; with &quot; + bet);</span>
+<span class="nc" id="L77">            System.out.println(&quot;User, you must add the difference of computers bet and your past bet and add it to the pot&quot;);</span>
+<span class="nc" id="L78">            difference = bet - userBet1;</span>
+<span class="nc" id="L79">            checked = false;</span>
+
+<span class="nc" id="L81">        } else {</span>
+<span class="nc" id="L82">            System.out.println(&quot;Computer Folds, your turn&quot;);</span>
+<span class="nc" id="L83">            checked = false;</span>
+        }
+
+
+<span class="nc" id="L87">        return 1;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

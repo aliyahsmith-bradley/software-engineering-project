@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlayerLogic.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">pokersite.Logic.fivedraw</a> &gt; <span class="el_source">PlayerLogic.java</span></div><h1>PlayerLogic.java</h1><pre class="source lang-java linenums">package pokersite.Logic.fivedraw;
+
+import java.math.*;
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="fc" id="L7">public class PlayerLogic {</span>
+    static final int INITIAL_COINS = 100;
+    static final int MAX_HAND_SIZE = 5;
+    static final int MIN_BET_AMOUNT = 0;
+<span class="fc" id="L11">    ArrayList&lt;String&gt; hand = new ArrayList&lt;String&gt;();</span>
+
+<span class="fc" id="L13">    int coins = INITIAL_COINS;</span>
+
+<span class="fc" id="L15">    Boolean hasBet = false;</span>
+
+<span class="fc" id="L17">    int betAmount = 0;</span>
+
+
+    public void addCard(String card){
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (hand.size() + 1 &lt;= MAX_HAND_SIZE){</span>
+<span class="fc" id="L22">            this.hand.add(card);</span>
+        }
+<span class="fc" id="L24">    }</span>
+
+    public void setHasBet(Boolean val){
+<span class="fc" id="L27">        this.hasBet = val;</span>
+<span class="fc" id="L28">    }</span>
+
+    public void setCoins(int coins) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (coins &gt; 0){</span>
+<span class="fc" id="L32">            this.coins = coins;</span>
+        }
+<span class="fc" id="L34">    }</span>
+
+    public void addCoins(int coins){
+<span class="fc" id="L37">        coins = Math.abs(coins);</span>
+<span class="fc" id="L38">        this.coins += coins;</span>
+<span class="fc" id="L39">    }</span>
+
+    public int subCoins(int coins){
+<span class="nc" id="L42">        coins = -1 * Math.abs(coins);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (this.coins + coins &gt;=0){</span>
+<span class="nc" id="L44">            this.coins -= coins;</span>
+<span class="nc" id="L45">            return 1;</span>
+        }
+<span class="nc" id="L47">        return 0;</span>
+    }
+
+    public void setBetAmount(int betAmount) {
+<span class="pc bpc" id="L51" title="1 of 4 branches missed.">        if (betAmount &gt; MIN_BET_AMOUNT &amp;&amp; betAmount &lt; coins){</span>
+<span class="fc" id="L52">            this.betAmount = betAmount;</span>
+        }
+<span class="fc" id="L54">    }</span>
+
+    public void setHand(String card1, String card2, String card3, String card4, String card5){
+<span class="fc" id="L57">        addCard(card1);</span>
+<span class="fc" id="L58">        addCard(card2);</span>
+<span class="fc" id="L59">        addCard(card3);</span>
+<span class="fc" id="L60">        addCard(card4);</span>
+<span class="fc" id="L61">        addCard(card5);</span>
+<span class="fc" id="L62">    }</span>
+
+    public void setHand(List&lt;String&gt; cards){
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for(int i = 0; i &lt;= cards.size(); i++){</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">            if (hand.size() &lt; MAX_HAND_SIZE){</span>
+<span class="fc" id="L67">                hand.add(cards.get(i));</span>
+            }
+        }
+<span class="fc" id="L70">    }</span>
+
+    public ArrayList&lt;String&gt; getHand(){
+<span class="fc" id="L73">        return hand;</span>
+    }
+
+    public Boolean getHasBet(){
+<span class="fc" id="L77">        return hasBet;</span>
+    }
+
+    public int getBetAmount() {
+<span class="fc" id="L81">        return betAmount;</span>
+    }
+
+    public int getCoins(){
+<span class="fc" id="L85">        return coins;</span>
+    }
+
+    public static int getInitialCoins() {
+<span class="nc" id="L89">        return INITIAL_COINS;</span>
+    }
+
+    public static int getMaxHandSize() {
+<span class="nc" id="L93">        return MAX_HAND_SIZE;</span>
+    }
+
+    public static int getMinBetAmount() {
+<span class="nc" id="L97">        return MIN_BET_AMOUNT;</span>
+    }
+
+    public Integer validateBet(Integer bet){
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (bet &gt; coins) {</span>
+<span class="nc" id="L102">            System.out.println(&quot;You don't have that many coins. Please enter a valid bet amount. You have: &quot; + coins + &quot; coins&quot;);</span>
+        } else {
+<span class="nc" id="L104">            return 1;</span>
+        }
+<span class="nc" id="L106">        return 0;</span>
+    }
+
+    public int bet(int betAmount){
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (validateBet(betAmount) == 1){</span>
+            // then bet away!
+<span class="nc" id="L112">            setBetAmount(betAmount);</span>
+<span class="nc" id="L113">            subCoins(betAmount);</span>
+<span class="nc" id="L114">            setHasBet(true);</span>
+<span class="nc" id="L115">            return 1;</span>
+        }
+<span class="nc" id="L117">        return 0;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

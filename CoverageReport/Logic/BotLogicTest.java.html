@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BotLogicTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All in pokersite Coverage Results</a> &gt; <a href="index.source.html" class="el_package">Logic</a> &gt; <span class="el_source">BotLogicTest.java</span></div><h1>BotLogicTest.java</h1><pre class="source lang-java linenums">package Logic;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import pokersite.Logic.fivedraw.PlayerLogic;
+
+<span class="fc" id="L7">public class BotLogicTest {</span>
+
+    //Player Logic
+    @Test
+    public void createPlayerTest(){
+<span class="fc" id="L12">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L13">        assertEquals(player.getHand().size(), 0);</span>
+<span class="fc" id="L14">    }</span>
+
+    @Test
+    public void addCardTest(){
+<span class="fc" id="L18">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L19">        player.addCard(&quot;two_of_spades&quot;);</span>
+<span class="fc" id="L20">        assertEquals(player.getHand().size(), 1);</span>
+<span class="fc" id="L21">    }</span>
+
+    @Test
+    public void setHandTest(){
+<span class="fc" id="L25">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L26">        player.setHand(&quot;two_of_spades&quot;, &quot;three_of_spades&quot;, &quot;four_of_spades&quot;, &quot;five_of_spades&quot;, &quot;six_of_spades&quot;);</span>
+<span class="fc" id="L27">        assertEquals(player.getHand().size(), 5);</span>
+<span class="fc" id="L28">    }</span>
+
+    @Test
+    public void maxCardTest(){
+<span class="fc" id="L32">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L33">        player.addCard(&quot;two_of_spades&quot;);</span>
+<span class="fc" id="L34">        player.addCard(&quot;three_of_spades&quot;);</span>
+<span class="fc" id="L35">        player.addCard(&quot;four_of_spades&quot;);</span>
+<span class="fc" id="L36">        player.addCard(&quot;five_of_spades&quot;);</span>
+<span class="fc" id="L37">        player.addCard(&quot;six_of_spades&quot;);</span>
+<span class="fc" id="L38">        player.addCard(&quot;seven_of_spades&quot;);</span>
+<span class="fc" id="L39">        assertEquals(player.getHand().size(), 5);</span>
+<span class="fc" id="L40">    }</span>
+
+    @Test
+    public void innitCoinTest(){
+<span class="fc" id="L44">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L45">        assertEquals(player.getCoins(), 100);</span>
+<span class="fc" id="L46">    }</span>
+
+    @Test
+    public void makeBetTest(){
+<span class="fc" id="L50">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L51">        player.setBetAmount(10);</span>
+<span class="fc" id="L52">        assertEquals(player.getBetAmount(), 10);</span>
+<span class="fc" id="L53">    }</span>
+
+    @Test
+    public void minBetTest(){
+<span class="fc" id="L57">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L58">        player.setBetAmount(2);</span>
+<span class="nc" id="L59">        assertEquals(player.getBetAmount(), 0);</span>
+<span class="nc" id="L60">    }</span>
+
+    @Test
+    public void maxBetAmount(){
+<span class="fc" id="L64">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L65">        player.setBetAmount(120);</span>
+<span class="fc" id="L66">        assertEquals(player.getBetAmount(), 0);</span>
+<span class="fc" id="L67">    }</span>
+
+    @Test
+    public void defaultHasBetTest(){
+<span class="fc" id="L71">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L72">        assertEquals(player.getHasBet(), false);</span>
+<span class="fc" id="L73">    }</span>
+    @Test
+    public void setHasBetTest(){
+<span class="fc" id="L76">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L77">        player.setHasBet(true);</span>
+<span class="fc" id="L78">        assertEquals(player.getHasBet(), true);</span>
+<span class="fc" id="L79">    }</span>
+
+    @Test
+    public void setCoinsTest(){
+<span class="fc" id="L83">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L84">        player.setCoins(40);</span>
+<span class="fc" id="L85">        assertEquals(player.getCoins(), 40);</span>
+<span class="fc" id="L86">    }</span>
+
+    @Test
+    public void minSetCoinTest(){
+<span class="fc" id="L90">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L91">        player.setCoins(-20);</span>
+<span class="fc" id="L92">        assertEquals(player.getCoins(), 100);</span>
+<span class="fc" id="L93">    }</span>
+
+    @Test
+    public void addCoinsTest(){
+<span class="fc" id="L97">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L98">        player.addCoins(20);</span>
+<span class="fc" id="L99">        assertEquals(player.getCoins(), 120);</span>
+<span class="fc" id="L100">    }</span>
+
+    @Test
+    public void minAddCoinsTest(){
+<span class="fc" id="L104">        PlayerLogic player = new PlayerLogic();</span>
+<span class="fc" id="L105">        player.addCoins(-120);</span>
+<span class="nc" id="L106">        assertEquals(player.getCoins(), 100);</span>
+<span class="nc" id="L107">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
