@@ -138,4 +138,9 @@ public class UserService {
     public static List<BadWord> getBannedWords() {
         return bwdao.getBadWords();
     }
+
+    // Issue services
+    public static List<Issue> getIssues() {
+        return isdao.getIssues();
+    }
 }

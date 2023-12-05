@@ -2,6 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%User logged = (User) session.getAttribute("User");%>
 <html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="scripts/getIssues.js"></script>
 <head>
     <title>Admin</title>
 </head>
@@ -14,6 +16,13 @@
             Enter Word: <input type="text" name="word"><br>
             <input type="submit" value="Ban!">
         </form>
+    </div>
+    <div>
+        <h1>Reported Issues</h1>
+        <div>
+            <p id="issues"></p>
+            <button onclick="getIssues()">Get Issues</button>
+        </div>
     </div>
 <% } else { %>
     <div role="alert">
