@@ -22,6 +22,7 @@ public class ReportIssue extends HttpServlet {
         newIssue.setBody(description);
         newIssue.setDt_sent(Timestamp.from(Instant.now()));
         UserService.submitIssue(newIssue);
+        respose.sendRedirect("ReportBug.jsp");
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
