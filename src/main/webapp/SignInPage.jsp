@@ -17,7 +17,13 @@
     <form method="post" action="logoutUser">
         <input type="submit" value="Logout!">
     </form>
+    <% if(logged.getPermission() == 1) { %>
+        <h1>Welcome Administrator</h1>
+        <a href="admin.jsp">
+            <button>Admin Page</button>
+        </a>
     <% } %>
+<% } %>
 </div>
 <div>
     <h3>Found a bug? Report here!</h3>
