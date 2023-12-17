@@ -41,5 +41,13 @@ export default class Player{
             }
         }
     }
+    toggleCardSelection(index){
+        this.handBool[index] = !this.handBool[index];
+
+    }
+
+    isCardSelected(index){
+        return this.handBool[index];
+    }
 
 }

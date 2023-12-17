@@ -38,6 +38,18 @@ startGame()
 function startGame(){
 
     showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
-    showUserHand(playerCardSlot, user.getHand(), user.getHandBool());
+
+
+    user.getHand().forEach((card,index) =>{
+        const cardElement = card.getHTML(index, user.getHandBool());
+
+        cardElement.addEventListener("click", () => {
+            user.toggleCardSelection(index);
+
+            cardElement.classList.toggle("selected", user.isCardSelected(index));
+        });
+        playerCardSlot.appendChild(cardElement);
+    });
+
 }
 
