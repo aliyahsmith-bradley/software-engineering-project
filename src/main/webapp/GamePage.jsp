@@ -14,8 +14,6 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>Game will be here</h2>
-</div>
+
 </body>
 </html>
