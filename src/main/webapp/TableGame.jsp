@@ -13,19 +13,30 @@
     <link rel="stylesheet" href="table_style.css">
 </head>
 <body>
-<div class="topnav">
-    <div class = "money-box">100</div>
+<div class="top-bar">
+    <div class="topnav">
+        <div class="topnav-text">Your money</div>
+    </div>
+    <div class="topnav">
+        <div class="money-box" id="user-coin-amount">10</div>
+    </div>
+    <div class="topnav">
+        <div class="topnav-text">Current Pot:</div>
+    </div>
+    <div class="topnav">
+        <div class="money-box"> 0</div>
+    </div>
 </div>
 <button id="dealCards" class="deal-cards" > Deal Cards</button>
 
-<div class="dropdown">
-    <button onclick="myFunction()" class="dropbutton" >Backgrounds</button>
-    <div id="myDropdown" class="dropdown-content">
-        <a onclick="background1()">Default</a>
-        <a onclick="background2()">Casino</a>
-        <a onclick="background3()">Terracotta</a>
-    </div>
-</div>
+<%--<div class="dropdown">--%>
+<%--    <button onclick="myFunction()" class="drop-button" >Backgrounds</button>--%>
+<%--    <div id="myDropdown" class="dropdown-content">--%>
+<%--        <a onclick="background1()">Default</a>--%>
+<%--        <a onclick="background2()">Casino</a>--%>
+<%--        <a onclick="background3()">Terracotta</a>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <img class="table-picture" src="images/table_default.png">
 <div class="comp-hand">
 </div>
@@ -33,16 +44,20 @@
 <div class="player-hand">
 </div>
 <div class="betting-button">
-    <button type="button" class="button" onclick="alert('you raise!')">Raise</button>
+    <button type="button" class="button" id="bet-button">Raise</button>
     <h1></h1>
     <button type="button" class="button" onclick="alert('you check!')">Check</button>
     <h1></h1>
     <button type="button" class="button" onclick="alert('you fold!')">Fold</button>
 </div>
-<button type="button" id="ready-replace" class="relplaceButton">Replace</button>
+<button type="button" id="ready-replace" class="replaceButton">Replace</button>
 
 <audio class="background-music" autoplay loop controls>
     <source src="images/Casino%20Sound%20Effect.mp3" type="audio/ogg">
 </audio>
+<div class="bet-form" id="user-bet-form">
+    <div class="bet-form-text">wtf man give me a break</div>
+    <button class="bet-form-text" type="button" id="is-bet">Bet</button>
+</div>
 </body>
 </html>

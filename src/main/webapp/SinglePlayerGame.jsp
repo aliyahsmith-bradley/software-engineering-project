@@ -34,7 +34,7 @@
 <h1>User Coins: ${requestScope.userCoins}</h1>
 
 <div class="dropdown">
-    <button onclick="myFunction()" class="dropbutton">Backgrounds</button>
+    <button onclick="myFunction()" class="drop-button">Backgrounds</button>
     <div id="myDropdown" class="dropdown-content">
         <a onclick="background1()">Default</a>
         <a onclick="background2()">Casino</a>
