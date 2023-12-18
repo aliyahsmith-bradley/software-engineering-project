@@ -4,7 +4,7 @@ import Computer from "./computer.js";
 
 const user = new Player();
 const computer = new Computer();
-
+var pot = 0
 
 function showHand(location, hand, list){
     for (var i in hand){
@@ -21,14 +21,28 @@ function updateMoneyBox(){
     moneyBox.innerHTML = user.getCoins()
     console.log(user.getCoins())
 }
+function updatePotBox(){
+    const potBox = document.getElementById("pot-amount")
+    potBox.innerHTML = Number(pot)
+    console.log(pot)
+
+}
+
+function userDefaultBet(){
+    if (user.bet(10)){
+        pot += 10
+    }
+    updateMoneyBox()
+    updatePotBox()
+}
 
 
 
 const deck = new Deck();
 deck.shuffleDeck()
 
-const updateMoneyButton = document.getElementById("bet-button")
-updateMoneyButton.addEventListener("click", updateMoneyBox)
+const bet = document.getElementById("bet-button")
+bet.addEventListener("click", userDefaultBet)
 
 
 const readyReplaceButton = document.getElementById("ready-replace")
@@ -50,6 +64,7 @@ computer.setHand(deck.dealFive())
 console.log(computer.getHand());
 
 user.setHand(deck.dealFive())
+updateMoneyBox()
 
 function userReplace(){
     user.replaceCards(deck);
@@ -138,4 +153,8 @@ function startGame() {
 
     // Additional code to show other hands or perform other tasks
     showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
+}
+
+function hasFolded(){
+    console.log("You folded, better luck next time!")
 }

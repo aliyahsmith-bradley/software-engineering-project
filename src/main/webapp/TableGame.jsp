@@ -24,7 +24,7 @@
         <div class="topnav-text">Current Pot:</div>
     </div>
     <div class="topnav">
-        <div class="money-box"> 0</div>
+        <div class="money-box" id="pot-amount"> 0</div>
     </div>
 </div>
 <button id="dealCards" class="deal-cards" > Deal Cards</button>
@@ -43,20 +43,28 @@
 
 <div class="player-hand">
 </div>
+
 <div id="result-message" class="result-message"></div>
 <div class="betting-button">
     <button type="button" class="button" id="bet-button">Raise</button>
     <h1></h1>
-    <button type="button" class="button" onclick="alert('you check!')">Check</button>
+    <button type="button" class="button" id="check-button">Check</button>
     <h1></h1>
-    <button type="button" class="button" onclick="alert('you fold!')">Fold</button>
+    <button type="button" class="button" id="fold-button">Fold</button>
 </div>
+
+
 <button type="button" id="ready-replace" class="replaceButton">Replace</button>
 <button type="button" id="keep-Hand" class="keepHand">Keep Hand</button>
+
+
 
 <audio class="background-music" autoplay loop controls>
     <source src="images/Casino%20Sound%20Effect.mp3" type="audio/ogg">
 </audio>
+
+
+
 <div class="bet-form" id="user-bet-form">
     <div class="bet-form-text">wtf man give me a break</div>
     <button class="bet-form-text" type="button" id="is-bet">Bet</button>

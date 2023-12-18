@@ -28,8 +28,13 @@ export default class Player{
         return this.handBool
     }
     bet(i){
-        if (i < this.playerCoins){
-
+        if (i > this.playerCoins){
+            console.log("not enough money")
+            return false
+        }
+        else{
+            this.playerCoins -= i
+            return true;
         }
     }
 
