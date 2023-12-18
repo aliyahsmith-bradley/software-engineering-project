@@ -25,7 +25,6 @@ function updatePotBox(){
     const potBox = document.getElementById("pot-amount")
     potBox.innerHTML = Number(pot)
     console.log(pot)
-
 }
 
 function userDefaultBet(){
@@ -74,13 +73,11 @@ function userReplace(){
 }
 
 function computerReplace() {
-
         computer.replaceCards(deck);
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
         showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
         determineWinner();
-
 }
 
 
@@ -103,6 +100,13 @@ function determineWinner() {
 
     if (userHandStrength > computerHandStrength) {
         resultMessage = ("Congratulations! You win!");
+        console.log(pot)
+        console.log(user.getCoins())
+        user.addCoins(pot)
+        console.log(user.getCoins())
+        pot = 0
+        updatePotBox()
+        updateMoneyBox()
     } else if (userHandStrength < computerHandStrength) {
         resultMessage = ("Computer wins. Better luck next time!");
     } else {
@@ -117,6 +121,9 @@ function determineWinner() {
 startGame();
 
 function startGame() {
+    pot += computer.bet()
+    updatePotBox()
+
 
     const keepHandButton = document.getElementById("keep-Hand")
     keepHandButton.addEventListener("click", () => {

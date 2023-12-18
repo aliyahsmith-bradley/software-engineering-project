@@ -65,5 +65,7 @@ export default class Computer {
 
     // Add any additional methods or properties specific to the computer player
 
-
+    bet(){
+        return 10
+    }
 }
