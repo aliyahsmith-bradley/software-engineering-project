@@ -42,6 +42,7 @@ readyReplaceButton.addEventListener("click", () => {
 });
 
 
+
 const computerCardSlot = document.querySelector(".comp-hand")
 const playerCardSlot = document.querySelector(".player-hand")
 
@@ -58,15 +59,13 @@ function userReplace(){
 }
 
 function computerReplace() {
-    if (user.getSelectedCardCount() > 0) {
+
         computer.replaceCards(deck);
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
         showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
         determineWinner();
-    } else {
-        console.log("User must replace cards first.");
-    }
+
 }
 
 
@@ -103,6 +102,12 @@ function determineWinner() {
 startGame();
 
 function startGame() {
+
+    const keepHandButton = document.getElementById("keep-Hand")
+    keepHandButton.addEventListener("click", () => {
+        computerReplace();  // Call computerReplace directly
+    });
+
     user.getHand().forEach((card, index) => {
         const cardElement = card.getHTML(index, user.getHandBool());
         cardElement.addEventListener("click", () => {
