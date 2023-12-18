@@ -51,7 +51,7 @@ export default class Player{
     }
 
     isAceInHand(){
-        return this.hand.some(card => card.rank === 1);
+        return this.hand.some(card => card.rank === 14);
 
     }
 

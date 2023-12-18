@@ -52,7 +52,7 @@ export default class Computer {
 
     isAceInHand() {
         // Add logic to check if there is an Ace in the computer's hand
-        return this.hand.some(card => card.rank === 'Ace');
+        return this.hand.some(card => card.rank === 14);
     }
 
     getSelectedCardCount() {

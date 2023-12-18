@@ -42,10 +42,10 @@ export default class Deck{
         listCards.push(new Card("10_of_hearts", 10));
         listCards.push(new Card("10_of_spades", 10));
         listCards.push(new Card("10_of_diamonds", 10));
-        listCards.push(new Card("ace_of_clubs", 1));
-        listCards.push(new Card("ace_of_hearts", 1));
-        listCards.push(new Card("ace_of_spades", 1));
-        listCards.push(new Card("ace_of_diamonds", 1));
+        listCards.push(new Card("ace_of_clubs", 14));
+        listCards.push(new Card("ace_of_hearts", 14));
+        listCards.push(new Card("ace_of_spades", 14));
+        listCards.push(new Card("ace_of_diamonds", 14));
         listCards.push(new Card("jack_of_clubs2", 11));
         listCards.push(new Card("jack_of_hearts2", 11));
         listCards.push(new Card("jack_of_spades2", 11));

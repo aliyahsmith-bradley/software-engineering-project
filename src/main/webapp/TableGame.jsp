@@ -32,6 +32,7 @@
 
 <div class="player-hand">
 </div>
+<div id="result-message" class="result-message"></div>
 <div class="betting-button">
     <button type="button" class="button" onclick="alert('you raise!')">Raise</button>
     <h1></h1>
@@ -39,7 +40,8 @@
     <h1></h1>
     <button type="button" class="button" onclick="alert('you fold!')">Fold</button>
 </div>
-<button type="button" id="ready-replace" class="relplaceButton">Replace</button>
+<button type="button" id="ready-replace" class="replaceButton">Replace</button>
+<button type="button" id="keep-Hand" class="keepHand">Keep Hand</button>
 
 <audio class="background-music" autoplay loop controls>
     <source src="images/Casino%20Sound%20Effect.mp3" type="audio/ogg">

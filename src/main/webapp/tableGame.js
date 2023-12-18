@@ -2,6 +2,7 @@ import Deck from "./deck.js";
 import Player from "./player.js"
 import Computer from "./computer.js";
 
+
 function showHand(location, hand, list){
     for (var i in hand){
         location.appendChild(hand[i].getHTML(i, list))
@@ -20,10 +21,12 @@ const readyReplaceButton = document.getElementById("ready-replace")
 readyReplaceButton.addEventListener("click", () => {
     userReplace();
 
-    setTimeout(() => {
-        computerReplace();
-    }, 1000);
+        setTimeout(() => {
+            computerReplace();
+        }, 1000);
+
 });
+
 
 const computerCardSlot = document.querySelector(".comp-hand")
 const playerCardSlot = document.querySelector(".player-hand")
@@ -36,9 +39,9 @@ const user = new Player();
 user.setHand(deck.dealFive())
 
 function userReplace(){
-    user.replaceCards(deck)
-    console.log(user.getHand())
-    playerCardSlot.innerHTML = ""
+    user.replaceCards(deck);
+    console.log(user.getHand());
+    playerCardSlot.innerHTML = "";
     showHand(playerCardSlot, user.getHand(), user.getHandBool());
 }
 
@@ -48,10 +51,41 @@ function computerReplace() {
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
         showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
+        determineWinner();
     } else {
         console.log("User must replace cards first.");
     }
 }
+
+
+function evaluateHandStrength(hand) {
+    // Sum up the ranks of the cards in the hand
+    const handValue = hand.reduce((total, card) => total + card.rank, 0);
+
+    return handValue;
+}
+
+function determineWinner() {
+    const userHandStrength = evaluateHandStrength(user.getHand());
+    const computerHandStrength = evaluateHandStrength(computer.getHand());
+    const resultMessageContainer = document.getElementById("result-message" );
+
+    console.log("User Hand Strength:", userHandStrength);
+    console.log("Computer Hand Strength:", computerHandStrength);
+
+    let resultMessage = "";
+
+    if (userHandStrength > computerHandStrength) {
+        resultMessage = ("Congratulations! You win!");
+    } else if (userHandStrength < computerHandStrength) {
+        resultMessage = ("Computer wins. Better luck next time!");
+    } else {
+        resultMessage = ("It's a tie! The pot will be split.");
+    }
+
+    resultMessageContainer.textContent = resultMessage;
+}
+
 
 
 startGame();
@@ -59,7 +93,6 @@ startGame();
 function startGame() {
     user.getHand().forEach((card, index) => {
         const cardElement = card.getHTML(index, user.getHandBool());
-
         cardElement.addEventListener("click", () => {
             const isAceInHand = user.isAceInHand();
             const maxSelection = isAceInHand ? 4 : 3;
