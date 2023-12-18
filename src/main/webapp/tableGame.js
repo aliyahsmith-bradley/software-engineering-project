@@ -26,8 +26,11 @@ function updateMoneyBox(){
 
 const deck = new Deck();
 deck.shuffleDeck()
+
 const updateMoneyButton = document.getElementById("bet-button")
 updateMoneyButton.addEventListener("click", updateMoneyBox)
+
+
 const readyReplaceButton = document.getElementById("ready-replace")
 readyReplaceButton.addEventListener("click", () => {
     userReplace();

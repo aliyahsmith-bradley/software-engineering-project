@@ -53,7 +53,6 @@
 </div>
 <button type="button" id="ready-replace" class="replaceButton">Replace</button>
 <button type="button" id="keep-Hand" class="keepHand">Keep Hand</button>
-<button type="button" id="ready-replace" class="replaceButton">Replace</button>
 
 <audio class="background-music" autoplay loop controls>
     <source src="images/Casino%20Sound%20Effect.mp3" type="audio/ogg">
