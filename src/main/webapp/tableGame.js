@@ -100,19 +100,16 @@ function determineWinner() {
 
     if (userHandStrength > computerHandStrength) {
         resultMessage = ("Congratulations! You win!");
-        console.log(pot)
-        console.log(user.getCoins())
         user.addCoins(pot)
-        console.log(user.getCoins())
-        pot = 0
-        updatePotBox()
-        updateMoneyBox()
     } else if (userHandStrength < computerHandStrength) {
         resultMessage = ("Computer wins. Better luck next time!");
     } else {
         resultMessage = ("It's a tie! The pot will be split.");
+        user.addCoins(pot/2)
     }
-
+    pot = 0
+    updatePotBox()
+    updateMoneyBox()
     resultMessageContainer.textContent = resultMessage;
 }
 
