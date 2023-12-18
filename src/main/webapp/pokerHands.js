@@ -1,38 +1,28 @@
 
-export function evaluateHandStrength(hand) {
-    const ranks = getRanks(hand);
+export function determineWinner(userHand, computerHand) {
+    const userHandStrength = evaluateHandStrength(userHand);
+    const computerHandStrength = evaluateHandStrength(computerHand);
+    const resultMessageContainer = document.getElementById("result-message");
 
-    // Sort ranks in descending order
-    ranks.sort((a, b) => b - a);
+    console.log("User Hand Strength:", userHandStrength);
+    console.log("Computer Hand Strength:", computerHandStrength);
 
-    // Return the highest card in the hand
-    return ranks[0];
-}
+    let resultMessage = "";
 
-function getRanks(hand) {
-    // Extract the ranks from the card names
-    return hand.map(card => getRankFromCard(card));
-}
-
-function getRankFromCard(card) {
-    // Assuming the card names follow the format: [rank]_of_[suit]
-    const rankString = card.split("_of_")[0];
-
-    // Convert ranks to numeric values
-    switch (rankString) {
-        case "2": return 2;
-        case "3": return 3;
-        case "4": return 4;
-        case "5": return 5;
-        case "6": return 6;
-        case "7": return 7;
-        case "8": return 8;
-        case "9": return 9;
-        case "10": return 10;
-        case "jack": return 11;
-        case "queen": return 12;
-        case "king": return 13;
-        case "ace": return 1;
-        default: return 0; // Default to 0 if unknown rank
+    if (userHandStrength > computerHandStrength) {
+        resultMessage = "Congratulations! You win!";
+    } else if (userHandStrength < computerHandStrength) {
+        resultMessage = "Computer wins. Better luck next time!";
+    } else {
+        resultMessage = "It's a tie! The pot will be split.";
     }
+
+    resultMessageContainer.textContent = resultMessage;
 }
+
+    function evaluateHandStrength(hand) {
+        // Sum up the ranks of the cards in the hand
+        const handValue = hand.reduce((total, card) => total + card.rank, 0);
+        return handValue;
+    }
+

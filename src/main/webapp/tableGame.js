@@ -1,6 +1,7 @@
 import Deck from "./deck.js";
 import Player from "./player.js"
 import Computer from "./computer.js";
+import {determineWinner} from "./pokerHands.js";
 
 const user = new Player();
 const computer = new Computer();
@@ -73,6 +74,7 @@ function userReplace(){
 }
 
 function computerReplace() {
+
         computer.replaceCards(deck);
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
@@ -111,6 +113,8 @@ function determineWinner() {
     updatePotBox()
     updateMoneyBox()
     resultMessageContainer.textContent = resultMessage;
+        determineWinner(user.getHand(), computer.getHand());
+
 }
 
 
@@ -157,6 +161,7 @@ function startGame() {
 
     // Additional code to show other hands or perform other tasks
     showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
+
 }
 
 function hasFolded(){
