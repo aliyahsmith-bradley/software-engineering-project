@@ -3,7 +3,7 @@ import Deck from "./deck.js";
 export default class Player{
     location;
     constructor() {
-        this.coins = 100
+        this.Playercoins = 100
         this.hand = []
         this.name = "player"
         this.handBool = [false,false,false,false,false]
@@ -48,6 +48,19 @@ export default class Player{
 
     isCardSelected(index){
         return this.handBool[index];
+    }
+
+    isAceInHand(){
+        return this.hand.some(card => card.rank === 1);
+
+    }
+
+    getSelectedCardCount(){
+        return this.handBool.filter(selected => selected).length;
+    }
+
+    getLastSelectedIndex() {
+        return this.handBool.lastIndexOf(true);
     }
 
 }

@@ -6,58 +6,58 @@ export default class Deck{
 
     initializeDeck(){
         var  listCards = []
-        listCards.push(new Card("2_of_clubs"))
-        listCards.push(new Card("2_of_spades"));
-        listCards.push(new Card("2_of_diamonds"));
-        listCards.push(new Card("2_of_hearts"));
-        listCards.push(new Card("3_of_clubs"));
-        listCards.push(new Card("3_of_diamonds"));
-        listCards.push(new Card("3_of_hearts"));
-        listCards.push(new Card("3_of_spades"));
-        listCards.push(new Card("4_of_clubs"));
-        listCards.push(new Card("4_of_diamonds"));
-        listCards.push(new Card("4_of_hearts"));
-        listCards.push(new Card("4_of_spades"));
-        listCards.push(new Card("5_of_clubs"));
-        listCards.push(new Card("5_of_spades"));
-        listCards.push(new Card("5_of_diamonds"));
-        listCards.push(new Card("5_of_hearts"));
-        listCards.push(new Card("6_of_clubs"));
-        listCards.push(new Card("6_of_diamonds"));
-        listCards.push(new Card("6_of_hearts"));
-        listCards.push(new Card("6_of_spades"));
-        listCards.push(new Card("7_of_clubs"));
-        listCards.push(new Card("7_of_spades"));
-        listCards.push(new Card("7_of_diamonds"));
-        listCards.push(new Card("7_of_hearts"));
-        listCards.push(new Card("8_of_clubs"));
-        listCards.push(new Card("8_of_hearts"));
-        listCards.push(new Card("8_of_spades"));
-        listCards.push(new Card("8_of_diamonds"));
-        listCards.push(new Card("9_of_clubs"));
-        listCards.push(new Card("9_of_hearts"));
-        listCards.push(new Card("9_of_spades"));
-        listCards.push(new Card("9_of_diamonds"));
-        listCards.push(new Card("10_of_clubs"));
-        listCards.push(new Card("10_of_hearts"));
-        listCards.push(new Card("10_of_spades"));
-        listCards.push(new Card("10_of_diamonds"));
-        listCards.push(new Card("ace_of_clubs"));
-        listCards.push(new Card("ace_of_hearts"));
-        listCards.push(new Card("ace_of_spades"));
-        listCards.push(new Card("ace_of_diamonds"));
-        listCards.push(new Card("jack_of_clubs2"));
-        listCards.push(new Card("jack_of_hearts2"));
-        listCards.push(new Card("jack_of_spades2"));
-        listCards.push(new Card("jack_of_diamonds2"));
-        listCards.push(new Card("queen_of_clubs2"));
-        listCards.push(new Card("queen_of_hearts2"));
-        listCards.push(new Card("queen_of_spades2"));
-        listCards.push(new Card("queen_of_diamonds2"));
-        listCards.push(new Card("king_of_clubs2"));
-        listCards.push(new Card("king_of_hearts2"));
-        listCards.push(new Card("king_of_spades2"));
-        listCards.push(new Card("king_of_diamonds2"));
+        listCards.push(new Card("2_of_clubs", 2))
+        listCards.push(new Card("2_of_spades", 2));
+        listCards.push(new Card("2_of_diamonds", 2));
+        listCards.push(new Card("2_of_hearts", 2));
+        listCards.push(new Card("3_of_clubs", 3));
+        listCards.push(new Card("3_of_diamonds", 3));
+        listCards.push(new Card("3_of_hearts", 3));
+        listCards.push(new Card("3_of_spades", 3));
+        listCards.push(new Card("4_of_clubs", 4));
+        listCards.push(new Card("4_of_diamonds", 4));
+        listCards.push(new Card("4_of_hearts", 4));
+        listCards.push(new Card("4_of_spades",4));
+        listCards.push(new Card("5_of_clubs", 5));
+        listCards.push(new Card("5_of_spades", 5));
+        listCards.push(new Card("5_of_diamonds", 5));
+        listCards.push(new Card("5_of_hearts", 5));
+        listCards.push(new Card("6_of_clubs", 6));
+        listCards.push(new Card("6_of_diamonds", 6));
+        listCards.push(new Card("6_of_hearts", 6));
+        listCards.push(new Card("6_of_spades", 6));
+        listCards.push(new Card("7_of_clubs", 7));
+        listCards.push(new Card("7_of_spades", 7));
+        listCards.push(new Card("7_of_diamonds", 7));
+        listCards.push(new Card("7_of_hearts", 7));
+        listCards.push(new Card("8_of_clubs", 8));
+        listCards.push(new Card("8_of_hearts", 8));
+        listCards.push(new Card("8_of_spades", 8));
+        listCards.push(new Card("8_of_diamonds", 8));
+        listCards.push(new Card("9_of_clubs", 9));
+        listCards.push(new Card("9_of_hearts", 9));
+        listCards.push(new Card("9_of_spades", 9));
+        listCards.push(new Card("9_of_diamonds", 9));
+        listCards.push(new Card("10_of_clubs", 10));
+        listCards.push(new Card("10_of_hearts", 10));
+        listCards.push(new Card("10_of_spades", 10));
+        listCards.push(new Card("10_of_diamonds", 10));
+        listCards.push(new Card("ace_of_clubs", 1));
+        listCards.push(new Card("ace_of_hearts", 1));
+        listCards.push(new Card("ace_of_spades", 1));
+        listCards.push(new Card("ace_of_diamonds", 1));
+        listCards.push(new Card("jack_of_clubs2", 11));
+        listCards.push(new Card("jack_of_hearts2", 11));
+        listCards.push(new Card("jack_of_spades2", 11));
+        listCards.push(new Card("jack_of_diamonds2", 11));
+        listCards.push(new Card("queen_of_clubs2", 12));
+        listCards.push(new Card("queen_of_hearts2", 12));
+        listCards.push(new Card("queen_of_spades2", 12));
+        listCards.push(new Card("queen_of_diamonds2", 12));
+        listCards.push(new Card("king_of_clubs2", 13));
+        listCards.push(new Card("king_of_hearts2", 13));
+        listCards.push(new Card("king_of_spades2", 13));
+        listCards.push(new Card("king_of_diamonds2", 13));
 
         return listCards
     }
@@ -91,8 +91,9 @@ export default class Deck{
 
 }
 class Card{
-    constructor(name) {
+    constructor(name, rank) {
         this.name = name
+        this.rank = rank;
         this.img = "images/" + name + ".png"
     }
 
