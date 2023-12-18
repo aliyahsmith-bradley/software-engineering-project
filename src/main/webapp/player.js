@@ -3,7 +3,7 @@ import Deck from "./deck.js";
 export default class Player{
     location;
     constructor() {
-        this.Playercoins = 100
+        this.playerCoins = 100
         this.hand = []
         this.name = "player"
         this.handBool = [false,false,false,false,false]
@@ -17,18 +17,18 @@ export default class Player{
         return this.hand
     }
     addCoins(i){
-        this.coins += i;
+        this.playerCoins += i;
     }
 
     getCoins(){
-        return this.coins
+        return this.playerCoins
     }
 
     getHandBool(){
         return this.handBool
     }
     bet(i){
-        if (i < this.coins){
+        if (i < this.playerCoins){
 
         }
     }

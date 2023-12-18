@@ -2,6 +2,9 @@ import Deck from "./deck.js";
 import Player from "./player.js"
 import Computer from "./computer.js";
 
+const user = new Player();
+const computer = new Computer();
+
 
 function showHand(location, hand, list){
     for (var i in hand){
@@ -13,10 +16,18 @@ function showUserHand(location, hand, list){
         location.appendChild(hand[i].getUserHTML(i, list))
     }
 }
+function updateMoneyBox(){
+    const moneyBox = document.getElementById("user-coin-amount")
+    moneyBox.innerHTML = user.getCoins()
+    console.log(user.getCoins())
+}
+
+
 
 const deck = new Deck();
 deck.shuffleDeck()
-
+const updateMoneyButton = document.getElementById("bet-button")
+updateMoneyButton.addEventListener("click", updateMoneyBox)
 const readyReplaceButton = document.getElementById("ready-replace")
 readyReplaceButton.addEventListener("click", () => {
     userReplace();
@@ -31,11 +42,9 @@ readyReplaceButton.addEventListener("click", () => {
 const computerCardSlot = document.querySelector(".comp-hand")
 const playerCardSlot = document.querySelector(".player-hand")
 
-const computer = new Computer();
 computer.setHand(deck.dealFive())
 console.log(computer.getHand());
 
-const user = new Player();
 user.setHand(deck.dealFive())
 
 function userReplace(){
