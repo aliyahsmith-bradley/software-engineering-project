@@ -79,21 +79,35 @@ function computerReplace() {
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
         showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
-        determineWinner();
+        determineWinner(user.getHand(), computer.getHand());
 }
 
 
 function evaluateHandStrength(hand) {
     // Sum up the ranks of the cards in the hand
     const handValue = hand.reduce((total, card) => total + card.rank, 0);
-
     return handValue;
 }
-
 
 function determineWinner(userHand, computerHand) {
     const userHasPair = hasPair(userHand);
     const computerHasPair = hasPair(computerHand);
+    const userHasTwoPair = hasTwoPair(userHand);
+    const computerHasTwoPair = hasTwoPair(computerHand);
+    const userHasThreeKind = hasThreeOfAKind(userHand);
+    const computerHasThreeKind = hasThreeOfAKind(computerHand);
+    const userHasStraight = hasStraight(userHand);
+    const computerHasStraight = hasStraight(computerHand);
+    const userHasFlush = hasFlush(userHand);
+    const computerHasFlush = hasFlush(computerHand);
+    const userHasFourKind = hasFourOfAKind(userHand);
+    const computerHasFourKind = hasFourOfAKind(computerHand);
+    const userHasFullHouse = hasFullHouse(userHand);
+    const computerHasFullHouse = hasFullHouse(computerHand);
+    const userHasStraightFlush = hasStraightFlush(userHand);
+    const computerHasStraightFlush = hasStraightFlush(computerHand);
+    const userHasRoyalFlush = hasRoyalFlush(userHand);
+    const computerHasRoyalFlush = hasRoyalFlush(computerHand);
     const userHandStrength = evaluateHandStrength(userHand);
     const computerHandStrength = evaluateHandStrength(computerHand);
     const resultMessageContainer = document.getElementById("result-message");
@@ -103,10 +117,56 @@ function determineWinner(userHand, computerHand) {
 
     let resultMessage = "";
 
-    if (userHandStrength > computerHandStrength || userHasPair) {
+    //Royal Flush
+    if(userHasRoyalFlush || computerHasRoyalFlush){
+        resultMessage = userHasRoyalFlush ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Royal Flush");
+
+    //Straight Flush
+    }else if(userHasStraightFlush || computerHasStraightFlush){
+        resultMessage = userHasStraightFlush ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Straight Flush");
+
+        //Four of a kind
+    }else if(userHasFourKind || computerHasFourKind) {
+        resultMessage = userHasFourKind ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Four of a Kind");
+
+    // Full House
+    }else if (userHasFullHouse || computerHasFullHouse){
+        resultMessage = userHasFullHouse ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Full House");
+
+    // Flush
+    }else if(userHasFlush || computerHasFlush){
+        resultMessage = userHasFlush ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Flush");
+
+    // Straight
+    }else if(userHasStraight || computerHasStraight){
+        resultMessage = userHasStraight ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Straight");
+
+    // Three of a Kind
+    }else if(userHasThreeKind || computerHasThreeKind) {
+        resultMessage = userHasThreeKind ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Three of a kind");
+
+    // Two Pair
+    } else if(userHasTwoPair || computerHasTwoPair){
+        resultMessage = userHasTwoPair ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Two Pair");
+
+    // Pair
+    }else if (userHasPair || computerHasPair) {
+        resultMessage = userHasPair ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
+        console.log("Pair");
+
+    // High Card
+    } else if (userHandStrength > computerHandStrength) {
         resultMessage = "Congratulations! You win!";
         user.addCoins(pot);
-    } else if (userHandStrength < computerHandStrength || computerHasPair) {
+    } else if (userHandStrength < computerHandStrength) {
         resultMessage = "Computer wins. Better luck next time!";
     } else {
         resultMessage = "It's a tie! The pot will be split.";
@@ -117,8 +177,6 @@ function determineWinner(userHand, computerHand) {
     updatePotBox();
     updateMoneyBox();
     resultMessageContainer.textContent = resultMessage;
-
-
 
 }
 
@@ -173,14 +231,134 @@ function hasFolded(){
 }
 
 //-----------------------------------------------------------------------------------------------------------------------
-function hasPair(hand){
+
+function hasPair(hand) {
     const ranks = new Set();
 
-    for(const card of hand){
-        if(ranks.has(card.rank)){
+    for (const card of hand) {
+        if (ranks.has(card.rank)) {
             return true;
         }
         ranks.add(card.rank);
     }
     return false;
+}
+
+function hasTwoPair(hand) {
+    const rankFrequency = {};
+
+    for (const card of hand) {
+        const rank = card.rank;
+
+        if (rankFrequency[rank]) {
+            rankFrequency[rank]++;
+        } else {
+            rankFrequency[rank] = 1;
+        }
+    }
+
+    let pairCount = 0;
+
+    for (const frequency of Object.values(rankFrequency)) {
+        if (frequency === 2) {
+            pairCount++;
+        }
+    }
+
+    return pairCount === 2;
+}
+
+function hasThreeOfAKind(hand) {
+    const ranks = {};
+
+    for (const card of hand) {
+        ranks[card.rank] = (ranks[card.rank] || 0) + 1;
+        if (ranks[card.rank] === 3) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function hasStraight(hand) {
+    // Sort the hand by rank in ascending order
+    const sortedHand = hand.slice().sort((a, b) => a.rank - b.rank);
+
+    // Check for a sequence of five consecutive ranks
+    for (let i = 0; i < sortedHand.length - 4; i++) {
+        const straightSlice = sortedHand.slice(i, i + 5);
+        const isStraight = straightSlice.every((card, index) => card.rank === straightSlice[0].rank + index);
+
+        if (isStraight) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// BROKENNN!!!
+function hasFlush(hand) {
+    const firstSuit = hand[0].suit;
+
+    for (const card of hand) {
+        if (card.suit !== firstSuit) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+
+function hasFourOfAKind(hand) {
+    const ranks = {};
+
+    for (const card of hand) {
+        ranks[card.rank] = (ranks[card.rank] || 0) + 1;
+        if (ranks[card.rank] === 4) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function hasFullHouse(hand) {
+    return hasThreeOfAKind(hand) && hasPair(hand);
+}
+
+function hasStraightFlush(hand) {
+    // Check for a straight
+    if (!hasStraight(hand)) {
+        return false;
+    }
+
+    // Check for a flush
+    const firstSuit = hand[0].suit;
+    for (const card of hand) {
+        if (card.suit !== firstSuit) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function hasRoyalFlush(hand) {
+    // Check for a straight flush
+    if (!hasStraightFlush(hand)) {
+        return false;
+    }
+
+    // Check if the highest card is an ace
+    const highestCard = getHighestCard(hand);
+    return highestCard.rank === 14; // Ace has a rank of 14
+}
+
+// Helper function to get the highest card in a hand
+function getHighestCard(hand) {
+    return hand.reduce((highest, current) => (current.rank > highest.rank ? current : highest), hand[0]);
 }
