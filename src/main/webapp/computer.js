@@ -68,4 +68,6 @@ export default class Computer {
     bet(){
         return 10
     }
+
+
 }

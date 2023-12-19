@@ -10,6 +10,7 @@ var didFold = false
 var didCheck = false
 var userBet = 0
 var lastBet = 0
+var numberOfBets = 0
 
 function toggleChangeCards(){
     console.log("in the function, not doing much");
@@ -50,9 +51,20 @@ betButtonListener.addEventListener("click", () => {
         user.bet(userBet)
         pot += userBet;
 
+
+        pot += userBet;
+        alert("Opponent bet " + userBet + " coins")
+
         updateMoneyBox()
         updatePotBox()
 
+        console.log(pot)
+
+        numberOfBets ++;
+
+        if (numberOfBets == 2){
+            determineWinner(user.getHand(), computer.getHand())
+        }
     }
     else{
         alert("That's too low for a bet!")
@@ -69,8 +81,12 @@ foldListener.addEventListener("click", () =>{
 const checkListener = document.getElementById("checkButton")
 checkListener.addEventListener("click", ()=> {
     didCheck = true;
+    pot += computer.bet()
+    updatePotBox()
+    alert("Opponent bet 10 coins")
     toggleChangeCards()
     toggleBetButton()
+
     console.log("did check: " + didCheck)
 })
 
@@ -156,7 +172,6 @@ function computerReplace() {
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
         showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
-        determineWinner(user.getHand(), computer.getHand());
 }
 
 
@@ -278,9 +293,6 @@ function determineWinner(userHand, computerHand) {
 startGame();
 
 function startGame() {
-    pot += computer.bet()
-    updatePotBox()
-
 
     // const keepHandButton = document.getElementById("keep-Hand")
     // keepHandButton.addEventListener("click", () => {
