@@ -45,14 +45,6 @@
 </div>
 
 <div id="result-message" class="result-message"></div>
-<div class="betting-button">
-    <button type="button" class="button" id="bet-button">Raise</button>
-    <h1></h1>
-    <button type="button" class="button" id="check-button">Check</button>
-    <h1></h1>
-    <button type="button" class="button" id="fold-button">Fold</button>
-</div>
-
 
 <button type="button" id="ready-replace" class="replaceButton">Replace</button>
 <button type="button" id="keep-Hand" class="keepHand">Keep Hand</button>
@@ -65,14 +57,19 @@
 
 <div id="betButton" class="betButton" style="display: block">
     <form>
-        <label for="bet">Place a bet:</label>
+        <div class="container">
+        <label for="bet" class="button">Place a bet:</label>
         <input type="number" id="bet" name="bet" min="0" max="100" required>
-        <button type="button" id="betSubmit">place bet</button>
+        <button type="button" id="betSubmit" class="button">place bet</button>
+        </div>
     </form>
-    <button type="button" id="checkButton">Check</button>
-    <button type="button" id="foldButton">Fold</button>
+    <br>
+    <button type="button" class="button" id="checkButton" >Check</button>
+    <br>
+    <br>
+    <button type="button" class="button" id="foldButton" >Fold</button>
 </div>
-<button type="button" class="actionTwo" id="changeCards" style="display: none">changing cards</button>
+<button type="button" class="actionTwo button" id="changeCards" style="display: none">changing cards</button>
 
 </body>
 </html>

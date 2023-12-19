@@ -14,7 +14,7 @@ main{
     top: 0;
     left: 0;
     height: 30px;
-    width: 700px;
+    width: 400px;
     border: 2px solid black;
     background-image: linear-gradient(#b23030, #e0c9b8, #b23030);
     display: inline-block;
@@ -27,12 +27,12 @@ main{
 
 .topnav-text{
     top: 2px;
-    margin-left: 60px;
+    margin-right: 50px;
 }
 
 .money-box{
     position: fixed;
-    margin-left: 10px;
+    margin-right: 70px;
     top: 2px;
     height: 24px;
     width: 50px;
@@ -148,6 +148,11 @@ body{
     border: none;
     color: antiquewhite;
     cursor: pointer;
+    padding: 10px;
+}
+
+.button:hover .button:focus{
+    background-color: #b23030;
 }
 
 .table-picture{
@@ -196,7 +201,7 @@ body{
 }
 
 .drop-button:hover, .drop-button:focus {
-    background-color: #b23030;
+    background-color: #8f2323;
 }
 
 .dropdown {
@@ -284,7 +289,29 @@ body{
 .betButton {
     display: block;
     position: fixed;
-    top: 40px;
-    left: 10px;
     vertical-align: middle;
+    bottom: 200px;
+    text-align:  right;
+    right: 10px;
+    height: 60px;
+    width: 250px;
 }
+
+.actionTwo{
+    display: none;
+    position: fixed;
+    bottom: 220px;
+    right: 10px;
+
+}
+
+.container {
+    background-color: brown;
+    height: 40px;
+}
+/*position: fixed;*/
+/*bottom: 150px;*/
+/*text-align: right;*/
+/*right: 50px;*/
+/*height: 30px;*/
+/*width: 60px;*/

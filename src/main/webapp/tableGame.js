@@ -106,9 +106,9 @@ function userDefaultBet(){
 
 const deck = new Deck();
 deck.shuffleDeck()
-
-const bet = document.getElementById("bet-button")
-bet.addEventListener("click", userDefaultBet)
+//
+// const bet = document.getElementById("bet-button")
+// bet.addEventListener("click", userDefaultBet)
 
 
 const readyReplaceButton = document.getElementById("ready-replace")
@@ -145,7 +145,7 @@ function computerReplace() {
         console.log(computer.getHand());
         computerCardSlot.innerHTML = "";
         showHand(computerCardSlot, computer.getHand(), computer.getHandBool());
-        determineWinner();
+        determineWinner(user.getHand(), computer.getHand());
 }
 
 
