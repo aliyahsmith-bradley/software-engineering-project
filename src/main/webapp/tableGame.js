@@ -98,8 +98,8 @@ function determineWinner(userHand, computerHand) {
     const computerHasThreeKind = hasThreeOfAKind(computerHand);
     const userHasStraight = hasStraight(userHand);
     const computerHasStraight = hasStraight(computerHand);
-    const userHasFlush = hasFlush(userHand);
-    const computerHasFlush = hasFlush(computerHand);
+    //const userHasFlush = hasFlush(userHand);
+    //const computerHasFlush = hasFlush(computerHand);
     const userHasFourKind = hasFourOfAKind(userHand);
     const computerHasFourKind = hasFourOfAKind(computerHand);
     const userHasFullHouse = hasFullHouse(userHand);
@@ -138,9 +138,11 @@ function determineWinner(userHand, computerHand) {
         console.log("Full House");
 
     // Flush
+    /*
     }else if(userHasFlush || computerHasFlush){
         resultMessage = userHasFlush ? "Congratulations! You win!" : "Computer wins. Better luck next time!";
         console.log("Flush");
+    */
 
     // Straight
     }else if(userHasStraight || computerHasStraight){
@@ -298,6 +300,7 @@ function hasStraight(hand) {
     return false;
 }
 
+/*
 // BROKENNN!!!
 function hasFlush(hand) {
     const firstSuit = hand[0].suit;
@@ -310,7 +313,7 @@ function hasFlush(hand) {
 
     return true;
 }
-
+*/
 
 
 function hasFourOfAKind(hand) {
