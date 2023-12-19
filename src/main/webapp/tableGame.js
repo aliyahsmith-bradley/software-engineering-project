@@ -6,7 +6,73 @@ import Computer from "./computer.js";
 const user = new Player();
 const computer = new Computer();
 var pot = 0
+var didFold = false
+var didCheck = false
+var userbet = 0
+var lastBet = 0
 
+function toggleChangeCards(){
+    console.log("in the function, not doing much");
+    var newcards = document.getElementById("changeCards");
+    var displaySetting = newcards.style.display;
+
+    if (displaySetting == "block"){
+        newcards.style.display = 'none';
+    }else{
+        newcards.style.display = 'block'
+    }
+}
+
+function toggleBetButton(){
+    console.log("getting to functions toggleBetButton")
+    var betbutton = document.getElementById("betButton")
+    var displaySetting = betbutton.style.display
+
+    if (displaySetting == 'block'){
+        betbutton.style.display = 'none';
+    }else{
+        betbutton.style.display = 'block'
+    }
+}
+
+const betButtonListener = document.getElementById("betSubmit")
+betButtonListener.addEventListener("click", () => {
+    var bet = document.getElementById("bet")
+    console.log(bet.value)
+    if(bet.value > 0){
+        toggleChangeCards()
+        toggleBetButton()
+    }
+    else{
+        alert("That's too low for a bet!")
+    }
+})
+
+const foldListener = document.getElementById("foldButton")
+foldListener.addEventListener("click", () =>{
+    didFold = true
+    hasFolded()
+    console.log("didFold:" + didFold)
+})
+
+const checkListener = document.getElementById("checkButton")
+checkListener.addEventListener("click", ()=> {
+    didCheck = true;
+    toggleChangeCards()
+    toggleBetButton()
+    console.log("did check: " + didCheck)
+})
+
+const changedCardsListener = document.getElementById("changeCards")
+changedCardsListener.addEventListener("click", ()=>{
+    userReplace();
+
+    setTimeout(() => {
+        computerReplace();
+    }, 1000);
+    toggleBetButton()
+    toggleChangeCards()
+})
 function showHand(location, hand, list){
     for (var i in hand){
         location.appendChild(hand[i].getHTML(i, list))
@@ -177,6 +243,7 @@ function hasPair(hand){
     const ranks = new Set();
 
     for(const card of hand){
+        console.log(card.rank)
         if(ranks.has(card.rank)){
             return true;
         }

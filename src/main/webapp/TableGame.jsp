@@ -63,11 +63,16 @@
     <source src="images/Casino%20Sound%20Effect.mp3" type="audio/ogg">
 </audio>
 
-
-
-<div class="bet-form" id="user-bet-form">
-    <div class="bet-form-text">wtf man give me a break</div>
-    <button class="bet-form-text" type="button" id="is-bet">Bet</button>
+<div id="betButton" class="betButton" style="display: block">
+    <form>
+        <label for="bet">Place a bet:</label>
+        <input type="number" id="bet" name="bet" min="0" max="100" required>
+        <button type="button" id="betSubmit">place bet</button>
+    </form>
+    <button type="button" id="checkButton">Check</button>
+    <button type="button" id="foldButton">Fold</button>
 </div>
+<button type="button" class="actionTwo" id="changeCards" style="display: none">changing cards</button>
+
 </body>
 </html>
