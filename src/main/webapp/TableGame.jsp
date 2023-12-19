@@ -27,16 +27,16 @@
         <div class="money-box" id="pot-amount"> 0</div>
     </div>
 </div>
-<button id="dealCards" class="deal-cards" > Deal Cards</button>
+<%--<button id="dealCards" class="deal-cards" > Deal Cards</button>--%>
 
-<%--<div class="dropdown">--%>
-<%--    <button onclick="myFunction()" class="drop-button" >Backgrounds</button>--%>
-<%--    <div id="myDropdown" class="dropdown-content">--%>
-<%--        <a onclick="background1()">Default</a>--%>
-<%--        <a onclick="background2()">Casino</a>--%>
-<%--        <a onclick="background3()">Terracotta</a>--%>
-<%--    </div>--%>
-<%--</div>--%>
+<div class="dropdown">
+    <button onclick="myFunction()" class="drop-button" >Backgrounds</button>
+    <div id="myDropdown" class="dropdown-content">
+        <a onclick="background1()">Default</a>
+        <a onclick="background2()">Casino</a>
+        <a onclick="background3()">Terracotta</a>
+    </div>
+</div>
 <img class="table-picture" src="images/table_default.png">
 <div class="comp-hand">
 </div>
@@ -46,8 +46,8 @@
 
 <div id="result-message" class="result-message"></div>
 
-<button type="button" id="ready-replace" class="replaceButton">Replace</button>
-<button type="button" id="keep-Hand" class="keepHand">Keep Hand</button>
+<%--<button type="button" id="ready-replace" class="replaceButton">Replace</button>--%>
+<%--<button type="button" id="keep-Hand" class="keepHand">Keep Hand</button>--%>
 
 
 
@@ -68,7 +68,11 @@
     <br>
     <button type="button" class="button" id="foldButton" >Fold</button>
 </div>
-<button type="button" class="actionTwo button" id="changeCards" style="display: none">changing cards</button>
+
+    <button type="button" class="actionTwo button" id="changeCards" style="display: none">changing cards</button>
+<%--    <button type="button" id="keep-Hand" class=" actionTwo keepHand">Keep Hand</button>--%>
+
+
 
 </body>
 </html>

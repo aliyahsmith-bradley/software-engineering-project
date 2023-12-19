@@ -122,15 +122,15 @@ deck.shuffleDeck()
 // bet.addEventListener("click", userDefaultBet)
 
 
-const readyReplaceButton = document.getElementById("ready-replace")
-readyReplaceButton.addEventListener("click", () => {
-    userReplace();
-
-        setTimeout(() => {
-            computerReplace();
-        }, 1000);
-
-});
+// const readyReplaceButton = document.getElementById("ready-replace")
+// readyReplaceButton.addEventListener("click", () => {
+//     userReplace();
+//
+//         setTimeout(() => {
+//             computerReplace();
+//         }, 1000);
+//
+// });
 
 
 
@@ -282,10 +282,10 @@ function startGame() {
     updatePotBox()
 
 
-    const keepHandButton = document.getElementById("keep-Hand")
-    keepHandButton.addEventListener("click", () => {
-        computerReplace();  // Call computerReplace directly
-    });
+    // const keepHandButton = document.getElementById("keep-Hand")
+    // keepHandButton.addEventListener("click", () => {
+    //     computerReplace();  // Call computerReplace directly
+    // });
 
     user.getHand().forEach((card, index) => {
         const cardElement = card.getHTML(index, user.getHandBool());
@@ -456,4 +456,21 @@ function hasRoyalFlush(hand) {
 // Helper function to get the highest card in a hand
 function getHighestCard(hand) {
     return hand.reduce((highest, current) => (current.rank > highest.rank ? current : highest), hand[0]);
+}
+
+
+function background1(){
+    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+}
+
+function background2(){
+    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+}
+
+function background3(){
+    document.body.style.background = "#f3f3f3 url('./images/black-chip.png') no-repeat right top";
+}
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
 }
