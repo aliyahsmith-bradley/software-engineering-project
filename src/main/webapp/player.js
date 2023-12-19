@@ -29,7 +29,7 @@ export default class Player{
     }
     bet(i){
         if (i > this.playerCoins){
-            console.log("not enough money")
+            alert("not enough money")
             return false
         }
         else{

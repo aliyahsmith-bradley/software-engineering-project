@@ -58,8 +58,7 @@
 <div id="betButton" class="betButton" style="display: block">
     <form>
         <div class="container">
-        <label for="bet" class="button">Place a bet:</label>
-        <input type="number" id="bet" name="bet" min="0" max="100" required>
+        <input type="number" id="bet" name="bet" min="0" required>
         <button type="button" id="betSubmit" class="button">place bet</button>
         </div>
     </form>

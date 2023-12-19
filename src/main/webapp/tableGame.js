@@ -8,7 +8,7 @@ const computer = new Computer();
 var pot = 0
 var didFold = false
 var didCheck = false
-var userbet = 0
+var userBet = 0
 var lastBet = 0
 
 function toggleChangeCards(){
@@ -39,9 +39,20 @@ const betButtonListener = document.getElementById("betSubmit")
 betButtonListener.addEventListener("click", () => {
     var bet = document.getElementById("bet")
     console.log(bet.value)
-    if(bet.value > 0){
+    if (bet.value > user.getCoins()){
+        alert("You don't have that many coins!")
+    }else if(bet.value > 0){
         toggleChangeCards()
         toggleBetButton()
+
+        userBet =  parseInt(bet.value);
+        console.log("user bet: " + userBet)
+        user.bet(userBet)
+        pot += userBet;
+
+        updateMoneyBox()
+        updatePotBox()
+
     }
     else{
         alert("That's too low for a bet!")
@@ -179,6 +190,8 @@ function determineWinner(userHand, computerHand) {
     const userHandStrength = evaluateHandStrength(userHand);
     const computerHandStrength = evaluateHandStrength(computerHand);
     const resultMessageContainer = document.getElementById("result-message");
+    var userWins = false;
+    var tie = false;
 
     console.log("User Hand Strength:", userHandStrength);
     console.log("Computer Hand Strength:", computerHandStrength);
@@ -235,7 +248,9 @@ function determineWinner(userHand, computerHand) {
     // High Card
     } else if (userHandStrength > computerHandStrength) {
         resultMessage = "Congratulations! You win!";
+        console.log("coins before winning" + user.getCoins())
         user.addCoins(pot);
+        console.log("coins after winning:" + user.getCoins())
     } else if (userHandStrength < computerHandStrength) {
         resultMessage = "Computer wins. Better luck next time!";
     } else {
@@ -243,7 +258,16 @@ function determineWinner(userHand, computerHand) {
         user.addCoins(pot / 2);
     }
 
+    if (resultMessage.localeCompare("Congratulations! You win!") == 0){
+        console.log("coins before winning" + user.getCoins())
+        user.addCoins(pot);
+        console.log("coins after winning:" + user.getCoins())
+    } else if (resultMessage.localeCompare("It's a tie! The pot will be split.") == 0){
+        user.addCoins(pot / 2);
+    }
+
     pot = 0;
+
     updatePotBox();
     updateMoneyBox();
     resultMessageContainer.textContent = resultMessage;
