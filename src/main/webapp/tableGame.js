@@ -1,7 +1,7 @@
 import Deck from "./deck.js";
 import Player from "./player.js"
 import Computer from "./computer.js";
-import {determineWinner} from "./pokerHands.js";
+
 
 const user = new Player();
 const computer = new Computer();
@@ -90,33 +90,37 @@ function evaluateHandStrength(hand) {
     return handValue;
 }
 
-function determineWinner() {
-    const userHandStrength = evaluateHandStrength(user.getHand());
-    const computerHandStrength = evaluateHandStrength(computer.getHand());
-    const resultMessageContainer = document.getElementById("result-message" );
+
+function determineWinner(userHand, computerHand) {
+    const userHasPair = hasPair(userHand);
+    const computerHasPair = hasPair(computerHand);
+    const userHandStrength = evaluateHandStrength(userHand);
+    const computerHandStrength = evaluateHandStrength(computerHand);
+    const resultMessageContainer = document.getElementById("result-message");
 
     console.log("User Hand Strength:", userHandStrength);
     console.log("Computer Hand Strength:", computerHandStrength);
 
     let resultMessage = "";
 
-    if (userHandStrength > computerHandStrength) {
-        resultMessage = ("Congratulations! You win!");
-        user.addCoins(pot)
-    } else if (userHandStrength < computerHandStrength) {
-        resultMessage = ("Computer wins. Better luck next time!");
+    if (userHandStrength > computerHandStrength || userHasPair) {
+        resultMessage = "Congratulations! You win!";
+        user.addCoins(pot);
+    } else if (userHandStrength < computerHandStrength || computerHasPair) {
+        resultMessage = "Computer wins. Better luck next time!";
     } else {
-        resultMessage = ("It's a tie! The pot will be split.");
-        user.addCoins(pot/2)
+        resultMessage = "It's a tie! The pot will be split.";
+        user.addCoins(pot / 2);
     }
-    pot = 0
-    updatePotBox()
-    updateMoneyBox()
+
+    pot = 0;
+    updatePotBox();
+    updateMoneyBox();
     resultMessageContainer.textContent = resultMessage;
-        determineWinner(user.getHand(), computer.getHand());
+
+
 
 }
-
 
 
 startGame();
@@ -166,4 +170,17 @@ function startGame() {
 
 function hasFolded(){
     console.log("You folded, better luck next time!")
+}
+
+//-----------------------------------------------------------------------------------------------------------------------
+function hasPair(hand){
+    const ranks = new Set();
+
+    for(const card of hand){
+        if(ranks.has(card.rank)){
+            return true;
+        }
+        ranks.add(card.rank);
+    }
+    return false;
 }
